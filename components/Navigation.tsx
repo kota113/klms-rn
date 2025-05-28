@@ -37,7 +37,7 @@ const HomeTabs = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
     const checkToken = async () => {
       const tokenExists = await apiClient.hasToken();
       if (!tokenExists) {
-        navigation.navigate('Login');
+        navigation.replace('Login');
         return;
       }
     };

@@ -56,6 +56,7 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
+        navigation.replace('Login');
         setLoading(false);
       }
     };

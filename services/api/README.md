@@ -10,8 +10,8 @@ The base URL for the API is `https://lms.keio.jp/api/v1`.
 
 ## Authentication
 
-The API client uses an access token stored in the environment variable `EXPO_PUBLIC_KLMS_ACCESS_TOKEN`. Make sure this
-environment variable is set before using the API client.
+The API client uses a manually-generated access token for authentication. The token is stored in the `AsyncStorage` and
+is automatically refreshed when it expires.
 
 ## Usage
 
