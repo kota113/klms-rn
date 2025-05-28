@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 import {Alert, StyleSheet, TextInput, View} from 'react-native';
 import {Button, Text, YStack} from 'tamagui';
 import {apiClient} from '../../services/api';
+import {RootStackParamList} from "../../components/Navigation";
+import {NativeStackScreenProps} from "@react-navigation/native-stack";
 
-interface TokenInputScreenProps {
-  onTokenSaved: () => void;
-}
 
-const TokenInputScreen: React.FC<TokenInputScreenProps> = ({onTokenSaved}) => {
+const TokenInputScreen = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
+  function onTokenSaved() {
+    navigation.navigate('HomeTabs');
+  }
   const [token, setToken] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,7 +63,7 @@ const TokenInputScreen: React.FC<TokenInputScreenProps> = ({onTokenSaved}) => {
         </Button>
 
         <Text fontSize={14} textAlign="center" opacity={0.7}>
-          You can find your access token in Canvas LMS settings.
+          You can find your access token in Canvas LMS settings.{"\n"}
           {"Go to Account > Settings > Approved Integrations > New Access Token."}
         </Text>
       </YStack>

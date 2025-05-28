@@ -51,6 +51,8 @@ class ApiClient {
           if (this.isRefreshing) {
             // If we're already refreshing, add this request to the queue
             return new Promise((resolve, reject) => {
+              AsyncStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+              this.notifyTokenChangeListeners(false);
               this.failedQueue.push({resolve, reject, originalRequest});
             });
           }
@@ -180,14 +182,6 @@ class ApiClient {
       if (token) {
         return token;
       }
-
-      // If not in AsyncStorage, use the environment variable and store it
-      const envToken = process.env.EXPO_PUBLIC_KLMS_ACCESS_TOKEN;
-      if (envToken) {
-        await this.setToken(envToken);
-        return envToken;
-      }
-
       return null;
     } catch (error) {
       console.error('Error getting token:', error);

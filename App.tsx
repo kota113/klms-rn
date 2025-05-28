@@ -5,7 +5,6 @@ import {createTamagui, TamaguiProvider} from "tamagui";
 import {config} from "./tamagui.config";
 import React, {useEffect, useState} from "react";
 import {apiClient} from "./services/api";
-import TokenInputScreen from "./screens/TokenInputScreen";
 import {ActivityIndicator, View} from "react-native";
 
 export default function App() {
@@ -49,14 +48,8 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <TamaguiProvider config={createTamagui(config)}>
-        {hasToken ? (
-          <>
             <Navigation/>
             <StatusBar style="auto"/>
-          </>
-        ) : (
-          <TokenInputScreen onTokenSaved={() => setHasToken(true)}/>
-        )}
       </TamaguiProvider>
     </SafeAreaProvider>
   );
