@@ -1,8 +1,8 @@
-import {XStack, Text} from "tamagui";
+import {Text, XStack} from "tamagui";
 import React from "react";
 import Animated, {useAnimatedStyle, withTiming} from "react-native-reanimated";
-import {StyleSheet, Pressable} from "react-native";
-import { MaterialIcons } from '@expo/vector-icons';
+import {Pressable, StyleSheet} from "react-native";
+import {MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -49,7 +49,7 @@ export default function BottomBar({state, descriptors, navigation}: any) {
             icon = <MaterialIcons name="home" size={24} color={isFocused ? "black" : "gray"} />;
             break;
           case 'Courses':
-            icon = <MaterialIcons name="library-books" size={24} color={isFocused ? "black" : "gray"} />;
+            icon = <MaterialCommunityIcons name="book-open-variant" size={24} color={isFocused ? "black" : "gray"}/>;
             break;
           case 'Calendar':
             icon = <MaterialIcons name="calendar-today" size={24} color={isFocused ? "black" : "gray"} />;

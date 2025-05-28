@@ -21,7 +21,7 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
         paddingHorizontal="$4"
         paddingVertical="$5"
         paddingBottom="$6"
-        backgroundColor="#f8f9fa"
+        backgroundColor="white"
       >
         <Text fontSize={24} fontWeight="800" color="#333">
           Courses
