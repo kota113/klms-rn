@@ -28,7 +28,9 @@ export const CourseCard: React.FC<CourseCardProps> = ({
       borderRadius="$4"
       gap={"$3.5"}
     >
-      <Image src={imageUrl} width={63} height={63} backgroundColor={imageBackgroundColor} borderRadius={8} />
+      {imageUrl ? (
+        <Image source={{uri: imageUrl}} width={63} height={63} borderRadius={8}/>
+      ) : <View style={{width: 63, height: 63, backgroundColor: imageBackgroundColor, borderRadius: 8}}/>}
       <YStack flex={1}>
         <Text fontSize={20} fontWeight={"bold"} color={"#333"} marginBottom={"$1"}>
           {title}

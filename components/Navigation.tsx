@@ -21,7 +21,7 @@ export type RootTabParamList = {
 export type RootStackParamList = {
   Login: undefined;
   HomeTabs: undefined;
-  CourseDetail: undefined;
+  CourseDetail: { courseId: number };
 };
 
 const Tab = createBottomTabNavigator<RootTabParamList>();

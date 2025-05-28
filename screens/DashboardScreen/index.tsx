@@ -1,20 +1,74 @@
 import {XStack, YStack} from "@tamagui/stacks";
 import {Image, Text} from "tamagui";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {FlatList, ScrollView, TouchableOpacity} from "react-native";
 import AnnouncementItem from "./AnnouncementItem";
 import AssignmentItem from "../CourseDetailScreen/AssignmentsTab/AssignmentItem";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../components/Navigation";
+import {
+  Announcement,
+  announcementsService,
+  Assignment,
+  assignmentsService,
+  coursesService,
+  DashboardCard,
+  UserColors,
+  usersService
+} from "../../services/api";
 
-interface CourseItem {
-  id: string;
-  title: string;
-  imageUrl: string;
-  imageBackgroundColor: string;
-}
 
-export default function DashboardScreen({navigation}: NativeStackScreenProps<RootStackParamList, 'HomeTabs'>) {
+export default function DashboardScreen({navigation}: NativeStackScreenProps<RootStackParamList>) {
+  const [courses, setCourses] = useState<DashboardCard[]>([]);
+  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+  const [assignments, setAssignments] = useState<Assignment[]>([]);
+  const [courseColors, setCourseColors] = useState<UserColors>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch courses using dashboard cards
+        const coursesData = await coursesService.getDashboardCards();
+        setCourses(coursesData);
+
+        // Fetch user colors
+        const colorsData = await usersService.getUserColors();
+        setCourseColors(colorsData);
+
+        if (coursesData && coursesData.length > 0) {
+          // Extract course IDs
+          const courseIds = coursesData.map(course => course.id);
+
+          // Fetch announcements with course IDs
+          const announcementsData = await announcementsService.getAnnouncements(courseIds, {
+            start_date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(), // Last 30 days
+            end_date: new Date().toISOString() // Today
+          });
+          setAnnouncements(announcementsData);
+        } else {
+          setAnnouncements([]);
+        }
+
+        // Fetch upcoming assignments
+        const assignmentsData = await assignmentsService.getUpcomingAssignments();
+        setAssignments(assignmentsData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Get color for a course from user colors or return a default color
+  const getCourseColor = (courseId: number): string => {
+    const assetString = usersService.formatCourseAssetString(courseId);
+    return courseColors[assetString] || '#f0f0f0'; // Default light gray if no color is set
+  };
+
   return (
     <YStack flex={1} backgroundColor="#ffffff" minHeight={"100%"}>
       <XStack
@@ -26,63 +80,75 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
         backgroundColor="white"
       >
         <Text fontSize={24} fontWeight="800" color="#333">
-          Dashboard
+          ダッシュボード
         </Text>
       </XStack>
       <ScrollView contentContainerStyle={{paddingBottom: 20}}>
         <YStack marginTop={"$2"}>
           <Text paddingHorizontal={"$4.5"} fontSize={22} fontWeight={"bold"} marginBottom={"$3"}>コース</Text>
-          <FlatList
-            style={{marginTop: 15}}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item) => item.id}
-            contentContainerStyle={{paddingHorizontal: 20}}
-            data={[{
-              id: "1",
-              title: "プログラミング入門",
-              imageUrl: "https://picsum.photos/id/1001/200/300",
-              imageBackgroundColor: "#f00",
-            },
-              {
-                id: "2",
-                title: "プログラミング入門",
-                imageUrl: "https://picsum.photos/id/1001/200/300",
-                imageBackgroundColor: "#f00",
-              },
-              {
-                id: "3",
-                title: "プログラミング入門",
-                imageUrl: "https://picsum.photos/id/1001/200/300",
-                imageBackgroundColor: "#f00",
-              }]}
-            renderItem={() => (
-              <TouchableOpacity onPress={() => {
-                navigation.navigate("CourseDetail")
-              }}>
-                <YStack marginRight={"$3"}>
-                  <Image height={175} width={175} borderRadius={13}
-                         source={{uri: "https://picsum.photos/id/1001/200/300"}}/>
-                  <Text fontSize={16} marginTop={"$4"} fontWeight={"bold"} numberOfLines={1}>プログラミング入門</Text>
-                </YStack>
-              </TouchableOpacity>
-            )}
-          />
+          {loading ? (
+            <Text paddingHorizontal={"$4.5"}>読込中...</Text>
+          ) : (
+            <FlatList
+              style={{marginTop: 15}}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item) => item.id.toString()}
+              contentContainerStyle={{paddingHorizontal: 20}}
+              data={courses}
+              renderItem={({item}) => (
+                <TouchableOpacity onPress={() => {
+                  navigation.navigate("CourseDetail", {courseId: item.id});
+                }}>
+                  <YStack marginRight={"$3"} width={175}>
+                    <Image height={175} width={175} borderRadius={13}
+                           backgroundColor={item.image_download_url ? undefined : getCourseColor(item.id)}
+                           source={{uri: item.image_download_url || undefined}}/>
+                    <Text fontSize={16} marginTop={"$4"} fontWeight={"bold"} numberOfLines={1}>{item.courseCode}</Text>
+                  </YStack>
+                </TouchableOpacity>
+              )}
+            />
+          )}
         </YStack>
         <YStack marginTop={"$5"} paddingHorizontal={"$4.5"}>
           <Text fontSize={22} fontWeight={"bold"} marginVertical={"$3"}>最近のアナウンス</Text>
-          <AnnouncementItem id={"1"} title={"課題を公開しました"} courseName={"経営分析"}/>
-          <AnnouncementItem id={"1"} title={"課題を公開しました"} courseName={"経営分析"}/>
+          {loading ? (
+            <Text>Loading announcements...</Text>
+          ) : announcements.length > 0 ? (
+            announcements.slice(0, 2).map((announcement) => (
+              <AnnouncementItem
+                key={announcement.id.toString()}
+                id={announcement.id.toString()}
+                title={announcement.title}
+                courseName={announcement.context_code.replace('course_', '')}
+              />
+            ))
+          ) : (
+            <Text>No announcements found</Text>
+          )}
         </YStack>
 
         <YStack marginTop={"$5"} paddingHorizontal={"$4.5"}>
           <Text fontSize={22} fontWeight={"bold"} marginVertical={"$3"}>これからの課題</Text>
-          <AssignmentItem id={"1"} title={"今週のビジネスニュース(提出期限 5/12 13:00)"} courseName={"経営分析"}
-                          dueDate={"2025/04/21"} onPress={() => {
-          }}/>
-          <AssignmentItem id={"2"} title={"今週のビジネスニュース(提出期限 5/12 13:00)"} courseName={"経営分析"}
-                          dueDate={"2025/04/21"} onPress={() => {
-          }}/>
+          {loading ? (
+            <Text>Loading assignments...</Text>
+          ) : assignments.length > 0 ? (
+            assignments.slice(0, 2).map((assignment) => (
+              <AssignmentItem
+                key={assignment.id.toString()}
+                id={assignment.id.toString()}
+                title={assignment.name}
+                courseName={courses.find(course => course.id === assignment.course_id)?.courseCode || ''}
+                dueDate={assignment.due_at ? new Date(assignment.due_at).toLocaleDateString() : 'なし'}
+                onPress={() => {
+                  // Navigate to assignment detail
+                }}
+              />
+            ))
+          ) : (
+            <Text>No upcoming assignments</Text>
+          )}
         </YStack>
       </ScrollView>
     </YStack>

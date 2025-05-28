@@ -1,5 +1,5 @@
-import React from 'react';
-import {ScrollView, TextInput} from 'react-native';
+import React, {useEffect, useMemo, useState} from 'react';
+import {ActivityIndicator, ScrollView, TextInput} from 'react-native';
 import {XStack, YStack} from '@tamagui/stacks';
 import {MaterialIcons} from '@expo/vector-icons';
 import {Text} from 'tamagui';
@@ -7,11 +7,56 @@ import {FilterButton} from "./FilterButton";
 import {CourseCard} from "./CourseCard";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../components/Navigation";
+import {coursesService, DashboardCard, UserColors, usersService} from "../../services/api";
 
-const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamList, "HomeTabs">) => {
+const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
+  const [courses, setCourses] = useState<DashboardCard[]>([]);
+  const [courseColors, setCourseColors] = useState<UserColors>({});
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch courses
+        const coursesData = await coursesService.getDashboardCards();
+        setCourses(coursesData);
+
+        // Fetch user colors
+        const colorsData = await usersService.getUserColors();
+        setCourseColors(colorsData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const onSelectCourse = (id: string) => {
-    navigation.navigate("CourseDetail");
+    navigation.navigate("CourseDetail", {courseId: Number(id)});
   }
+
+  // Get color for a course from user colors or return a default color
+  const getCourseColor = (courseId: number): string => {
+    const assetString = usersService.formatCourseAssetString(courseId);
+    return courseColors[assetString] || '#f0f0f0'; // Default light gray if no color is set
+  }
+
+  // Filter courses based on search term
+  const filteredCourses = useMemo(() => {
+    if (!searchTerm.trim()) {
+      return courses;
+    }
+
+    const lowerCaseSearchTerm = searchTerm.toLowerCase().trim();
+    return courses.filter(course =>
+      course.courseCode.toLowerCase().includes(lowerCaseSearchTerm) ||
+      course.shortName.toLowerCase().includes(lowerCaseSearchTerm)
+    );
+  }, [courses, searchTerm]);
   return (
     <YStack flex={1} backgroundColor="#ffffff" minHeight={"100%"}>
       {/* Header */}
@@ -24,7 +69,7 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
         backgroundColor="white"
       >
         <Text fontSize={24} fontWeight="800" color="#333">
-          Courses
+          コース
         </Text>
         {/*<TouchableOpacity>*/}
         {/*  <MaterialIcons name="menu" size={24} color="#333" />*/}
@@ -50,6 +95,8 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
             fontSize: 18,
             color: '#666'
           }}
+          value={searchTerm}
+          onChangeText={setSearchTerm}
         />
       </XStack>
 
@@ -61,45 +108,37 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
       </XStack>
 
       {/* Course List */}
-      <ScrollView
-        style={{ flex: 1 }}
-        contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 20 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <YStack flex={1}>
-          <CourseCard
-            title="CS101"
-            subTitle="Intro to Programming"
-            imageUrl={"https://images.unsplash.com/photo-1507413245164-6160d8298b31"}
-            imageBackgroundColor="#1e3a8a"
-            onPress={() => onSelectCourse("1")}
-          />
-
-          <CourseCard
-            title="MA101"
-            subTitle="Calculus I"
-            imageUrl={"https://images.unsplash.com/photo-1507413245164-6160d8298b31"}
-            imageBackgroundColor="#f3f4f6"
-            onPress={() => onSelectCourse("2")}
-          />
-
-          <CourseCard
-            title="HI101"
-            subTitle="World History"
-            imageUrl={"https://images.unsplash.com/photo-1507413245164-6160d8298b31"}
-            imageBackgroundColor="#92400e"
-            onPress={() => onSelectCourse("3")}
-          />
-
-          <CourseCard
-            title="EN101"
-            subTitle="English Composition"
-            imageUrl={"https://images.unsplash.com/photo-1507413245164-6160d8298b31"}
-            imageBackgroundColor="#059669"
-            onPress={() => onSelectCourse("4")}
-          />
+      {loading ? (
+        <YStack flex={1} justifyContent="center" alignItems="center">
+          <ActivityIndicator size="large" color="black"/>
+          <Text marginTop="$4">読込中...</Text>
         </YStack>
-      </ScrollView>
+      ) : (
+        <ScrollView
+          style={{flex: 1}}
+          contentContainerStyle={{paddingHorizontal: 16, paddingBottom: 20}}
+          showsVerticalScrollIndicator={false}
+        >
+          <YStack flex={1}>
+            {filteredCourses.length > 0 ? (
+              filteredCourses.map((course) => (
+                <CourseCard
+                  key={course.id.toString()}
+                  title={course.courseCode}
+                  subTitle={course.enrollmentType === "StudentEnrollment" ? "学生" : "TA"}
+                  imageUrl={course.image_download_url || ""}
+                  imageBackgroundColor={course.image_download_url ? "#f0f0f0" : getCourseColor(course.id)}
+                  onPress={() => onSelectCourse(course.id.toString())}
+                />
+              ))
+            ) : (
+              <Text textAlign="center" marginTop="$6">
+                {searchTerm.trim() ? "No matching courses found" : "No courses found"}
+              </Text>
+            )}
+          </YStack>
+        </ScrollView>
+      )}
     </YStack>
   );
 };

@@ -9,7 +9,7 @@ export default function GradeItem({title, dueDate, fullScore, achievedScore}: {
 }) {
   return (
     <XStack alignItems={"center"} justifyContent={"space-between"} paddingVertical="$2" marginVertical={"$2"}>
-      <YStack gap={"$1.5"}>
+      <YStack gap={"$1.5"} maxWidth={"90%"}>
         <Text fontSize={17} fontWeight="600" >{title}</Text>
         <Text>期限: {dueDate}</Text>
       </YStack>

@@ -1,20 +1,26 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { ScrollView, Text, TouchableOpacity, Dimensions, Animated, View } from 'react-native';
-import { XStack, YStack } from '@tamagui/stacks';
-import { MaterialIcons } from '@expo/vector-icons';
-import { TabButton } from "./TabButton";
+import React, {useEffect, useRef, useState} from 'react';
+import {ActivityIndicator, Animated, Dimensions, ScrollView, TouchableOpacity, View} from 'react-native';
+import {XStack, YStack} from '@tamagui/stacks';
+import {Text} from 'tamagui';
+import {MaterialIcons} from '@expo/vector-icons';
+import {TabButton} from "./TabButton";
 import HomeTab from "./HomeTab";
 import AssignmentsTab from "./AssignmentsTab";
 import GradesTab from "./GradesTab";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../components/Navigation";
+import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {RootStackParamList} from "../../components/Navigation";
+import {Course, coursesService} from "../../services/api";
 
 const { width } = Dimensions.get('window');
 
-const CourseDetailScreen = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
+const CourseDetailScreen = ({navigation, route}: NativeStackScreenProps<RootStackParamList, 'CourseDetail'>) => {
+  const {courseId} = route.params;
   const [activeTab, setActiveTab] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef<ScrollView>(null);
+  const [course, setCourse] = useState<Course | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   // Refs for tab text positions
   const tab1Ref = useRef<View>(null);
@@ -27,6 +33,29 @@ const CourseDetailScreen = ({navigation}: NativeStackScreenProps<RootStackParamL
     {x: 85, width: 0, center: 105},
     {x: 155, width: 0, center: 175}
   ]);
+
+  // Fetch course data
+  useEffect(() => {
+    const fetchCourseData = async () => {
+      try {
+        setLoading(true);
+        const courseData = await coursesService.getCourse(courseId, {
+          include: ['syllabus_body', 'public_description']
+        });
+        setCourse(courseData);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching course data:', err);
+        setError('Failed to load course data. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (courseId) {
+      fetchCourseData();
+    }
+  }, [courseId]);
 
   // Set initial scroll position on mount
   useEffect(() => {
@@ -69,7 +98,7 @@ const CourseDetailScreen = ({navigation}: NativeStackScreenProps<RootStackParamL
       setTimeout(() => {
         // Measure each tab text position
         const measureTab = (ref: React.RefObject<View | null>, index: number) => {
-          ref.current?.measureInWindow((x, y, width, height) => {
+          ref.current?.measureInWindow((x, _y, width, _height) => {
             setTabPositions(prev => {
               const newPositions = [...prev];
               // Calculate the center position of the tab text
@@ -101,9 +130,23 @@ const CourseDetailScreen = ({navigation}: NativeStackScreenProps<RootStackParamL
         <TouchableOpacity style={{ marginRight: 16 }} onPress={() => navigation.goBack()}>
           <MaterialIcons name="chevron-left" size={24} color="#333" />
         </TouchableOpacity>
-        <Text style={{ fontSize: 20, fontWeight: '800', color: '#333' }}>
-          [月3]保田 隆明　経営分析 [湘南藤沢 Ω22]
-        </Text>
+        {loading ? (
+          <Text style={{fontSize: 20, fontWeight: '800', color: '#333'}}>
+            読込中...
+          </Text>
+        ) : error ? (
+          <Text style={{fontSize: 20, fontWeight: '800', color: 'red'}}>
+            {error}
+          </Text>
+        ) : course ? (
+          <Text style={{fontSize: 20, fontWeight: '800', color: '#333'}} numberOfLines={1}>
+            {course.name}
+          </Text>
+        ) : (
+          <Text style={{fontSize: 20, fontWeight: '800', color: '#333'}}>
+            コースが見つかりません
+          </Text>
+        )}
       </XStack>
 
       {/* Tab Navigation */}
@@ -150,27 +193,58 @@ const CourseDetailScreen = ({navigation}: NativeStackScreenProps<RootStackParamL
       </XStack>
 
       {/* Content */}
-      <Animated.ScrollView
-        ref={scrollViewRef}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}
-        onMomentumScrollEnd={handleScrollEnd}
-        scrollEventThrottle={16}
-        style={{ flex: 1 }}
-        contentContainerStyle={{ flexGrow: 1 }}
-      >
-        <View style={{ width, flex: 1 }}>
-          <HomeTab />
-        </View>
-        <View style={{ width, flex: 1 }}>
-          <AssignmentsTab />
-        </View>
-        <View style={{ width, flex: 1 }}>
-          <GradesTab />
-        </View>
-      </Animated.ScrollView>
+      {loading ? (
+        <YStack flex={1} justifyContent="center" alignItems="center">
+          <ActivityIndicator size="large" color="black"/>
+          <Text style={{marginTop: 20}}>読込中...</Text>
+        </YStack>
+      ) : error ? (
+        <YStack flex={1} justifyContent="center" alignItems="center">
+          <Text style={{color: 'red'}}>{error}</Text>
+          <TouchableOpacity
+            style={{marginTop: 20, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 5}}
+            onPress={() => {
+              if (courseId) {
+                setLoading(true);
+                coursesService.getCourse(courseId)
+                  .then(data => {
+                    setCourse(data);
+                    setError(null);
+                  })
+                  .catch(err => {
+                    console.error('Error retrying course fetch:', err);
+                    setError('Failed to load course data. Please try again.');
+                  })
+                  .finally(() => setLoading(false));
+              }
+            }}
+          >
+            <Text>Retry</Text>
+          </TouchableOpacity>
+        </YStack>
+      ) : (
+        <Animated.ScrollView
+          ref={scrollViewRef}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onScroll={handleScroll}
+          onMomentumScrollEnd={handleScrollEnd}
+          scrollEventThrottle={16}
+          style={{flex: 1}}
+          contentContainerStyle={{flexGrow: 1}}
+        >
+          <View style={{width, flex: 1}}>
+            <HomeTab courseId={courseId}/>
+          </View>
+          <View style={{width, flex: 1}}>
+            <AssignmentsTab courseId={courseId}/>
+          </View>
+          <View style={{width, flex: 1}}>
+            <GradesTab courseId={courseId}/>
+          </View>
+        </Animated.ScrollView>
+      )}
     </YStack>
   );
 };
