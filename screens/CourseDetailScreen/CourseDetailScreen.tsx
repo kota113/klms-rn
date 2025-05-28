@@ -12,7 +12,7 @@ import { RootStackParamList } from "../../components/Navigation";
 const { width } = Dimensions.get('window');
 
 const CourseDetailScreen = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -23,9 +23,9 @@ const CourseDetailScreen = ({navigation}: NativeStackScreenProps<RootStackParamL
 
   // Store measured positions, widths, and center coordinates
   const [tabPositions, setTabPositions] = useState<{x: number, width: number, center: number}[]>([
-    {x: 15, width: 40, center: 35}, // Default values
-    {x: 85, width: 40, center: 105},
-    {x: 155, width: 40, center: 175}
+    {x: 15, width: 0, center: 50}, // Default values
+    {x: 85, width: 0, center: 105},
+    {x: 155, width: 0, center: 175}
   ]);
 
   // Set initial scroll position on mount
