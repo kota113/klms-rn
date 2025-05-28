@@ -1,10 +1,10 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {ActivityIndicator, ScrollView, TextInput} from 'react-native';
+import {ActivityIndicator, ScrollView, TextInput, TouchableOpacity} from 'react-native';
 import {XStack, YStack} from '@tamagui/stacks';
 import {MaterialIcons} from '@expo/vector-icons';
-import {Text} from 'tamagui';
+import {Text, View} from 'tamagui';
 import {FilterButton} from "./FilterButton";
-import {CourseCard} from "./CourseCard";
+import {CourseCard} from "../../components/CourseCard";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../components/Navigation";
 import {coursesService, DashboardCard, UserColors, usersService} from "../../services/api";
@@ -62,18 +62,19 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
       {/* Header */}
       <XStack
         alignItems="center"
-        justifyContent="center"
-        paddingHorizontal="$4"
+        justifyContent="space-between"
+        paddingHorizontal="$5"
         paddingVertical="$5"
         paddingBottom="$6"
         backgroundColor="white"
       >
+        <View width={24}/>
         <Text fontSize={24} fontWeight="800" color="#333">
           コース
         </Text>
-        {/*<TouchableOpacity>*/}
-        {/*  <MaterialIcons name="menu" size={24} color="#333" />*/}
-        {/*</TouchableOpacity>*/}
+        <TouchableOpacity onPress={() => navigation.navigate("HiddenCourses")}>
+          <MaterialIcons name="edit" size={24} color="#333"/>
+        </TouchableOpacity>
       </XStack>
 
       {/* Search Bar */}

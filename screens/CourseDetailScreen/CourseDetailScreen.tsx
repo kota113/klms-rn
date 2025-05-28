@@ -119,7 +119,7 @@ const CourseDetailScreen = ({navigation, route}: NativeStackScreenProps<RootStac
   }, []);
 
   return (
-    <YStack flex={1} backgroundColor="#f8f9fa">
+    <YStack flex={1} backgroundColor="white">
       {/* Header */}
       <XStack
         alignItems="center"

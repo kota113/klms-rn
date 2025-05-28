@@ -10,6 +10,7 @@ import CoursesScreen from "../screens/CoursesScreen";
 import CalendarScreen from "../screens/CalendarScreen";
 import NotificationsScreen from "../screens/NotificationsScreen";
 import CourseDetailScreen from "../screens/CourseDetailScreen";
+import HiddenCourses from "../screens/HiddenCoursesScreen";
 
 export type RootTabParamList = {
   Home: undefined;
@@ -22,6 +23,7 @@ export type RootStackParamList = {
   Login: undefined;
   HomeTabs: undefined;
   CourseDetail: { courseId: number };
+  HiddenCourses: undefined;
 };
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -46,6 +48,7 @@ export default function Navigation() {
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="HomeTabs" component={HomeTabs}/>
           <Stack.Screen name="CourseDetail" component={CourseDetailScreen}/>
+          <Stack.Screen name="HiddenCourses" component={HiddenCourses}/>
         </Stack.Navigator>
       </NavigationContainer>
     </View>
