@@ -6,6 +6,9 @@ const STORAGE_KEYS = {
   ACCESS_TOKEN: 'klms_access_token',
 };
 
+// Check if we're running in a Node.js environment
+const isNodeEnvironment = typeof window === 'undefined';
+
 /**
  * Base API client for interacting with the Canvas LMS API
  */
@@ -51,8 +54,6 @@ class ApiClient {
           if (this.isRefreshing) {
             // If we're already refreshing, add this request to the queue
             return new Promise((resolve, reject) => {
-              AsyncStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
-              this.notifyTokenChangeListeners(false);
               this.failedQueue.push({resolve, reject, originalRequest});
             });
           }
@@ -132,12 +133,18 @@ class ApiClient {
   }
 
   /**
-   * Store the access token in AsyncStorage
+   * Store the access token in AsyncStorage or memory (for Node.js)
    * @param token - The token to store
    */
   public async setToken(token: string): Promise<void> {
     try {
-      await AsyncStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, token);
+      if (isNodeEnvironment) {
+        // In Node.js, store in memory
+        process.env.CANVAS_API_TOKEN = token;
+      } else {
+        // In React Native, use AsyncStorage
+        await AsyncStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, token);
+      }
       this.notifyTokenChangeListeners(true);
     } catch (error) {
       console.error('Error setting token:', error);
@@ -145,7 +152,7 @@ class ApiClient {
   }
 
   /**
-   * Check if a token exists in storage
+   * Check if a token exists in storage (AsyncStorage or environment variables)
    * @returns Promise<boolean> - True if token exists, false otherwise
    */
   public async hasToken(): Promise<boolean> {
@@ -170,19 +177,20 @@ class ApiClient {
   }
 
   /**
-   * Get the access token from AsyncStorage
+   * Get the access token from AsyncStorage or environment variables (for Node.js)
    * @returns Promise with the token string or null if not found
    */
   private async getToken(): Promise<string | null> {
     try {
-      // First try to get from AsyncStorage
-      const token = await AsyncStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
-
-      // If token exists in AsyncStorage, return it
-      if (token) {
-        return token;
+      if (isNodeEnvironment) {
+        // In Node.js, get from environment variables
+        const token = process.env.CANVAS_API_TOKEN;
+        return token || null;
+      } else {
+        // In React Native, use AsyncStorage
+        const token = await AsyncStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
+        return token || null;
       }
-      return null;
     } catch (error) {
       console.error('Error getting token:', error);
       return null;
@@ -209,7 +217,12 @@ class ApiClient {
         throw new Error('No token available to refresh');
       }
 
-      // Call the refresh endpoint
+      // In Node.js environment, just return the current token
+      if (isNodeEnvironment) {
+        return currentToken;
+      }
+
+      // In React Native environment, call the refresh endpoint
       const response = await axios.post(
         `${this.baseURL}/jwts/refresh`,
         {jwt: currentToken},
