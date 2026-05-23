@@ -1,9 +1,9 @@
-import {Text} from "tamagui";
-import {YStack} from "@tamagui/stacks";
+import {Text, YStack} from "../../../components/ui";
 import {ScrollView} from "react-native";
 import AssignmentItem from "./AssignmentItem";
 import React, {useEffect, useState} from "react";
 import {Assignment, assignmentsService} from "../../../services/api";
+import {isDemoCourseId, mockAssignments, mockPastAssignments} from "../../../services/api/mockData";
 
 interface AssignmentsTabProps {
   courseId: number;
@@ -17,6 +17,12 @@ export default function AssignmentsTab({courseId}: AssignmentsTabProps) {
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
+        if (isDemoCourseId(courseId)) {
+          setUpcomingAssignments(mockAssignments.filter((assignment) => assignment.course_id === courseId));
+          setPastAssignments(mockPastAssignments.filter((assignment) => assignment.course_id === courseId));
+          return;
+        }
+
         // Fetch upcoming assignments
         const upcomingData = await assignmentsService.getAssignments(courseId, {
           bucket: 'upcoming'

@@ -1,9 +1,9 @@
-import {YStack} from "@tamagui/stacks";
-import {Text} from "tamagui";
+import {Text, YStack} from "../../../components/ui";
 import {ActivityIndicator, ScrollView, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import GradeItem from "./GradeItem";
 import {assignmentsService, Enrollment, enrollmentsService, usersService} from "../../../services/api";
+import {isDemoCourseId, mockEnrollment, mockSubmissions} from "../../../services/api/mockData";
 
 interface GradesTabProps {
   courseId: number;
@@ -19,6 +19,18 @@ export default function GradesTab({courseId}: GradesTabProps) {
     const fetchGrades = async () => {
       try {
         setLoading(true);
+        if (isDemoCourseId(courseId)) {
+          setEnrollment({...mockEnrollment, course_id: courseId});
+          setAssignments(mockSubmissions.map(submission => ({
+            id: submission.assignment_id,
+            title: submission.assignment.name,
+            fullScore: submission.assignment.points_possible || 0,
+            achievedScore: submission.score || 0,
+            dueDate: submission.assignment.due_at ? new Date(submission.assignment.due_at).toLocaleDateString() : 'なし'
+          })));
+          setError(null);
+          return;
+        }
 
         // First get the current user's ID
         const currentUser = await usersService.getCurrentUser();

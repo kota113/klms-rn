@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {ActivityIndicator, Animated, Dimensions, ScrollView, TouchableOpacity, View} from 'react-native';
-import {XStack, YStack} from '@tamagui/stacks';
-import {Text} from 'tamagui';
+import {Text, XStack, YStack} from "../../components/ui";
 import {MaterialIcons} from '@expo/vector-icons';
 import {TabButton} from "./TabButton";
 import HomeTab from "./HomeTab";
@@ -10,6 +9,7 @@ import GradesTab from "./GradesTab";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../components/Navigation";
 import {Course, coursesService} from "../../services/api";
+import {isDemoCourseId, mockCourses} from "../../services/api/mockData";
 
 const { width } = Dimensions.get('window');
 
@@ -39,6 +39,12 @@ const CourseDetailScreen = ({navigation, route}: NativeStackScreenProps<RootStac
     const fetchCourseData = async () => {
       try {
         setLoading(true);
+        if (isDemoCourseId(courseId)) {
+          setCourse(mockCourses.find((mockCourse) => mockCourse.id === courseId) ?? mockCourses[0]);
+          setError(null);
+          return;
+        }
+
         const courseData = await coursesService.getCourse(courseId, {
           include: ['syllabus_body', 'public_description']
         });

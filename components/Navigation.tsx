@@ -53,12 +53,16 @@ const HomeTabs = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
   )
 }
 
-export default function Navigation() {
+type NavigationProps = {
+  initialRouteName: keyof RootStackParamList;
+};
+
+export default function Navigation({initialRouteName}: NavigationProps) {
   const insets = useSafeAreaInsets();
   return (
     <View style={{flex: 1, paddingTop: insets.top, paddingBottom: insets.bottom}}>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="HomeTabs">
+        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={initialRouteName}>
           <Stack.Screen name="Login" component={TokenInputScreen}/>
           <Stack.Screen name="HomeTabs" component={HomeTabs}/>
           <Stack.Screen name="CourseDetail" component={CourseDetailScreen}/>

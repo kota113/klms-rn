@@ -1,4 +1,4 @@
-import {Text, XStack} from "tamagui";
+import {Text, XStack} from "./ui";
 import React from "react";
 import Animated, {useAnimatedStyle, withTiming} from "react-native-reanimated";
 import {Pressable, StyleSheet} from "react-native";

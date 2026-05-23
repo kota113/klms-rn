@@ -10,8 +10,8 @@ The base URL for the API is `https://lms.keio.jp/api/v1`.
 
 ## Authentication
 
-The API client uses a manually-generated access token for authentication. The token is stored in the `AsyncStorage` and
-is automatically refreshed when it expires.
+The app signs in through the K-LMS WebView, issues a user-generated Canvas access token from the authenticated browser
+session, and stores that token in Expo SecureStore. API requests then use the stored token as a Bearer token.
 
 ## Usage
 

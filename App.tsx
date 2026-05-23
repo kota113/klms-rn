@@ -1,8 +1,6 @@
 import {StatusBar} from 'expo-status-bar';
 import Navigation from "./components/Navigation";
 import {SafeAreaProvider} from "react-native-safe-area-context";
-import {createTamagui, TamaguiProvider} from "tamagui";
-import {config} from "./tamagui.config";
 import React, {useEffect, useState} from "react";
 import {apiClient} from "./services/api";
 import {ActivityIndicator, View} from "react-native";
@@ -36,21 +34,17 @@ export default function App() {
   if (hasToken === null) {
     return (
       <SafeAreaProvider>
-        <TamaguiProvider config={createTamagui(config)}>
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <ActivityIndicator size="large"/>
-          </View>
-        </TamaguiProvider>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <ActivityIndicator size="large"/>
+        </View>
       </SafeAreaProvider>
     );
   }
 
   return (
     <SafeAreaProvider>
-      <TamaguiProvider config={createTamagui(config)}>
-            <Navigation/>
-            <StatusBar style="auto"/>
-      </TamaguiProvider>
+      <Navigation initialRouteName={hasToken ? 'HomeTabs' : 'Login'}/>
+      <StatusBar style="auto"/>
     </SafeAreaProvider>
   );
 }

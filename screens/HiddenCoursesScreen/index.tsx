@@ -1,7 +1,6 @@
-import {XStack, YStack} from "@tamagui/stacks";
 import {Alert, TouchableOpacity} from "react-native";
 import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
-import {Image, Text, View} from "tamagui";
+import {Image, Text, View, XStack, YStack} from "../../components/ui";
 import React from "react";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../components/Navigation";

@@ -1,13 +1,15 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import type * as SecureStoreModule from 'expo-secure-store';
 
-// Constants for AsyncStorage keys
 const STORAGE_KEYS = {
   ACCESS_TOKEN: 'klms_access_token',
 };
 
 // Check if we're running in a Node.js environment
 const isNodeEnvironment = typeof window === 'undefined';
+const SecureStore: typeof SecureStoreModule | null = isNodeEnvironment
+  ? null
+  : require('expo-secure-store');
 
 /**
  * Base API client for interacting with the Canvas LMS API
@@ -133,26 +135,21 @@ class ApiClient {
   }
 
   /**
-   * Store the access token in AsyncStorage or memory (for Node.js)
+   * Store the access token in SecureStore or memory (for Node.js)
    * @param token - The token to store
    */
   public async setToken(token: string): Promise<void> {
     try {
-      if (isNodeEnvironment) {
-        // In Node.js, store in memory
-        process.env.CANVAS_API_TOKEN = token;
-      } else {
-        // In React Native, use AsyncStorage
-        await AsyncStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, token);
-      }
+      await SecureStore?.setItemAsync(STORAGE_KEYS.ACCESS_TOKEN, token);
       this.notifyTokenChangeListeners(true);
     } catch (error) {
       console.error('Error setting token:', error);
+      throw error;
     }
   }
 
   /**
-   * Check if a token exists in storage (AsyncStorage or environment variables)
+   * Check if a token exists in storage or environment variables
    * @returns Promise<boolean> - True if token exists, false otherwise
    */
   public async hasToken(): Promise<boolean> {
@@ -177,20 +174,13 @@ class ApiClient {
   }
 
   /**
-   * Get the access token from AsyncStorage or environment variables (for Node.js)
+   * Get the access token from SecureStore or environment variables (for Node.js)
    * @returns Promise with the token string or null if not found
    */
   private async getToken(): Promise<string | null> {
     try {
-      if (isNodeEnvironment) {
-        // In Node.js, get from environment variables
-        const token = process.env.CANVAS_API_TOKEN;
-        return token || null;
-      } else {
-        // In React Native, use AsyncStorage
-        const token = await AsyncStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
-        return token || null;
-      }
+      const token = await SecureStore?.getItemAsync(STORAGE_KEYS.ACCESS_TOKEN);
+      return token || null;
     } catch (error) {
       console.error('Error getting token:', error);
       return null;

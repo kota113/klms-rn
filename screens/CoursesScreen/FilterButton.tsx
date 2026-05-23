@@ -1,7 +1,6 @@
 import React from "react";
 import {TouchableOpacity} from "react-native";
-import {XStack} from "@tamagui/stacks";
-import {Text} from "tamagui";
+import {Text, XStack} from "../../components/ui";
 import {MaterialIcons} from "@expo/vector-icons";
 
 interface FilterButtonProps {

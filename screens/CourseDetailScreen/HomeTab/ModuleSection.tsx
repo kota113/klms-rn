@@ -1,6 +1,6 @@
 import React from "react";
-import {XStack, YStack} from "@tamagui/stacks";
 import {Text, View} from "react-native";
+import {XStack, YStack} from "../../../components/ui";
 import {MaterialIcons} from "@expo/vector-icons";
 
 interface ModuleSectionProps {

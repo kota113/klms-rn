@@ -1,7 +1,6 @@
 import React from "react";
 import {TouchableOpacity, View} from "react-native";
-import {XStack, YStack} from "@tamagui/stacks";
-import {Image, Text} from "tamagui";
+import {Image, Text, XStack, YStack} from "./ui";
 
 interface CourseCardProps {
   title: string;

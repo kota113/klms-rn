@@ -53,8 +53,6 @@
         "npm:@react-navigation/native-stack@^7.3.13",
         "npm:@react-navigation/native@^7.1.9",
         "npm:@supabase/supabase-js@^2.49.8",
-        "npm:@tamagui/config@^1.126.13",
-        "npm:@tamagui/lucide-icons@^1.126.13",
         "npm:@types/react@~19.0.10",
         "npm:expo-av@~15.1.4",
         "npm:expo-dev-client@^5.1.8",
@@ -67,7 +65,6 @@
         "npm:react-native-url-polyfill@2",
         "npm:react-native@0.79.2",
         "npm:react@19.0.0",
-        "npm:tamagui@^1.126.13",
         "npm:typescript@~5.8.3"
       ]
     }

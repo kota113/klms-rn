@@ -1,72 +1,136 @@
-import React, {useState} from 'react';
-import {Alert, StyleSheet, TextInput, View} from 'react-native';
-import {Button, Text, YStack} from 'tamagui';
+import React, {useMemo, useRef, useState} from 'react';
+import {ActivityIndicator, Alert, StyleSheet, View} from 'react-native';
+import {Button, Text, YStack} from "../../components/ui";
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {WebView, WebViewMessageEvent, WebViewNavigation} from 'react-native-webview';
 import {apiClient} from '../../services/api';
-import {RootStackParamList} from "../../components/Navigation";
-import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {RootStackParamList} from '../../components/Navigation';
+import {
+  buildCanvasTokenIssuerScript,
+  CANVAS_BASE_URL,
+  parseCanvasTokenIssuerMessage,
+} from '../../services/auth/canvasSessionToken';
 
+const CanvasLoginScreen = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
+  const webViewRef = useRef<WebView>(null);
+  const tokenRequestInFlightRef = useRef(false);
+  const [isIssuingToken, setIsIssuingToken] = useState(false);
+  const [isSavingToken, setIsSavingToken] = useState(false);
+  const [loginState, setLoginState] = useState('K-LMS にログインしてください');
+  const tokenIssuerScript = useMemo(() => buildCanvasTokenIssuerScript(), []);
 
-const TokenInputScreen = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
-  function onTokenSaved() {
-    navigation.navigate('HomeTabs');
-  }
-  const [token, setToken] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSaveToken = async () => {
-    if (!token.trim()) {
-      Alert.alert('Error', 'Please enter a valid access token');
+  const handleTokenIssued = async (token: string) => {
+    if (isSavingToken) {
       return;
     }
 
-    setIsLoading(true);
-    try {
-      // Save token using the API client
-      await apiClient.setToken(token.trim());
+    setIsSavingToken(true);
+    setLoginState('アクセストークンを保存しています');
 
-      // Notify parent component that token is saved
-      onTokenSaved();
+    try {
+      await apiClient.setToken(token);
+      navigation.replace('HomeTabs');
     } catch (error) {
-      console.error('Error saving token:', error);
-      Alert.alert('Error', 'Failed to save token. Please try again.');
-    } finally {
-      setIsLoading(false);
+      console.error('Error saving issued token:', error);
+      Alert.alert('Error', 'Failed to save the issued access token. Please try again.');
+      setIsSavingToken(false);
+      setLoginState('保存に失敗しました。もう一度ログインしてください');
     }
+  };
+
+  const handleMessage = (event: WebViewMessageEvent) => {
+    const message = parseCanvasTokenIssuerMessage(event.nativeEvent.data);
+    if (!message) {
+      return;
+    }
+
+    if (message.type === 'not-authenticated') {
+      tokenRequestInFlightRef.current = false;
+      setIsIssuingToken(false);
+      return;
+    }
+
+    if (message.type === 'token-issue-failed') {
+      tokenRequestInFlightRef.current = false;
+      setIsIssuingToken(false);
+      setLoginState('トークン発行に失敗しました');
+      Alert.alert('Error', message.reason);
+      return;
+    }
+
+    tokenRequestInFlightRef.current = false;
+    setIsIssuingToken(false);
+    handleTokenIssued(message.token).then();
+  };
+
+  const handleNavigationStateChange = (navState: WebViewNavigation) => {
+    if (navState.url.startsWith(CANVAS_BASE_URL)) {
+      setLoginState('ログイン状態を確認しています');
+      return;
+    }
+
+    setLoginState('認証ページを表示しています');
+  };
+
+  const handleLoadEnd = ({nativeEvent}: { nativeEvent: { url: string } }) => {
+    if (
+      isSavingToken ||
+      tokenRequestInFlightRef.current ||
+      !nativeEvent.url.startsWith(CANVAS_BASE_URL)
+    ) {
+      return;
+    }
+
+    tokenRequestInFlightRef.current = true;
+    setIsIssuingToken(true);
+    webViewRef.current?.injectJavaScript(tokenIssuerScript);
+  };
+
+  const reloadLogin = () => {
+    setLoginState('K-LMS にログインしてください');
+    webViewRef.current?.reload();
   };
 
   return (
     <View style={styles.container}>
-      <YStack gap={20} padding={20} maxWidth={600} width="100%">
-        <Text fontSize={24} fontWeight="bold" textAlign="center">
-          Welcome to KLMS App
+      <YStack gap={12} padding={16} backgroundColor="$background" borderBottomWidth={1} borderColor="$borderColor">
+        <Text fontSize={20} fontWeight="bold">
+          KLMS Login
         </Text>
-
-        <Text fontSize={16} textAlign="center">
-          Please enter your Canvas LMS access token to continue
+        <Text fontSize={14} opacity={0.75}>
+          {loginState}
         </Text>
+        <Button onPress={reloadLogin} disabled={isSavingToken}>
+          Reload
+        </Button>
+      </YStack>
 
-        <TextInput
-          style={styles.input}
-          value={token}
-          onChangeText={setToken}
-          placeholder="Enter your access token"
-          autoCapitalize="none"
-          autoCorrect={false}
+      <View style={styles.webViewContainer}>
+        <WebView
+          ref={webViewRef}
+          source={{uri: CANVAS_BASE_URL}}
+          javaScriptEnabled
+          domStorageEnabled
+          sharedCookiesEnabled
+          thirdPartyCookiesEnabled
+          onMessage={handleMessage}
+          onNavigationStateChange={handleNavigationStateChange}
+          onLoadEnd={handleLoadEnd}
+          startInLoadingState
+          renderLoading={() => (
+            <View style={styles.loadingOverlay}>
+              <ActivityIndicator size="large"/>
+            </View>
+          )}
         />
 
-        <Button
-          onPress={handleSaveToken}
-          disabled={isLoading}
-          themeInverse
-        >
-          {isLoading ? 'Saving...' : 'Save Token'}
-        </Button>
-
-        <Text fontSize={14} textAlign="center" opacity={0.7}>
-          You can find your access token in Canvas LMS settings.{"\n"}
-          {"Go to Account > Settings > Approved Integrations > New Access Token."}
-        </Text>
-      </YStack>
+        {(isIssuingToken || isSavingToken) && (
+          <View style={styles.statusOverlay} pointerEvents="none">
+            <ActivityIndicator size="large"/>
+            <Text marginTop={12}>{isSavingToken ? '保存しています' : 'トークンを発行しています'}</Text>
+          </View>
+        )}
+      </View>
     </View>
   );
 };
@@ -74,20 +138,23 @@ const TokenInputScreen = ({navigation}: NativeStackScreenProps<RootStackParamLis
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    fontSize: 16,
     backgroundColor: '#fff',
+  },
+  webViewContainer: {
+    flex: 1,
+  },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFill,
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+  },
+  statusOverlay: {
+    ...StyleSheet.absoluteFill,
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.86)',
+    justifyContent: 'center',
   },
 });
 
-export default TokenInputScreen;
+export default CanvasLoginScreen;

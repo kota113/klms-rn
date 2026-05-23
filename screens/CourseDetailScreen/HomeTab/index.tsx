@@ -1,10 +1,10 @@
-import {YStack} from "@tamagui/stacks";
+import {Text, YStack} from "../../../components/ui";
 import {FileItem} from "./FileItem";
 import {ActivityIndicator, ScrollView, View} from "react-native";
 import React, {useEffect, useState} from "react";
-import {Text} from "tamagui";
 import AssignmentItem from "../AssignmentsTab/AssignmentItem";
 import {Module, ModuleItem, modulesService} from "../../../services/api";
+import {isDemoCourseId, mockModules} from "../../../services/api/mockData";
 
 interface HomeTabProps {
   courseId: number;
@@ -19,6 +19,12 @@ export default function HomeTab({courseId}: HomeTabProps) {
     const fetchModules = async () => {
       try {
         setLoading(true);
+        if (isDemoCourseId(courseId)) {
+          setModules(mockModules);
+          setError(null);
+          return;
+        }
+
         // Fetch modules with items included
         const modulesData = await modulesService.getModules(courseId, {
           include: ['items']

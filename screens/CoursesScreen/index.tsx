@@ -1,13 +1,13 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {ActivityIndicator, ScrollView, TextInput, TouchableOpacity} from 'react-native';
-import {XStack, YStack} from '@tamagui/stacks';
 import {MaterialIcons} from '@expo/vector-icons';
-import {Text, View} from 'tamagui';
+import {Text, View, XStack, YStack} from "../../components/ui";
 import {FilterButton} from "./FilterButton";
 import {CourseCard} from "../../components/CourseCard";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../components/Navigation";
 import {coursesService, DashboardCard, UserColors, usersService} from "../../services/api";
+import {mockCourseColors, mockDashboardCards} from "../../services/api/mockData";
 
 const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
   const [courses, setCourses] = useState<DashboardCard[]>([]);
@@ -20,11 +20,11 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
       try {
         // Fetch courses
         const coursesData = await coursesService.getDashboardCards();
-        setCourses(coursesData);
+        setCourses(coursesData.length > 0 ? coursesData : mockDashboardCards);
 
         // Fetch user colors
         const colorsData = await usersService.getUserColors();
-        setCourseColors(colorsData);
+        setCourseColors(Object.keys(colorsData).length > 0 ? colorsData : mockCourseColors);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {

@@ -1,5 +1,4 @@
-import {XStack, YStack} from "@tamagui/stacks";
-import {Image, Text} from "tamagui";
+import {Image, Text, XStack, YStack} from "../../components/ui";
 import React, {useEffect, useState} from "react";
 import {FlatList, ScrollView, TouchableOpacity} from "react-native";
 import AnnouncementItem from "./AnnouncementItem";
@@ -16,6 +15,7 @@ import {
   UserColors,
   usersService
 } from "../../services/api";
+import {mockAnnouncements, mockAssignments, mockCourseColors, mockDashboardCards} from "../../services/api/mockData";
 
 
 export default function DashboardScreen({navigation}: NativeStackScreenProps<RootStackParamList>) {
@@ -26,37 +26,54 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const isUnauthorizedError = (error: unknown) => {
+      return typeof error === 'object'
+        && error !== null
+        && 'response' in error
+        && (error as { response?: { status?: number } }).response?.status === 401;
+    };
+
     const fetchData = async () => {
       try {
         // Fetch courses using dashboard cards
         const coursesData = await coursesService.getDashboardCards();
-        setCourses(coursesData);
+        const shouldUseMockData = coursesData.length === 0;
+        const displayCourses = shouldUseMockData ? mockDashboardCards : coursesData;
+        setCourses(displayCourses);
 
         // Fetch user colors
         const colorsData = await usersService.getUserColors();
-        setCourseColors(colorsData);
+        setCourseColors(Object.keys(colorsData).length > 0 ? colorsData : mockCourseColors);
 
-        if (coursesData && coursesData.length > 0) {
+        if (shouldUseMockData) {
+          setAnnouncements(mockAnnouncements);
+          setAssignments(mockAssignments);
+          return;
+        }
+
+        if (displayCourses && displayCourses.length > 0) {
           // Extract course IDs
-          const courseIds = coursesData.map(course => course.id);
+          const courseIds = displayCourses.map(course => course.id);
 
           // Fetch announcements with course IDs
           const announcementsData = await announcementsService.getAnnouncements(courseIds, {
             start_date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(), // Last 30 days
             end_date: new Date().toISOString() // Today
           });
-          setAnnouncements(announcementsData);
+          setAnnouncements(announcementsData.length > 0 ? announcementsData : mockAnnouncements);
         } else {
           setAnnouncements([]);
         }
 
         // Fetch upcoming assignments
         const assignmentsData = await assignmentsService.getUpcomingAssignments();
-        setAssignments(assignmentsData);
+        setAssignments(assignmentsData.length > 0 ? assignmentsData : mockAssignments);
       } catch (error) {
         console.error('Error fetching data:', error);
+        if (isUnauthorizedError(error)) {
+          navigation.replace('Login');
+        }
       } finally {
-        navigation.replace('Login');
         setLoading(false);
       }
     };

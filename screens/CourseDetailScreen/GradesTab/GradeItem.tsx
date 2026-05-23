@@ -1,5 +1,4 @@
-import {Text, XStack} from "tamagui";
-import {YStack} from "@tamagui/stacks";
+import {Text, XStack, YStack} from "../../../components/ui";
 
 export default function GradeItem({title, dueDate, fullScore, achievedScore}: {
   title: string,

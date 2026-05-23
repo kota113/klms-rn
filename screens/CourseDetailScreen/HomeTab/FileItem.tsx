@@ -1,7 +1,5 @@
 import React from "react";
-import {Text, TouchableOpacity, View} from "react-native";
-import {XStack} from "@tamagui/stacks";
-import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
+import {MaterialIcons} from "@expo/vector-icons";
 import Item from "../../../components/Item";
 
 

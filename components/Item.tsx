@@ -1,6 +1,5 @@
 import {TouchableOpacity, View} from "react-native";
-import {XStack, Text} from "tamagui";
-import {YStack} from "@tamagui/stacks";
+import {Text, XStack, YStack} from "./ui";
 
 export default function Item({title, subText, onPress, icon}: { title: string, subText?: string, onPress: () => void, icon: React.ReactNode}) {
   return (
