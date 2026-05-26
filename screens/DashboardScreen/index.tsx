@@ -196,11 +196,11 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
           <Text fontSize={22} fontWeight={"bold"} marginVertical={"$3"}>最近のアナウンス</Text>
           {loading ? (
             Array.from({length: 2}).map((_, index) => (
-              <XStack key={index} alignItems="center" paddingVertical="$3">
+              <XStack key={index} alignItems="center" paddingVertical="$3" gap="$2">
                 <Skeleton width={59} height={59}/>
                 <YStack flex={1} gap="$2">
-                  <SkeletonText width="70%" height={17}/>
-                  <SkeletonText width="42%" height={13}/>
+                  <SkeletonText width="76%" height={17}/>
+                  <SkeletonText width="48%" height={13}/>
                 </YStack>
               </XStack>
             ))

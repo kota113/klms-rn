@@ -132,12 +132,19 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
       {loading ? (
         <YStack paddingHorizontal="$4" paddingBottom="$5">
           {Array.from({length: 6}).map((_, index) => (
-            <XStack key={index} alignItems="center" paddingVertical="$3" gap="$3.5">
-              <Skeleton width={63} height={63}/>
-              <YStack flex={1} gap="$2">
-                <SkeletonText width="62%" height={20}/>
-                <SkeletonText width="34%" height={16}/>
-              </YStack>
+            <XStack
+              key={index}
+              alignItems="stretch"
+              backgroundColor="white"
+              marginBottom="$3"
+            >
+              <Skeleton width={5} height={58} style={{borderRadius: 0}}/>
+              <XStack flex={1} alignItems="center" paddingHorizontal="$3" paddingVertical="$3" gap="$3.5">
+                <YStack flex={1}>
+                  <SkeletonText width="64%" height={16} style={{marginBottom: 6}}/>
+                  <SkeletonText width="78%" height={13}/>
+                </YStack>
+              </XStack>
             </XStack>
           ))}
         </YStack>
