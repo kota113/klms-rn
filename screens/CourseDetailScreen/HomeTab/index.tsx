@@ -67,6 +67,8 @@ export default function HomeTab({courseId}: HomeTabProps) {
             title={item.title}
             onPress={() => navigation.navigate("AuthenticatedWebView", {
               url: item.html_url || item.url,
+              downloadUrl: item.url,
+              showFileActions: true,
               title: item.title,
             })}
           />

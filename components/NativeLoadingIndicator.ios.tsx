@@ -1,15 +1,17 @@
 import React from "react";
 import {StyleSheet} from "react-native";
 import {Host, ProgressView} from "@expo/ui/swift-ui";
+import {tint} from "@expo/ui/swift-ui/modifiers";
 
 type NativeLoadingIndicatorProps = {
   color?: string;
+  size?: number;
 };
 
-export default function NativeLoadingIndicator(_props: NativeLoadingIndicatorProps) {
+export default function NativeLoadingIndicator({color = "#111111", size = 48}: NativeLoadingIndicatorProps) {
   return (
-    <Host matchContents style={styles.host}>
-      <ProgressView/>
+    <Host matchContents style={[styles.host, {height: size, width: size}]}>
+      <ProgressView modifiers={[tint(color)]}/>
     </Host>
   );
 }
@@ -17,8 +19,6 @@ export default function NativeLoadingIndicator(_props: NativeLoadingIndicatorPro
 const styles = StyleSheet.create({
   host: {
     alignItems: "center",
-    height: 48,
     justifyContent: "center",
-    width: 48,
   },
 });

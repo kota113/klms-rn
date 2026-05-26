@@ -1,19 +1,35 @@
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import React, {useEffect, useState} from "react";
-import {StyleSheet, TouchableOpacity, View} from "react-native";
+import React, {useCallback, useEffect, useState} from "react";
+import {Alert, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import {WebView} from "react-native-webview";
+import type {FileDownloadEvent, ShouldStartLoadRequest} from "react-native-webview/lib/WebViewTypes";
 import {MaterialIcons} from "@expo/vector-icons";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import AndroidSaveCompleteDialog from "../components/AndroidSaveCompleteDialog";
 import NativeLoadingIndicator from "../components/NativeLoadingIndicator";
 import {Text, XStack, YStack} from "../components/ui";
 import {RootStackParamList} from "../components/Navigation";
 import {apiClient} from "../services/api";
+import {
+  downloadCanvasFile,
+  isCanvasDownloadUrl,
+  isFileActionCanceled,
+  openDownloadedFile,
+  saveDownloadedFile,
+} from "../services/fileActions";
 
 type Props = NativeStackScreenProps<RootStackParamList, "AuthenticatedWebView">;
 
+type FileAction = "open" | "save";
+
 export default function AuthenticatedWebViewScreen({navigation, route}: Props) {
-  const {url, title = "ファイル"} = route.params;
+  const {url, title = "ファイル", downloadUrl, showFileActions = false} = route.params;
+  const insets = useSafeAreaInsets();
   const [isReady, setIsReady] = useState(false);
+  const [activeAction, setActiveAction] = useState<FileAction | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [savedFileName, setSavedFileName] = useState<string | null>(null);
+  const isProcessing = activeAction !== null;
 
   useEffect(() => {
     let isMounted = true;
@@ -43,6 +59,61 @@ export default function AuthenticatedWebViewScreen({navigation, route}: Props) {
     };
   }, [url]);
 
+  const runFileAction = useCallback(async (action: FileAction, sourceUrl: string, fallbackUrl = sourceUrl) => {
+    setActiveAction(action);
+
+    try {
+      const downloadedFile = await downloadCanvasFile(sourceUrl, fallbackUrl);
+      if (!downloadedFile) {
+        Alert.alert("ダウンロードできません", "一時保存先を利用できませんでした。");
+        return;
+      }
+
+      if (action === "open") {
+        await openDownloadedFile(downloadedFile);
+      } else {
+        const savedFileName = await saveDownloadedFile(downloadedFile);
+        if (Platform.OS === "android") {
+          setSavedFileName(savedFileName);
+        } else {
+          Alert.alert("保存しました", `${savedFileName} を保存しました。`);
+        }
+      }
+    } catch (err) {
+      if (isFileActionCanceled(err)) {
+        return;
+      }
+
+      console.error("Error downloading WebView file:", err);
+      Alert.alert("ダウンロードできません", "ファイルの取得に失敗しました。もう一度お試しください。");
+    } finally {
+      setActiveAction(null);
+    }
+  }, []);
+
+  const handleFileDownload = useCallback((event: FileDownloadEvent) => {
+    if (Platform.OS === "ios") {
+      void runFileAction("open", event.nativeEvent.downloadUrl);
+    }
+  }, [runFileAction]);
+
+  const handleShouldStartLoad = useCallback((request: ShouldStartLoadRequest) => {
+    if (Platform.OS === "android" && isCanvasDownloadUrl(request.url)) {
+      void runFileAction("open", request.url);
+      return false;
+    }
+
+    return true;
+  }, [runFileAction]);
+
+  const handleOpenPress = useCallback(() => {
+    void runFileAction("open", downloadUrl || url, url);
+  }, [downloadUrl, runFileAction, url]);
+
+  const handleSavePress = useCallback(() => {
+    void runFileAction("save", downloadUrl || url, url);
+  }, [downloadUrl, runFileAction, url]);
+
   return (
     <YStack flex={1} backgroundColor="white">
       <XStack alignItems="center" backgroundColor="white" paddingHorizontal="$4" paddingVertical="$4">
@@ -64,6 +135,13 @@ export default function AuthenticatedWebViewScreen({navigation, route}: Props) {
             source={{uri: url}}
             sharedCookiesEnabled
             thirdPartyCookiesEnabled
+            allowFileAccess
+            allowsBackForwardNavigationGestures
+            domStorageEnabled
+            javaScriptCanOpenWindowsAutomatically
+            mediaCapturePermissionGrantType="prompt"
+            onFileDownload={handleFileDownload}
+            onShouldStartLoadWithRequest={handleShouldStartLoad}
             startInLoadingState
             renderLoading={() => (
               <View style={styles.loadingOverlay}>
@@ -76,7 +154,59 @@ export default function AuthenticatedWebViewScreen({navigation, route}: Props) {
             <NativeLoadingIndicator/>
           </View>
         )}
+        {!error && isReady && showFileActions ? (
+          <View
+            pointerEvents="box-none"
+            style={[
+              styles.downloadButtonContainer,
+              {paddingBottom: Math.max(insets.bottom, 15)},
+            ]}
+          >
+            <TouchableOpacity
+              activeOpacity={0.85}
+              disabled={isProcessing}
+              onPress={handleSavePress}
+              style={[
+                styles.downloadButton,
+                styles.saveButton,
+                isProcessing ? styles.downloadButtonDisabled : null,
+              ]}
+            >
+              {activeAction === "save" ? (
+                <View style={styles.downloadButtonIcon}>
+                  <NativeLoadingIndicator color="#111111" size={20}/>
+                </View>
+              ) : (
+                <MaterialIcons name="file-download" size={20} color="#111111" style={styles.downloadButtonIcon}/>
+              )}
+              <Text fontSize={16} fontWeight="800" color="#111111" textAlign="center">
+                {activeAction === "save" ? "保存中..." : "ダウンロード"}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.85}
+              disabled={isProcessing}
+              onPress={handleOpenPress}
+              style={[
+                styles.downloadButton,
+                isProcessing ? styles.downloadButtonDisabled : null,
+              ]}
+            >
+              {activeAction === "open" ? (
+                <View style={styles.downloadButtonIcon}>
+                  <NativeLoadingIndicator color="#fff" size={20}/>
+                </View>
+              ) : (
+                <MaterialIcons name="open-in-new" size={20} color="#fff" style={styles.downloadButtonIcon}/>
+              )}
+              <Text fontSize={16} fontWeight="800" color="#fff" textAlign="center">
+                {activeAction === "open" ? "読み込み中..." : "開く"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
       </View>
+      <AndroidSaveCompleteDialog fileName={savedFileName} onDismiss={() => setSavedFileName(null)}/>
     </YStack>
   );
 }
@@ -87,6 +217,38 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+  },
+  downloadButton: {
+    alignItems: "center",
+    backgroundColor: "#111111",
+    borderRadius: 8,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    minHeight: 52,
+    paddingHorizontal: 16,
+  },
+  downloadButtonContainer: {
+    backgroundColor: "transparent",
+    bottom: 0,
+    flexDirection: "row",
+    gap: 10,
+    left: 0,
+    paddingHorizontal: 18,
+    paddingTop: 12,
+    position: "absolute",
+    right: 0,
+  },
+  downloadButtonDisabled: {
+    backgroundColor: "#999999",
+  },
+  downloadButtonIcon: {
+    marginRight: 8,
+  },
+  saveButton: {
+    backgroundColor: "#ffffff",
+    borderColor: "#111111",
+    borderWidth: 1,
   },
   loadingOverlay: {
     ...StyleSheet.absoluteFill,

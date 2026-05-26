@@ -33,7 +33,7 @@ export type RootStackParamList = {
   Courses: undefined;
   CourseDetail: { courseId: number; initialTab?: 'home' | 'assignments' | 'grades' };
   AssignmentDetail: { courseId: number; assignmentId: number; title?: string };
-  AuthenticatedWebView: { url: string; title?: string };
+  AuthenticatedWebView: { url: string; title?: string; downloadUrl?: string; showFileActions?: boolean };
   ConversationDetail: { conversationId: string; title?: string };
 };
 

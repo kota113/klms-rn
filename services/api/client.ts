@@ -296,6 +296,10 @@ class ApiClient {
     return this.hasSession();
   }
 
+  public async getSessionCookieHeader(): Promise<string | null> {
+    return this.getCookieHeader();
+  }
+
   public addTokenChangeListener(listener: (hasToken: boolean) => void): void {
     this.addSessionChangeListener(listener);
   }

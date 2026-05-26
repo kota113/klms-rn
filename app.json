@@ -10,14 +10,26 @@
       "reactCompiler": true
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "LSSupportsOpeningDocumentsInPlace": true,
+        "NSCameraUsageDescription": "課題提出時に撮影したファイルをアップロードするためにカメラを使用します。",
+        "NSMicrophoneUsageDescription": "課題提出時に動画をアップロードするためにマイクを使用します。",
+        "NSPhotoLibraryUsageDescription": "課題提出時に写真やファイルを選択してアップロードするために使用します。",
+        "UIFileSharingEnabled": true
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.kota113.klms"
+      "package": "com.kota113.klms",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
