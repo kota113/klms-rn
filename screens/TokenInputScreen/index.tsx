@@ -1,108 +1,102 @@
 import React, {useMemo, useRef, useState} from 'react';
-import {ActivityIndicator, Alert, StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import {Button, Text, YStack} from "../../components/ui";
+import NativeLoadingIndicator from "../../components/NativeLoadingIndicator";
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {WebView, WebViewMessageEvent, WebViewNavigation} from 'react-native-webview';
 import {apiClient} from '../../services/api';
 import {RootStackParamList} from '../../components/Navigation';
+import * as SecureStore from 'expo-secure-store';
+import {ONBOARDING_COMPLETED_KEY} from '../OnboardingScreen';
 import {
-  buildCanvasTokenIssuerScript,
+  buildCanvasSessionDetectorScript,
   CANVAS_BASE_URL,
-  parseCanvasTokenIssuerMessage,
-} from '../../services/auth/canvasSessionToken';
+  parseCanvasSessionMessage,
+} from '../../services/auth/canvasSession';
 
 const CanvasLoginScreen = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
   const webViewRef = useRef<WebView>(null);
-  const tokenRequestInFlightRef = useRef(false);
-  const [isIssuingToken, setIsIssuingToken] = useState(false);
-  const [isSavingToken, setIsSavingToken] = useState(false);
-  const [loginState, setLoginState] = useState('K-LMS にログインしてください');
-  const tokenIssuerScript = useMemo(() => buildCanvasTokenIssuerScript(), []);
+  const sessionCheckInFlightRef = useRef(false);
+  const [isCheckingSession, setIsCheckingSession] = useState(false);
+  const [isSavingSession, setIsSavingSession] = useState(false);
+  const sessionDetectorScript = useMemo(() => buildCanvasSessionDetectorScript(), []);
 
-  const handleTokenIssued = async (token: string) => {
-    if (isSavingToken) {
+  const handleSessionReady = async () => {
+    if (isSavingSession) {
       return;
     }
 
-    setIsSavingToken(true);
-    setLoginState('アクセストークンを保存しています');
+    setIsSavingSession(true);
 
     try {
-      await apiClient.setToken(token);
+      const cookiesCaptured = await apiClient.captureSessionFromCookieJar();
+      if (!cookiesCaptured) {
+        throw new Error('Canvas session cookies were not available in the native cookie store.');
+      }
+
+      const sessionIsUsable = await apiClient.verifySession();
+      if (!sessionIsUsable) {
+        throw new Error('Canvas API did not accept the stored cookies.');
+      }
+
+      await apiClient.setSessionAuthenticated();
+      await SecureStore.setItemAsync(ONBOARDING_COMPLETED_KEY, 'true');
       navigation.replace('HomeTabs');
     } catch (error) {
-      console.error('Error saving issued token:', error);
-      Alert.alert('Error', 'Failed to save the issued access token. Please try again.');
-      setIsSavingToken(false);
-      setLoginState('保存に失敗しました。もう一度ログインしてください');
+      console.error('Error verifying Canvas session:', error);
+      Alert.alert('エラー', 'ログインに失敗しました。もう一度お試しください。');
+      setIsSavingSession(false);
     }
   };
 
   const handleMessage = (event: WebViewMessageEvent) => {
-    const message = parseCanvasTokenIssuerMessage(event.nativeEvent.data);
+    const message = parseCanvasSessionMessage(event.nativeEvent.data);
     if (!message) {
       return;
     }
 
     if (message.type === 'not-authenticated') {
-      tokenRequestInFlightRef.current = false;
-      setIsIssuingToken(false);
+      sessionCheckInFlightRef.current = false;
+      setIsCheckingSession(false);
       return;
     }
 
-    if (message.type === 'token-issue-failed') {
-      tokenRequestInFlightRef.current = false;
-      setIsIssuingToken(false);
-      setLoginState('トークン発行に失敗しました');
-      Alert.alert('Error', message.reason);
-      return;
-    }
-
-    tokenRequestInFlightRef.current = false;
-    setIsIssuingToken(false);
-    handleTokenIssued(message.token).then();
+    sessionCheckInFlightRef.current = false;
+    setIsCheckingSession(false);
+    handleSessionReady().then();
   };
 
-  const handleNavigationStateChange = (navState: WebViewNavigation) => {
-    if (navState.url.startsWith(CANVAS_BASE_URL)) {
-      setLoginState('ログイン状態を確認しています');
-      return;
-    }
-
-    setLoginState('認証ページを表示しています');
+  const handleNavigationStateChange = (_navState: WebViewNavigation) => {
+    // no-op: state tracking removed to avoid exposing internal info to users
   };
 
   const handleLoadEnd = ({nativeEvent}: { nativeEvent: { url: string } }) => {
     if (
-      isSavingToken ||
-      tokenRequestInFlightRef.current ||
+      isSavingSession ||
+      sessionCheckInFlightRef.current ||
       !nativeEvent.url.startsWith(CANVAS_BASE_URL)
     ) {
       return;
     }
 
-    tokenRequestInFlightRef.current = true;
-    setIsIssuingToken(true);
-    webViewRef.current?.injectJavaScript(tokenIssuerScript);
+    sessionCheckInFlightRef.current = true;
+    setIsCheckingSession(true);
+    webViewRef.current?.injectJavaScript(sessionDetectorScript);
   };
 
   const reloadLogin = () => {
-    setLoginState('K-LMS にログインしてください');
     webViewRef.current?.reload();
   };
 
   return (
     <View style={styles.container}>
-      <YStack gap={12} padding={16} backgroundColor="$background" borderBottomWidth={1} borderColor="$borderColor">
-        <Text fontSize={20} fontWeight="bold">
-          KLMS Login
+      <YStack gap={8} paddingHorizontal={20} paddingTop={12} paddingBottom={16} backgroundColor="white" borderBottomWidth={1} borderColor="$borderColor">
+        <Text fontSize={22} fontWeight="800" color="#333">
+          ログイン
         </Text>
-        <Text fontSize={14} opacity={0.75}>
-          {loginState}
+        <Text fontSize={14} color="#666">
+          {"K-LMSにログインしてください。\nログインが完了すると自動的にアプリに移動します。"}
         </Text>
-        <Button onPress={reloadLogin} disabled={isSavingToken}>
-          Reload
-        </Button>
       </YStack>
 
       <View style={styles.webViewContainer}>
@@ -119,15 +113,18 @@ const CanvasLoginScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
           startInLoadingState
           renderLoading={() => (
             <View style={styles.loadingOverlay}>
-              <ActivityIndicator size="large"/>
+              <YStack alignItems="center" gap="$3">
+                <NativeLoadingIndicator/>
+              </YStack>
             </View>
           )}
         />
 
-        {(isIssuingToken || isSavingToken) && (
+        {(isCheckingSession || isSavingSession) && (
           <View style={styles.statusOverlay} pointerEvents="none">
-            <ActivityIndicator size="large"/>
-            <Text marginTop={12}>{isSavingToken ? '保存しています' : 'トークンを発行しています'}</Text>
+            <YStack alignItems="center" gap="$3">
+              <NativeLoadingIndicator/>
+            </YStack>
           </View>
         )}
       </View>
