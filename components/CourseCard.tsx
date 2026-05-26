@@ -19,25 +19,22 @@ export const CourseCard: React.FC<CourseCardProps> = ({
                                                       }) => (
   <TouchableOpacity onPress={onPress}>
     <XStack
-      alignItems="center"
-      paddingHorizontal="$3"
-      paddingVertical="$3"
+      alignItems="stretch"
       backgroundColor="white"
       marginBottom="$3"
-      borderRadius="$4"
-      gap={"$3.5"}
     >
-      {imageUrl ? (
-        <Image source={{uri: imageUrl}} width={63} height={63} borderRadius={8}/>
-      ) : <View style={{width: 63, height: 63, backgroundColor: imageBackgroundColor, borderRadius: 8}}/>}
-      <YStack flex={1}>
-        <Text fontSize={20} fontWeight={"bold"} color={"#333"} marginBottom={"$1"}>
-          {title}
-        </Text>
-        <Text fontSize={16} color={"#666"}>
-          {subTitle}
-        </Text>
-      </YStack>
+      {/* Theme color bar on the left */}
+      <View style={{width: 5, backgroundColor: imageBackgroundColor}}/>
+      <XStack flex={1} alignItems="center" paddingHorizontal="$3" paddingVertical="$3" gap={"$3.5"}>
+        <YStack flex={1}>
+          <Text fontSize={18} fontWeight={"bold"} color={"#333"} marginBottom={"$1"}>
+            {title}
+          </Text>
+          <Text fontSize={14} color={"#666"}>
+            {subTitle}
+          </Text>
+        </YStack>
+      </XStack>
     </XStack>
   </TouchableOpacity>
 );

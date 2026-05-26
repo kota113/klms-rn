@@ -11,8 +11,8 @@ export default function Item({title, subText, onPress, icon}: { title: string, s
       >
         <View
           style={{
-            width: 59,
-            height: 59,
+            width: 55,
+            height: 55,
             backgroundColor: '#f5f5f5',
             borderRadius: 8,
             marginRight: 14,
@@ -24,14 +24,14 @@ export default function Item({title, subText, onPress, icon}: { title: string, s
         </View>
         <YStack flex={1} justifyContent={"space-between"} gap={"$2"}>
           {subText ? (<>
-            <Text fontSize={17} fontWeight="600" color="#333" numberOfLines={1}>
+            <Text fontSize={15} color="#333" numberOfLines={1}>
               {title}
             </Text>
             <Text fontSize={13} color="#666">
               {subText}
             </Text>
           </>): (
-            <Text fontSize={17} fontWeight="600" color="#333">{title}</Text>
+            <Text fontSize={17} color="#333">{title}</Text>
             )}
         </YStack>
       </XStack>

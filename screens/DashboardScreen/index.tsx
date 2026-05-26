@@ -1,8 +1,9 @@
 import {Image, Text, XStack, YStack} from "../../components/ui";
 import React, {useEffect, useState} from "react";
-import {FlatList, ScrollView, TouchableOpacity} from "react-native";
+import {ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions, View} from "react-native";
 import AnnouncementItem from "./AnnouncementItem";
 import AssignmentItem from "../CourseDetailScreen/AssignmentsTab/AssignmentItem";
+import {Skeleton, SkeletonText} from "../../components/skeleton";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../components/Navigation";
 import {
@@ -15,7 +16,6 @@ import {
   UserColors,
   usersService
 } from "../../services/api";
-import {mockAnnouncements, mockAssignments, mockCourseColors, mockDashboardCards} from "../../services/api/mockData";
 
 
 export default function DashboardScreen({navigation}: NativeStackScreenProps<RootStackParamList>) {
@@ -24,6 +24,9 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [courseColors, setCourseColors] = useState<UserColors>({});
   const [loading, setLoading] = useState(true);
+  const {width} = useWindowDimensions();
+  const courseColumnCount = width >= 720 ? 5 : width >= 520 ? 4 : 3;
+  const courseTileWidth = Math.floor((width - 36 - (courseColumnCount - 1) * 10) / courseColumnCount);
 
   useEffect(() => {
     const isUnauthorizedError = (error: unknown) => {
@@ -37,42 +40,37 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
       try {
         // Fetch courses using dashboard cards
         const coursesData = await coursesService.getDashboardCards();
-        const shouldUseMockData = coursesData.length === 0;
-        const displayCourses = shouldUseMockData ? mockDashboardCards : coursesData;
-        setCourses(displayCourses);
+        setCourses(coursesData);
 
         // Fetch user colors
-        const colorsData = await usersService.getUserColors();
-        setCourseColors(Object.keys(colorsData).length > 0 ? colorsData : mockCourseColors);
+        const colorsData = await usersService.getUserColors().catch(() => ({}));
+        setCourseColors(colorsData);
 
-        if (shouldUseMockData) {
-          setAnnouncements(mockAnnouncements);
-          setAssignments(mockAssignments);
-          return;
-        }
-
-        if (displayCourses && displayCourses.length > 0) {
+        if (coursesData.length > 0) {
           // Extract course IDs
-          const courseIds = displayCourses.map(course => course.id);
+          const courseIds = coursesData.map(course => course.id);
 
           // Fetch announcements with course IDs
           const announcementsData = await announcementsService.getAnnouncements(courseIds, {
             start_date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(), // Last 30 days
             end_date: new Date().toISOString() // Today
           });
-          setAnnouncements(announcementsData.length > 0 ? announcementsData : mockAnnouncements);
+          setAnnouncements(announcementsData);
         } else {
           setAnnouncements([]);
         }
 
         // Fetch upcoming assignments
         const assignmentsData = await assignmentsService.getUpcomingAssignments();
-        setAssignments(assignmentsData.length > 0 ? assignmentsData : mockAssignments);
+        setAssignments(assignmentsData);
       } catch (error) {
         console.error('Error fetching data:', error);
         if (isUnauthorizedError(error)) {
           navigation.replace('Login');
         }
+        setCourses([]);
+        setAnnouncements([]);
+        setAssignments([]);
       } finally {
         setLoading(false);
       }
@@ -97,42 +95,103 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
         paddingBottom="$6"
         backgroundColor="white"
       >
-        <Text fontSize={24} fontWeight="800" color="#333">
+        <Text fontSize={22} fontWeight="800" color="#333">
           ダッシュボード
         </Text>
       </XStack>
       <ScrollView contentContainerStyle={{paddingBottom: 20}}>
         <YStack marginTop={"$2"}>
-          <Text paddingHorizontal={"$4.5"} fontSize={22} fontWeight={"bold"} marginBottom={"$3"}>コース</Text>
+          <XStack
+            alignItems="center"
+            justifyContent="space-between"
+            paddingHorizontal="$4.5"
+            marginBottom="$3"
+          >
+            <Text fontSize={22} fontWeight={"bold"}>コース</Text>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate("Courses")}
+            >
+              <Text fontSize={14} color="#333">全て表示</Text>
+            </TouchableOpacity>
+          </XStack>
           {loading ? (
-            <Text paddingHorizontal={"$4.5"}>読込中...</Text>
+            <View style={styles.courseGrid}>
+              {Array.from({length: courseColumnCount * 2}).map((_, index) => (
+                <View key={index} style={[styles.courseTile, {width: courseTileWidth}]}>
+                  <Skeleton height={courseTileWidth * 0.7} width={courseTileWidth}/>
+                  <SkeletonText width="72%" height={13} style={{marginTop: 8}}/>
+                </View>
+              ))}
+            </View>
           ) : (
-            <FlatList
-              style={{marginTop: 15}}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={(item) => item.id.toString()}
-              contentContainerStyle={{paddingHorizontal: 20}}
-              data={courses}
-              renderItem={({item}) => (
-                <TouchableOpacity onPress={() => {
-                  navigation.navigate("CourseDetail", {courseId: item.id});
-                }}>
-                  <YStack marginRight={"$3"} width={175}>
-                    <Image height={175} width={175} borderRadius={13}
-                           backgroundColor={item.image_download_url ? undefined : getCourseColor(item.id)}
-                           source={{uri: item.image_download_url || undefined}}/>
-                    <Text fontSize={16} marginTop={"$4"} fontWeight={"bold"} numberOfLines={1}>{item.courseCode}</Text>
-                  </YStack>
+            <View style={styles.courseGrid}>
+              {courses.map((item) => (
+                <TouchableOpacity
+                  key={item.id.toString()}
+                  activeOpacity={0.75}
+                  style={[styles.courseTile, {width: courseTileWidth}]}
+                  onPress={() => {
+                    navigation.navigate("CourseDetail", {courseId: item.id});
+                  }}
+                >
+                  <Image
+                    height={courseTileWidth * 0.7}
+                    width={courseTileWidth}
+                    borderRadius={8}
+                    backgroundColor={item.image_download_url ? undefined : getCourseColor(item.id)}
+                    source={{uri: item.image_download_url || undefined}}
+                  />
+                  <Text fontSize={13} marginTop={"$2"} fontWeight={"bold"} numberOfLines={1}>{item.courseCode}</Text>
                 </TouchableOpacity>
-              )}
-            />
+              ))}
+            </View>
+          )}
+        </YStack>
+
+        <YStack marginTop={"$5"} paddingHorizontal={"$4.5"}>
+          <Text fontSize={22} fontWeight={"bold"} marginVertical={"$3"}>これからの課題</Text>
+          {loading ? (
+            Array.from({length: 2}).map((_, index) => (
+              <XStack key={index} alignItems="center" paddingVertical="$3" gap="$2">
+                <Skeleton width={59} height={59}/>
+                <YStack flex={1} gap="$2">
+                  <SkeletonText width="76%" height={17}/>
+                  <SkeletonText width="48%" height={13}/>
+                </YStack>
+              </XStack>
+            ))
+          ) : assignments.length > 0 ? (
+            assignments.slice(0, 2).map((assignment) => (
+              <AssignmentItem
+                key={assignment.id.toString()}
+                id={assignment.id.toString()}
+                title={assignment.name}
+                courseName={courses.find(course => course.id === assignment.course_id)?.courseCode || ''}
+                dueDate={assignment.due_at ? new Date(assignment.due_at).toLocaleDateString() : 'なし'}
+                onPress={() => navigation.navigate("AssignmentDetail", {
+                  courseId: assignment.course_id,
+                  assignmentId: assignment.id,
+                  title: assignment.name,
+                })}
+              />
+            ))
+          ) : (
+            <Text>これからの課題はありません</Text>
           )}
         </YStack>
         <YStack marginTop={"$5"} paddingHorizontal={"$4.5"}>
           <Text fontSize={22} fontWeight={"bold"} marginVertical={"$3"}>最近のアナウンス</Text>
           {loading ? (
-            <Text>Loading announcements...</Text>
+            Array.from({length: 2}).map((_, index) => (
+              <XStack key={index} alignItems="center" paddingVertical="$3">
+                <Skeleton width={59} height={59}/>
+                <YStack flex={1} gap="$2">
+                  <SkeletonText width="70%" height={17}/>
+                  <SkeletonText width="42%" height={13}/>
+                </YStack>
+              </XStack>
+            ))
           ) : announcements.length > 0 ? (
             announcements.slice(0, 2).map((announcement) => (
               <AnnouncementItem
@@ -143,32 +202,23 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
               />
             ))
           ) : (
-            <Text>No announcements found</Text>
-          )}
-        </YStack>
-
-        <YStack marginTop={"$5"} paddingHorizontal={"$4.5"}>
-          <Text fontSize={22} fontWeight={"bold"} marginVertical={"$3"}>これからの課題</Text>
-          {loading ? (
-            <Text>Loading assignments...</Text>
-          ) : assignments.length > 0 ? (
-            assignments.slice(0, 2).map((assignment) => (
-              <AssignmentItem
-                key={assignment.id.toString()}
-                id={assignment.id.toString()}
-                title={assignment.name}
-                courseName={courses.find(course => course.id === assignment.course_id)?.courseCode || ''}
-                dueDate={assignment.due_at ? new Date(assignment.due_at).toLocaleDateString() : 'なし'}
-                onPress={() => {
-                  // Navigate to assignment detail
-                }}
-              />
-            ))
-          ) : (
-            <Text>No upcoming assignments</Text>
+            <Text>最近のアナウンスはありません</Text>
           )}
         </YStack>
       </ScrollView>
     </YStack>
   )
 }
+
+const styles = StyleSheet.create({
+  courseGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+    paddingHorizontal: 18,
+    paddingTop: 4,
+  },
+  courseTile: {
+    marginBottom: 8,
+  },
+});

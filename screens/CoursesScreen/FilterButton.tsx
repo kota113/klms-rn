@@ -5,30 +5,31 @@ import {MaterialIcons} from "@expo/vector-icons";
 
 interface FilterButtonProps {
   title: string;
-  isActive?: boolean;
+  selected?: boolean;
   onPress?: () => void;
 }
 
-export const FilterButton: React.FC<FilterButtonProps> = ({title, isActive = false, onPress}) => (
-  <TouchableOpacity onPress={onPress}>
+export const FilterButton: React.FC<FilterButtonProps> = ({title, selected = false, onPress}) => (
+  <TouchableOpacity activeOpacity={0.75} onPress={onPress}>
     <XStack
       alignItems="center"
-      paddingLeft="$4"
-      paddingRight="$3"
-      paddingVertical="$2"
-      backgroundColor={isActive ? '#d6d6d6' : '#f5f5f5'}
+      paddingHorizontal="$3"
+      paddingVertical="$1.5"
+      backgroundColor={selected ? '#d6d6d6' : '#f5f5f5'}
+      borderColor={selected ? '#d6d6d6' : '#f0f0f0'}
+      borderWidth={1}
       borderRadius="$3"
+      gap="$1.5"
       marginRight="$3"
     >
+      {selected ? <MaterialIcons name="check" size={18} color="#333"/> : null}
       <Text
-        fontWeight={"bold"}
-        fontSize={16}
-        color={isActive ? '#000000' : '#666'}
-        marginRight={8}
+        fontWeight={selected ? "700" : "600"}
+        fontSize={13}
+        color={selected ? '#333' : '#666'}
       >
         {title}
       </Text>
-      <MaterialIcons name="keyboard-arrow-down" size={19} color={isActive ? '#000000' : '#666'}/>
     </XStack>
   </TouchableOpacity>
 );

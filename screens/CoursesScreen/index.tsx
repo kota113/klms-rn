@@ -1,32 +1,42 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {ActivityIndicator, ScrollView, TextInput, TouchableOpacity} from 'react-native';
+import {ScrollView, TextInput, TouchableOpacity} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
-import {Text, View, XStack, YStack} from "../../components/ui";
+import {Text, XStack, YStack} from "../../components/ui";
 import {FilterButton} from "./FilterButton";
 import {CourseCard} from "../../components/CourseCard";
+import {Skeleton, SkeletonText} from "../../components/skeleton";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../components/Navigation";
-import {coursesService, DashboardCard, UserColors, usersService} from "../../services/api";
-import {mockCourseColors, mockDashboardCards} from "../../services/api/mockData";
+import {Course, DashboardCard, coursesService} from "../../services/api";
+
+type CourseFilter = 'all' | 'active' | 'completed';
 
 const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
-  const [courses, setCourses] = useState<DashboardCard[]>([]);
-  const [courseColors, setCourseColors] = useState<UserColors>({});
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [dashboardCards, setDashboardCards] = useState<DashboardCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedFilter, setSelectedFilter] = useState<CourseFilter>('all');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch courses
-        const coursesData = await coursesService.getDashboardCards();
-        setCourses(coursesData.length > 0 ? coursesData : mockDashboardCards);
-
-        // Fetch user colors
-        const colorsData = await usersService.getUserColors();
-        setCourseColors(Object.keys(colorsData).length > 0 ? colorsData : mockCourseColors);
+        const [coursesData, cardsData] = await Promise.all([
+          coursesService.getCourses().catch((error) => {
+            console.error('Error fetching courses:', error.response?.data ?? error);
+            return [] as Course[];
+          }),
+          coursesService.getDashboardCards().catch((error) => {
+            console.error('Error fetching dashboard cards:', error.response?.data ?? error);
+            return [] as DashboardCard[];
+          }),
+        ]);
+        setCourses(coursesData);
+        setDashboardCards(cardsData);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setCourses([]);
+        setDashboardCards([]);
       } finally {
         setLoading(false);
       }
@@ -39,24 +49,34 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
     navigation.navigate("CourseDetail", {courseId: Number(id)});
   }
 
-  // Get color for a course from user colors or return a default color
   const getCourseColor = (courseId: number): string => {
-    const assetString = usersService.formatCourseAssetString(courseId);
-    return courseColors[assetString] || '#f0f0f0'; // Default light gray if no color is set
+    const palette = ['#f4e4d8', '#e6eef8', '#e7f4ea', '#f6e8f2', '#f2efe3', '#e5f1ef'];
+    return palette[Math.abs(courseId) % palette.length];
   }
 
-  // Filter courses based on search term
-  const filteredCourses = useMemo(() => {
-    if (!searchTerm.trim()) {
-      return courses;
-    }
+  const dashboardCardIds = useMemo(
+    () => new Set(dashboardCards.map(card => card.id)),
+    [dashboardCards]
+  );
 
+  const filteredCourses = useMemo(() => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase().trim();
-    return courses.filter(course =>
-      course.courseCode.toLowerCase().includes(lowerCaseSearchTerm) ||
-      course.shortName.toLowerCase().includes(lowerCaseSearchTerm)
-    );
-  }, [courses, searchTerm]);
+    return courses.filter(course => {
+      if (course.access_restricted_by_date || !course.name || !course.course_code) {
+        return false;
+      }
+      const matchesSearch = !lowerCaseSearchTerm ||
+        course.course_code.toLowerCase().includes(lowerCaseSearchTerm) ||
+        course.name.toLowerCase().includes(lowerCaseSearchTerm);
+      const isInDashboard = dashboardCardIds.has(course.id);
+      const matchesFilter =
+        selectedFilter === 'all' ||
+        (selectedFilter === 'active' ? isInDashboard : !isInDashboard);
+
+      return  matchesSearch && matchesFilter;
+    });
+  }, [courses, dashboardCardIds, searchTerm, selectedFilter]);
+
   return (
     <YStack flex={1} backgroundColor="#ffffff" minHeight={"100%"}>
       {/* Header */}
@@ -68,13 +88,13 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
         paddingBottom="$6"
         backgroundColor="white"
       >
-        <View width={24}/>
-        <Text fontSize={24} fontWeight="800" color="#333">
-          コース
-        </Text>
-        <TouchableOpacity onPress={() => navigation.navigate("HiddenCourses")}>
-          <MaterialIcons name="edit" size={24} color="#333"/>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialIcons name="arrow-back" size={24} color="#333"/>
         </TouchableOpacity>
+        <Text fontSize={22} fontWeight="800" color="#333">
+          コース一覧
+        </Text>
+        <XStack width={24}/>
       </XStack>
 
       {/* Search Bar */}
@@ -83,17 +103,17 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
         marginHorizontal="$4"
         marginBottom="$4"
         paddingHorizontal="$4"
-        paddingVertical="$1.5"
+        paddingVertical="$0.5"
         backgroundColor="#2222"
-        borderRadius="$4"
+        borderRadius="$6"
       >
-        <MaterialIcons name="search" size={26} color="#999" style={{ marginRight: 12 }} />
+        <MaterialIcons name="search" size={26} color="#999" style={{ marginRight: 8 }} />
         <TextInput
-          placeholder="Find a course"
+          placeholder="コースを検索"
           placeholderTextColor="#999"
           style={{
             flex: 1,
-            fontSize: 18,
+            fontSize: 17,
             color: '#666'
           }}
           value={searchTerm}
@@ -102,17 +122,24 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
       </XStack>
 
       {/* Filter Buttons */}
-      <XStack paddingHorizontal={16} marginTop={"$3"} marginBottom={"$4"}>
-        <FilterButton title="All" isActive={true} />
-        <FilterButton title="Active" />
-        <FilterButton title="Completed" />
+      <XStack paddingHorizontal={16} marginTop={"$1"} marginBottom={"$4"}>
+        <FilterButton title="すべて" selected={selectedFilter === 'all'} onPress={() => setSelectedFilter('all')} />
+        <FilterButton title="受講中" selected={selectedFilter === 'active'} onPress={() => setSelectedFilter('active')} />
+        <FilterButton title="過去のコース" selected={selectedFilter === 'completed'} onPress={() => setSelectedFilter('completed')} />
       </XStack>
 
       {/* Course List */}
       {loading ? (
-        <YStack flex={1} justifyContent="center" alignItems="center">
-          <ActivityIndicator size="large" color="black"/>
-          <Text marginTop="$4">読込中...</Text>
+        <YStack paddingHorizontal="$4" paddingBottom="$5">
+          {Array.from({length: 6}).map((_, index) => (
+            <XStack key={index} alignItems="center" paddingVertical="$3" gap="$3.5">
+              <Skeleton width={63} height={63}/>
+              <YStack flex={1} gap="$2">
+                <SkeletonText width="62%" height={20}/>
+                <SkeletonText width="34%" height={16}/>
+              </YStack>
+            </XStack>
+          ))}
         </YStack>
       ) : (
         <ScrollView
@@ -125,8 +152,8 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
               filteredCourses.map((course) => (
                 <CourseCard
                   key={course.id.toString()}
-                  title={course.courseCode}
-                  subTitle={course.enrollmentType === "StudentEnrollment" ? "学生" : "TA"}
+                  title={course.course_code || course.name}
+                  subTitle={course.name}
                   imageUrl={course.image_download_url || ""}
                   imageBackgroundColor={course.image_download_url ? "#f0f0f0" : getCourseColor(course.id)}
                   onPress={() => onSelectCourse(course.id.toString())}
@@ -134,7 +161,7 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
               ))
             ) : (
               <Text textAlign="center" marginTop="$6">
-                {searchTerm.trim() ? "No matching courses found" : "No courses found"}
+                {searchTerm.trim() ? "条件に一致するコースはありません" : "コースはありません"}
               </Text>
             )}
           </YStack>
