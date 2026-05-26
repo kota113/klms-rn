@@ -158,7 +158,7 @@ export default function AuthenticatedWebViewScreen({navigation, route}: Props) {
           <View
             pointerEvents="box-none"
             style={[
-              styles.downloadButtonContainer,
+              styles.fileActionButtonContainer,
               {paddingBottom: Math.max(insets.bottom, 15)},
             ]}
           >
@@ -167,20 +167,21 @@ export default function AuthenticatedWebViewScreen({navigation, route}: Props) {
               disabled={isProcessing}
               onPress={handleSavePress}
               style={[
-                styles.downloadButton,
+                styles.fileActionButton,
                 styles.saveButton,
-                isProcessing ? styles.downloadButtonDisabled : null,
+                isProcessing ? styles.fileActionButtonDisabled : null,
+                isProcessing ? styles.saveButtonDisabled : null,
               ]}
             >
               {activeAction === "save" ? (
-                <View style={styles.downloadButtonIcon}>
+                <View style={styles.fileActionButtonIcon}>
                   <NativeLoadingIndicator color="#111111" size={20}/>
                 </View>
               ) : (
-                <MaterialIcons name="file-download" size={20} color="#111111" style={styles.downloadButtonIcon}/>
+                <MaterialIcons name="file-download" size={20} color="#111111" style={styles.fileActionButtonIcon}/>
               )}
               <Text fontSize={16} fontWeight="800" color="#111111" textAlign="center">
-                {activeAction === "save" ? "保存中..." : "ダウンロード"}
+                ダウンロード
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -188,19 +189,19 @@ export default function AuthenticatedWebViewScreen({navigation, route}: Props) {
               disabled={isProcessing}
               onPress={handleOpenPress}
               style={[
-                styles.downloadButton,
-                isProcessing ? styles.downloadButtonDisabled : null,
+                styles.fileActionButton,
+                isProcessing ? styles.fileActionButtonDisabled : null,
               ]}
             >
               {activeAction === "open" ? (
-                <View style={styles.downloadButtonIcon}>
+                <View style={styles.fileActionButtonIcon}>
                   <NativeLoadingIndicator color="#fff" size={20}/>
                 </View>
               ) : (
-                <MaterialIcons name="open-in-new" size={20} color="#fff" style={styles.downloadButtonIcon}/>
+                <MaterialIcons name="open-in-new" size={20} color="#fff" style={styles.fileActionButtonIcon}/>
               )}
               <Text fontSize={16} fontWeight="800" color="#fff" textAlign="center">
-                {activeAction === "open" ? "読み込み中..." : "開く"}
+                開く
               </Text>
             </TouchableOpacity>
           </View>
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
-  downloadButton: {
+  fileActionButton: {
     alignItems: "center",
     backgroundColor: "#111111",
     borderRadius: 8,
@@ -228,7 +229,7 @@ const styles = StyleSheet.create({
     minHeight: 52,
     paddingHorizontal: 16,
   },
-  downloadButtonContainer: {
+  fileActionButtonContainer: {
     backgroundColor: "transparent",
     bottom: 0,
     flexDirection: "row",
@@ -239,16 +240,19 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 0,
   },
-  downloadButtonDisabled: {
+  fileActionButtonDisabled: {
     backgroundColor: "#999999",
   },
-  downloadButtonIcon: {
+  fileActionButtonIcon: {
     marginRight: 8,
   },
   saveButton: {
     backgroundColor: "#ffffff",
     borderColor: "#111111",
     borderWidth: 1,
+  },
+  saveButtonDisabled: {
+    borderWidth: 0,
   },
   loadingOverlay: {
     ...StyleSheet.absoluteFill,
