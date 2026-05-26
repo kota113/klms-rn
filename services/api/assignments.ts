@@ -6,19 +6,118 @@ import {apiClient} from './client';
 export interface Assignment {
   id: number;
   name: string;
-  description: string;
+  description: string | null;
+  created_at?: string;
+  updated_at?: string;
   due_at: string | null;
+  lock_at: string | null;
+  unlock_at: string | null;
+  has_overrides?: boolean;
+  all_dates?: AssignmentDate[];
   points_possible: number;
   course_id: number;
+  html_url?: string;
+  submissions_download_url?: string;
+  due_date_required?: boolean;
   submission_types: string[];
   has_submitted_submissions: boolean;
   allowed_extensions: string[];
-  unlock_at: string | null;
-  lock_at: string | null;
   assignment_group_id: number;
   position: number;
+  grading_type?: 'pass_fail' | 'percent' | 'letter_grade' | 'gpa_scale' | 'points' | string;
+  grading_standard_id?: number | null;
   grade_group_students_individually: boolean;
   published: boolean;
+  unpublishable?: boolean;
+  only_visible_to_overrides?: boolean;
+  locked_for_user?: boolean;
+  lock_explanation?: string;
+  quiz_id?: number;
+  anonymous_submissions?: boolean;
+  peer_reviews?: boolean;
+  automatic_peer_reviews?: boolean;
+  peer_review_count?: number;
+  peer_reviews_assign_at?: string | null;
+  intra_group_peer_reviews?: boolean;
+  group_category_id?: number | null;
+  needs_grading_count?: number;
+  post_to_sis?: boolean;
+  integration_id?: string;
+  omit_from_final_grade?: boolean;
+  hide_in_gradebook?: boolean;
+  moderated_grading?: boolean;
+  grader_count?: number;
+  final_grader_id?: number;
+  grader_comments_visible_to_graders?: boolean;
+  graders_anonymous_to_graders?: boolean;
+  grader_names_visible_to_final_grader?: boolean;
+  anonymous_grading?: boolean;
+  allowed_attempts?: number;
+  post_manually?: boolean;
+  can_submit?: boolean;
+  annotatable_attachment_id?: number;
+  anonymize_students?: boolean;
+  require_lockdown_browser?: boolean;
+  important_dates?: boolean;
+  muted?: boolean;
+  anonymous_peer_reviews?: boolean;
+  anonymous_instructor_annotations?: boolean;
+  graded_submissions_exist?: boolean;
+  is_quiz_assignment?: boolean;
+  in_closed_grading_period?: boolean;
+  can_duplicate?: boolean;
+  workflow_state?: string;
+  submission?: Submission;
+  score_statistics?: ScoreStatistic;
+  overrides?: AssignmentOverride[];
+  rubric?: RubricCriteria[];
+  rubric_settings?: {
+    points_possible?: string | number;
+  };
+  use_rubric_for_grading?: boolean;
+}
+
+export interface AssignmentDate {
+  id?: number;
+  base?: boolean;
+  title?: string;
+  due_at?: string | null;
+  unlock_at?: string | null;
+  lock_at?: string | null;
+}
+
+export interface AssignmentOverride {
+  id: number;
+  assignment_id?: number;
+  title?: string;
+  due_at?: string | null;
+  unlock_at?: string | null;
+  lock_at?: string | null;
+  student_ids?: number[];
+  group_id?: number;
+  course_section_id?: number;
+}
+
+export interface ScoreStatistic {
+  min?: number;
+  max?: number;
+  mean?: number;
+  upper_q?: number;
+  median?: number;
+  lower_q?: number;
+}
+
+export interface RubricCriteria {
+  id?: string;
+  description?: string;
+  long_description?: string;
+  points?: number;
+  ratings?: Array<{
+    id?: string;
+    description?: string;
+    long_description?: string;
+    points?: number;
+  }>;
 }
 
 /**

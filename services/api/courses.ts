@@ -9,9 +9,25 @@ export interface Course {
   course_code: string;
   start_at: string | null;
   end_at: string | null;
+  term?: {
+    id: number;
+    name: string;
+    start_at: string | null;
+    end_at: string | null;
+  };
+  sections?: Array<{
+    id: number;
+    name: string;
+    start_at: string | null;
+    end_at: string | null;
+    enrollment_role?: string;
+  }>;
+  workflow_state?: string;
+  enrollment_state?: string;
   image_download_url?: string;
   syllabus_body?: string;
   public_description?: string;
+  access_restricted_by_date?: boolean;
 }
 
 /**
@@ -67,10 +83,17 @@ export const coursesService = {
    */
   getCourses: async (params?: {
     include?: string[];
-    state?: 'unpublished' | 'available' | 'completed' | 'deleted';
-    enrollment_state?: 'active' | 'invited' | 'creation_pending' | 'rejected' | 'completed' | 'inactive';
+    state?: ('unpublished' | 'available' | 'completed' | 'deleted')[];
+    enrollment_state?: 'active' | 'invited_or_pending' | 'completed';
+    enrollment_type?: 'teacher' | 'student' | 'ta' | 'observer' | 'designer';
+    exclude_blueprint_courses?: boolean;
   }): Promise<Course[]> => {
-    return apiClient.get('/courses', {params});
+    return apiClient.get('/courses', {
+      params: {
+        ...params,
+        include: params?.include ?? ['term', 'sections'],
+      },
+    });
   },
 
   /**

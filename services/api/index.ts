@@ -8,6 +8,7 @@ export {announcementsService, formatContextCodes} from './announcements';
 export {usersService} from './users';
 export {modulesService} from './modules';
 export {enrollmentsService} from './enrollments';
+export {calendarService} from './calendar';
 
 // Export the interfaces
 export type {Course, DashboardCard} from './courses';
@@ -16,3 +17,4 @@ export type {Announcement} from './announcements';
 export type {User, UserColors} from './users';
 export type {Module, ModuleItem} from './modules';
 export type {Enrollment} from './enrollments';
+export type {CalendarEvent} from './calendar';
