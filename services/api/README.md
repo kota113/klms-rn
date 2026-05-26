@@ -10,8 +10,9 @@ The base URL for the API is `https://lms.keio.jp/api/v1`.
 
 ## Authentication
 
-The app signs in through the K-LMS WebView, issues a user-generated Canvas access token from the authenticated browser
-session, and stores that token in Expo SecureStore. API requests then use the stored token as a Bearer token.
+The app signs in through the K-LMS WebView, copies the Canvas cookies created by that login flow into Expo SecureStore,
+and then sends those app-owned cookies on API requests. API requests use the stored Canvas session cookie instead of a
+user-generated Bearer token, so reopening the app can reuse the saved session until Canvas or the IdP invalidates it.
 
 ## Usage
 

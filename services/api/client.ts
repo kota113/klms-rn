@@ -1,8 +1,23 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
+import type CookieManagerModule from '@preeternal/react-native-cookie-manager';
+import type {Cookie, Cookies} from '@preeternal/react-native-cookie-manager';
 import type * as SecureStoreModule from 'expo-secure-store';
 
 const STORAGE_KEYS = {
+  SESSION_AUTHENTICATED: 'klms_session_authenticated',
+  SESSION_COOKIES: 'klms_session_cookies',
   ACCESS_TOKEN: 'klms_access_token',
+};
+
+const CANVAS_BASE_URL = 'https://lms.keio.jp';
+const CANVAS_SESSION_COOKIE_NAMES = ['_normandy_session', '_csrf_token', 'log_session_id'];
+
+type StoredCanvasCookie = {
+  name: string;
+  value: string;
+  domain?: string;
+  path?: string;
+  expires?: string;
 };
 
 // Check if we're running in a Node.js environment
@@ -10,34 +25,44 @@ const isNodeEnvironment = typeof window === 'undefined';
 const SecureStore: typeof SecureStoreModule | null = isNodeEnvironment
   ? null
   : require('expo-secure-store');
+const CookieManager: typeof CookieManagerModule | null = isNodeEnvironment
+  ? null
+  : require('@preeternal/react-native-cookie-manager').default;
 
 /**
  * Base API client for interacting with the Canvas LMS API
  */
 class ApiClient {
   private client: AxiosInstance;
-  private baseURL: string = 'https://lms.keio.jp/api/v1';
-  private isRefreshing: boolean = false;
-  private failedQueue: any[] = [];
+  private baseURL: string = `${CANVAS_BASE_URL}/api/v1`;
 
-  // Event listeners for token changes
-  private tokenChangeListeners: Array<(hasToken: boolean) => void> = [];
+  // Event listeners for session changes
+  private sessionChangeListeners: Array<(hasSession: boolean) => void> = [];
 
   constructor() {
     this.client = axios.create({
       baseURL: this.baseURL,
+      withCredentials: true,
       headers: {
+        Accept: 'application/json+canvas-string-ids, application/json',
         'Content-Type': 'application/json',
       }
     });
 
-    // Add request interceptor to add the token to each request
+    // Canvas session auth is cookie-based. Login captures WebView cookies into SecureStore.
     this.client.interceptors.request.use(
       async (config) => {
-        const token = await this.getToken();
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+        const cookieHeader = await this.getCookieHeader();
+        if (cookieHeader) {
+          config.headers.Cookie = cookieHeader;
         }
+
+        const csrfToken = await this.getStoredCookieValue('_csrf_token');
+        if (csrfToken && config.method && !['get', 'head', 'options'].includes(config.method.toLowerCase())) {
+          config.headers['X-CSRF-Token'] = csrfToken;
+          config.headers['X-Requested-With'] = 'XMLHttpRequest';
+        }
+
         return config;
       },
       (error) => {
@@ -47,39 +72,15 @@ class ApiClient {
 
     // Add response interceptor for error handling
     this.client.interceptors.response.use(
-      (response) => response,
+      async (response) => {
+        await this.captureSessionFromCookieJar(false);
+        return response;
+      },
       async (error) => {
-        const originalRequest = error.config;
-
-        // If the error is 401 and we haven't tried to refresh the token yet
-        if (error.response?.status === 401 && !originalRequest._retry) {
-          if (this.isRefreshing) {
-            // If we're already refreshing, add this request to the queue
-            return new Promise((resolve, reject) => {
-              this.failedQueue.push({resolve, reject, originalRequest});
-            });
-          }
-
-          originalRequest._retry = true;
-          this.isRefreshing = true;
-
-          try {
-            // Refresh the token
-            const newToken = await this.refreshToken();
-
-            // Process the queue with the new token
-            this.processQueue(null, newToken);
-
-            // Retry the original request with the new token
-            originalRequest.headers.Authorization = `Bearer ${newToken}`;
-            return this.client(originalRequest);
-          } catch (refreshError) {
-            // If refresh fails, process the queue with the error
-            this.processQueue(refreshError, null);
-            return Promise.reject(refreshError);
-          } finally {
-            this.isRefreshing = false;
-          }
+        // If the error is 401, the Canvas session has expired — clear it and notify listeners
+        if (error.response?.status === 401) {
+          await this.clearSession();
+          return Promise.reject(error);
         }
 
         console.error('API Error:', error.response?.data || error.message);
@@ -135,124 +136,230 @@ class ApiClient {
   }
 
   /**
-   * Store the access token in SecureStore or memory (for Node.js)
-   * @param token - The token to store
+   * Check that the shared Canvas cookie session can authenticate an API request.
    */
-  public async setToken(token: string): Promise<void> {
+  public async verifySession(): Promise<boolean> {
     try {
-      await SecureStore?.setItemAsync(STORAGE_KEYS.ACCESS_TOKEN, token);
-      this.notifyTokenChangeListeners(true);
+      await this.get('/users/self/profile');
+      return true;
     } catch (error) {
-      console.error('Error setting token:', error);
+      console.error('Canvas session verification failed:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Copy Canvas cookies out of the native WebView cookie store into app-owned storage.
+   */
+  public async captureSessionFromCookieJar(notify = true): Promise<boolean> {
+    if (!CookieManager || !SecureStore) {
+      return false;
+    }
+
+    try {
+      const cookies = await this.getCanvasCookiesFromNativeStore();
+      const storedCookies = CANVAS_SESSION_COOKIE_NAMES
+        .map((name) => cookies[name])
+        .filter((cookie): cookie is NonNullable<typeof cookie> => Boolean(cookie?.value))
+        .map((cookie) => ({
+          name: cookie.name,
+          value: cookie.value,
+          domain: cookie.domain,
+          path: cookie.path,
+          expires: cookie.expires,
+        }));
+
+      const hasCanvasSession = storedCookies.some((cookie) => cookie.name === '_normandy_session');
+      if (!hasCanvasSession) {
+        return false;
+      }
+
+      await SecureStore.setItemAsync(STORAGE_KEYS.SESSION_COOKIES, JSON.stringify(storedCookies));
+      await SecureStore.setItemAsync(STORAGE_KEYS.SESSION_AUTHENTICATED, 'true');
+      await SecureStore.deleteItemAsync(STORAGE_KEYS.ACCESS_TOKEN);
+      if (notify) {
+        this.notifySessionChangeListeners(true);
+      }
+      return true;
+    } catch (error) {
+      console.error('Error capturing Canvas cookies:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Remove the stored session marker and notify listeners.
+   */
+  public async clearSession(): Promise<void> {
+    try {
+      await SecureStore?.deleteItemAsync(STORAGE_KEYS.SESSION_AUTHENTICATED);
+      await SecureStore?.deleteItemAsync(STORAGE_KEYS.SESSION_COOKIES);
+      await SecureStore?.deleteItemAsync(STORAGE_KEYS.ACCESS_TOKEN);
+      this.notifySessionChangeListeners(false);
+    } catch (error) {
+      console.error('Error clearing session:', error);
+    }
+  }
+
+  /**
+   * Store a marker that the WebView established a Canvas cookie session.
+   */
+  public async setSessionAuthenticated(): Promise<void> {
+    try {
+      await SecureStore?.deleteItemAsync(STORAGE_KEYS.ACCESS_TOKEN);
+      const hasCookies = Boolean(await this.getCookieHeader());
+      if (!hasCookies) {
+        throw new Error('No Canvas session cookies are stored.');
+      }
+      await SecureStore?.setItemAsync(STORAGE_KEYS.SESSION_AUTHENTICATED, 'true');
+      this.notifySessionChangeListeners(true);
+    } catch (error) {
+      console.error('Error setting session marker:', error);
       throw error;
     }
   }
 
   /**
-   * Check if a token exists in storage or environment variables
-   * @returns Promise<boolean> - True if token exists, false otherwise
+   * Check if the app has a stored session marker.
    */
-  public async hasToken(): Promise<boolean> {
-    const token = await this.getToken();
-    return !!token;
+  public async hasSession(): Promise<boolean> {
+    try {
+      const sessionAuthenticated = await SecureStore?.getItemAsync(STORAGE_KEYS.SESSION_AUTHENTICATED);
+      const hasCookies = Boolean(await this.getCookieHeader());
+      return sessionAuthenticated === 'true' && hasCookies;
+    } catch (error) {
+      console.error('Error getting session marker:', error);
+      return false;
+    }
   }
 
   /**
-   * Register a listener for token changes
-   * @param listener - Function to call when token status changes
+   * Restore stored Canvas cookies to the native cookie jar before opening Canvas in a WebView.
    */
-  public addTokenChangeListener(listener: (hasToken: boolean) => void): void {
-    this.tokenChangeListeners.push(listener);
+  public async prepareAuthenticatedWebView(url = CANVAS_BASE_URL): Promise<boolean> {
+    if (!CookieManager) {
+      return false;
+    }
+
+    const cookies = await this.getStoredCookies();
+    if (!cookies.length) {
+      return false;
+    }
+
+    try {
+      for (const cookie of cookies) {
+        const nativeCookie: Cookie = {
+          name: cookie.name,
+          value: cookie.value,
+          domain: cookie.domain,
+          path: cookie.path || '/',
+          expires: cookie.expires,
+        };
+
+        await CookieManager.set(url, nativeCookie);
+        await CookieManager.set(url, nativeCookie, true);
+      }
+
+      await CookieManager.flush().catch(() => undefined);
+      return true;
+    } catch (error) {
+      console.error('Error preparing authenticated WebView:', error);
+      return false;
+    }
   }
 
   /**
-   * Remove a token change listener
+   * Register a listener for session changes.
+   * @param listener - Function to call when session status changes
+   */
+  public addSessionChangeListener(listener: (hasSession: boolean) => void): void {
+    this.sessionChangeListeners.push(listener);
+  }
+
+  /**
+   * Remove a session change listener.
    * @param listener - The listener to remove
    */
+  public removeSessionChangeListener(listener: (hasSession: boolean) => void): void {
+    this.sessionChangeListeners = this.sessionChangeListeners.filter(l => l !== listener);
+  }
+
+  public async clearToken(): Promise<void> {
+    return this.clearSession();
+  }
+
+  public async setToken(_token: string): Promise<void> {
+    return this.setSessionAuthenticated();
+  }
+
+  public async hasToken(): Promise<boolean> {
+    return this.hasSession();
+  }
+
+  public addTokenChangeListener(listener: (hasToken: boolean) => void): void {
+    this.addSessionChangeListener(listener);
+  }
+
   public removeTokenChangeListener(listener: (hasToken: boolean) => void): void {
-    this.tokenChangeListeners = this.tokenChangeListeners.filter(l => l !== listener);
+    this.removeSessionChangeListener(listener);
   }
 
   /**
-   * Get the access token from SecureStore or environment variables (for Node.js)
-   * @returns Promise with the token string or null if not found
+   * Notify all listeners of a session change.
+   * @param hasSession - Whether a session exists
    */
-  private async getToken(): Promise<string | null> {
-    try {
-      const token = await SecureStore?.getItemAsync(STORAGE_KEYS.ACCESS_TOKEN);
-      return token || null;
-    } catch (error) {
-      console.error('Error getting token:', error);
+  private notifySessionChangeListeners(hasSession: boolean): void {
+    this.sessionChangeListeners.forEach(listener => listener(hasSession));
+  }
+
+  private async getCanvasCookiesFromNativeStore(): Promise<Cookies> {
+    if (!CookieManager) {
+      return {};
+    }
+
+    const sharedCookies = await CookieManager.get(CANVAS_BASE_URL).catch(() => ({}));
+    const webKitCookies = await CookieManager.get(CANVAS_BASE_URL, true).catch(() => ({}));
+    return {...sharedCookies, ...webKitCookies};
+  }
+
+  private async getCookieHeader(): Promise<string | null> {
+    const cookies = await this.getStoredCookies();
+    if (!cookies.length) {
       return null;
     }
+
+    return cookies
+      .filter((cookie) => cookie.value)
+      .map((cookie) => `${cookie.name}=${cookie.value}`)
+      .join('; ');
   }
 
-  /**
-   * Notify all listeners of a token change
-   * @param hasToken - Whether a token exists
-   */
-  private notifyTokenChangeListeners(hasToken: boolean): void {
-    this.tokenChangeListeners.forEach(listener => listener(hasToken));
+  private async getStoredCookieValue(name: string): Promise<string | null> {
+    const cookies = await this.getStoredCookies();
+    return cookies.find((cookie) => cookie.name === name)?.value || null;
   }
 
-  /**
-   * Refresh the access token
-   * @returns Promise with the new token
-   */
-  private async refreshToken(): Promise<string> {
+  private async getStoredCookies(): Promise<StoredCanvasCookie[]> {
     try {
-      const currentToken = await this.getToken();
-
-      if (!currentToken) {
-        throw new Error('No token available to refresh');
+      const serializedCookies = await SecureStore?.getItemAsync(STORAGE_KEYS.SESSION_COOKIES);
+      if (!serializedCookies) {
+        return [];
       }
 
-      // In Node.js environment, just return the current token
-      if (isNodeEnvironment) {
-        return currentToken;
+      const parsed = JSON.parse(serializedCookies);
+      if (!Array.isArray(parsed)) {
+        return [];
       }
 
-      // In React Native environment, call the refresh endpoint
-      const response = await axios.post(
-        `${this.baseURL}/jwts/refresh`,
-        {jwt: currentToken},
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        }
-      );
-
-      const newToken = response.data.token;
-
-      // Store the new token
-      await this.setToken(newToken);
-
-      return newToken;
+      return parsed.filter((cookie): cookie is StoredCanvasCookie => {
+        return typeof cookie?.name === 'string' && typeof cookie?.value === 'string';
+      });
     } catch (error) {
-      console.error('Error refreshing token:', error);
-      throw error;
+      console.error('Error getting stored Canvas cookies:', error);
+      return [];
     }
   }
 
-  /**
-   * Process the queue of failed requests
-   * @param error - The error that occurred during token refresh
-   * @param token - The new token
-   */
-  private processQueue(error: any, token: string | null): void {
-    this.failedQueue.forEach(request => {
-      if (error) {
-        request.reject(error);
-      } else if (token) {
-        request.originalRequest.headers.Authorization = `Bearer ${token}`;
-        request.resolve(this.client(request.originalRequest));
-      }
-    });
-
-    // Clear the queue
-    this.failedQueue = [];
-  }
 }
 
 // Export a singleton instance of the API client

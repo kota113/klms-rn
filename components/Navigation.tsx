@@ -13,6 +13,7 @@ import CalendarScreen from "../screens/CalendarScreen";
 import CourseDetailScreen from "../screens/CourseDetailScreen";
 import AssignmentDetailScreen from "../screens/AssignmentDetailScreen";
 import TokenInputScreen from "../screens/TokenInputScreen";
+import OnboardingScreen from "../screens/OnboardingScreen";
 import AuthenticatedWebViewScreen from "../screens/AuthenticatedWebViewScreen";
 import {apiClient} from "../services/api";
 
@@ -23,6 +24,7 @@ export type RootTabParamList = {
   Calendar: undefined;
 };
 export type RootStackParamList = {
+  Onboarding: undefined;
   Login: undefined;
   HomeTabs: undefined;
   Courses: undefined;
@@ -75,6 +77,7 @@ export default function Navigation({initialRouteName}: NavigationProps) {
     <View style={{flex: 1, paddingTop: insets.top, paddingBottom: insets.bottom}}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={initialRouteName}>
+          <Stack.Screen name="Onboarding" component={OnboardingScreen}/>
           <Stack.Screen name="Login" component={TokenInputScreen}/>
           <Stack.Screen name="HomeTabs" component={HomeTabs}/>
           <Stack.Screen name="Courses" component={CoursesScreen}/>

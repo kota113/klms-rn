@@ -64,6 +64,7 @@ type BoxProps = RNViewProps & {
   onPress?: () => void;
   padding?: Token;
   paddingBottom?: Token;
+  paddingTop?: Token;
   paddingHorizontal?: Token;
   paddingLeft?: Token;
   paddingRight?: Token;
