@@ -150,7 +150,19 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
         </YStack>
 
         <YStack marginTop={"$5"} paddingHorizontal={"$4.5"}>
-          <Text fontSize={22} fontWeight={"bold"} marginVertical={"$3"}>これからの課題</Text>
+          <XStack
+            alignItems="center"
+            justifyContent="space-between"
+            marginVertical={"$3"}
+          >
+            <Text fontSize={22} fontWeight={"bold"}>これからの課題</Text>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => (navigation as any).navigate("Todo")}
+            >
+              <Text fontSize={14} color="#333">全て表示</Text>
+            </TouchableOpacity>
+          </XStack>
           {loading ? (
             Array.from({length: 2}).map((_, index) => (
               <XStack key={index} alignItems="center" paddingVertical="$3" gap="$2">

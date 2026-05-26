@@ -1,6 +1,6 @@
 import React from "react";
-import {TouchableOpacity, View} from "react-native";
-import {Image, Text, XStack, YStack} from "./ui";
+import {Text as RNText, TouchableOpacity, View} from "react-native";
+import {Image, XStack, YStack} from "./ui";
 
 interface CourseCardProps {
   title: string;
@@ -27,12 +27,12 @@ export const CourseCard: React.FC<CourseCardProps> = ({
       <View style={{width: 5, backgroundColor: imageBackgroundColor}}/>
       <XStack flex={1} alignItems="center" paddingHorizontal="$3" paddingVertical="$3" gap={"$3.5"}>
         <YStack flex={1}>
-          <Text fontSize={18} fontWeight={"bold"} color={"#333"} marginBottom={"$1"}>
+          <RNText style={{fontSize: 16, fontWeight: "bold", color: "#333", marginBottom: 4}} numberOfLines={1}>
             {title}
-          </Text>
-          <Text fontSize={14} color={"#666"}>
+          </RNText>
+          <RNText style={{fontSize: 13, color: "#666"}} numberOfLines={1}>
             {subTitle}
-          </Text>
+          </RNText>
         </YStack>
       </XStack>
     </XStack>
