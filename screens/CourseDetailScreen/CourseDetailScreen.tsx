@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {ActivityIndicator, Animated, Dimensions, ScrollView, TouchableOpacity, View} from 'react-native';
+import {Animated, Dimensions, ScrollView, Text as RNText, TouchableOpacity, View} from 'react-native';
 import {Text, XStack, YStack} from "../../components/ui";
+import {Skeleton, SkeletonText} from "../../components/skeleton";
 import {MaterialIcons} from '@expo/vector-icons';
 import {TabButton} from "./TabButton";
 import HomeTab from "./HomeTab";
@@ -9,13 +10,18 @@ import GradesTab from "./GradesTab";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../components/Navigation";
 import {Course, coursesService} from "../../services/api";
-import {isDemoCourseId, mockCourses} from "../../services/api/mockData";
 
 const { width } = Dimensions.get('window');
 
+const initialTabIndexByName = {
+  home: 0,
+  assignments: 1,
+  grades: 2,
+};
+
 const CourseDetailScreen = ({navigation, route}: NativeStackScreenProps<RootStackParamList, 'CourseDetail'>) => {
-  const {courseId} = route.params;
-  const [activeTab, setActiveTab] = useState(0);
+  const {courseId, initialTab = 'home'} = route.params;
+  const [activeTab, setActiveTab] = useState(initialTabIndexByName[initialTab]);
   const scrollX = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef<ScrollView>(null);
   const [course, setCourse] = useState<Course | null>(null);
@@ -39,12 +45,6 @@ const CourseDetailScreen = ({navigation, route}: NativeStackScreenProps<RootStac
     const fetchCourseData = async () => {
       try {
         setLoading(true);
-        if (isDemoCourseId(courseId)) {
-          setCourse(mockCourses.find((mockCourse) => mockCourse.id === courseId) ?? mockCourses[0]);
-          setError(null);
-          return;
-        }
-
         const courseData = await coursesService.getCourse(courseId, {
           include: ['syllabus_body', 'public_description']
         });
@@ -137,21 +137,19 @@ const CourseDetailScreen = ({navigation, route}: NativeStackScreenProps<RootStac
           <MaterialIcons name="chevron-left" size={24} color="#333" />
         </TouchableOpacity>
         {loading ? (
-          <Text style={{fontSize: 20, fontWeight: '800', color: '#333'}}>
-            読込中...
-          </Text>
+          <SkeletonText width="58%" height={20}/>
         ) : error ? (
-          <Text style={{fontSize: 20, fontWeight: '800', color: 'red'}}>
+          <RNText style={{flex: 1, fontSize: 18, fontWeight: '800', color: 'red'}} numberOfLines={1}>
             {error}
-          </Text>
+          </RNText>
         ) : course ? (
-          <Text style={{fontSize: 20, fontWeight: '800', color: '#333'}} numberOfLines={1}>
+          <RNText style={{flex: 1, fontSize: 18, fontWeight: '800', color: '#333'}} numberOfLines={1}>
             {course.name}
-          </Text>
+          </RNText>
         ) : (
-          <Text style={{fontSize: 20, fontWeight: '800', color: '#333'}}>
+          <RNText style={{flex: 1, fontSize: 20, fontWeight: '800', color: '#333'}} numberOfLines={1}>
             コースが見つかりません
-          </Text>
+          </RNText>
         )}
       </XStack>
 
@@ -200,9 +198,17 @@ const CourseDetailScreen = ({navigation, route}: NativeStackScreenProps<RootStac
 
       {/* Content */}
       {loading ? (
-        <YStack flex={1} justifyContent="center" alignItems="center">
-          <ActivityIndicator size="large" color="black"/>
-          <Text style={{marginTop: 20}}>読込中...</Text>
+        <YStack flex={1} backgroundColor="white" paddingHorizontal="$4.5" paddingVertical="$4">
+          <SkeletonText width="34%" height={22} style={{marginTop: 8, marginBottom: 16}}/>
+          {Array.from({length: 4}).map((_, index) => (
+            <XStack key={index} alignItems="center" paddingVertical="$3">
+              <Skeleton width={59} height={59}/>
+              <YStack flex={1} gap="$2" style={{marginLeft: 14}}>
+                <SkeletonText width="72%" height={17}/>
+                <SkeletonText width="44%" height={13}/>
+              </YStack>
+            </XStack>
+          ))}
         </YStack>
       ) : error ? (
         <YStack flex={1} justifyContent="center" alignItems="center">

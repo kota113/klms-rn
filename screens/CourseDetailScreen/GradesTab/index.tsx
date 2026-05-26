@@ -1,9 +1,9 @@
 import {Text, YStack} from "../../../components/ui";
-import {ActivityIndicator, ScrollView, View} from "react-native";
+import {ScrollView, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import GradeItem from "./GradeItem";
+import {Skeleton, SkeletonText} from "../../../components/skeleton";
 import {assignmentsService, Enrollment, enrollmentsService, usersService} from "../../../services/api";
-import {isDemoCourseId, mockEnrollment, mockSubmissions} from "../../../services/api/mockData";
 
 interface GradesTabProps {
   courseId: number;
@@ -19,19 +19,6 @@ export default function GradesTab({courseId}: GradesTabProps) {
     const fetchGrades = async () => {
       try {
         setLoading(true);
-        if (isDemoCourseId(courseId)) {
-          setEnrollment({...mockEnrollment, course_id: courseId});
-          setAssignments(mockSubmissions.map(submission => ({
-            id: submission.assignment_id,
-            title: submission.assignment.name,
-            fullScore: submission.assignment.points_possible || 0,
-            achievedScore: submission.score || 0,
-            dueDate: submission.assignment.due_at ? new Date(submission.assignment.due_at).toLocaleDateString() : 'なし'
-          })));
-          setError(null);
-          return;
-        }
-
         // First get the current user's ID
         const currentUser = await usersService.getCurrentUser();
 
@@ -84,9 +71,19 @@ export default function GradesTab({courseId}: GradesTabProps) {
 
   if (loading) {
     return (
-      <YStack flex={1} justifyContent="center" alignItems="center" backgroundColor="white">
-        <ActivityIndicator size="large" color="#black"/>
-        <Text marginTop="$4">読込中...</Text>
+      <YStack flex={1} backgroundColor="white" paddingHorizontal="$4.5" paddingVertical="$4">
+        <YStack marginTop="$2">
+          <SkeletonText width={90} height={25} style={{marginVertical: 8}}/>
+          <SkeletonText width={64} height={35} style={{marginTop: 12}}/>
+        </YStack>
+        <YStack marginTop="$6">
+          <SkeletonText width={74} height={22} style={{marginTop: 8, marginBottom: 14}}/>
+          {Array.from({length: 4}).map((_, index) => (
+            <YStack key={index} marginVertical="$2">
+              <Skeleton width="100%" height={44}/>
+            </YStack>
+          ))}
+        </YStack>
       </YStack>
     );
   }
@@ -94,71 +91,7 @@ export default function GradesTab({courseId}: GradesTabProps) {
   if (error) {
     return (
       <YStack flex={1} justifyContent="center" alignItems="center" backgroundColor="white">
-        <Text color="red">{error}</Text>
-        <View
-          style={{
-            marginTop: 20,
-            padding: 10,
-            backgroundColor: '#f0f0f0',
-            borderRadius: 5
-          }}
-          onTouchEnd={() => {
-            if (courseId) {
-              setLoading(true);
-              setError(null);
-              // Retry fetching grades
-              usersService.getCurrentUser()
-                .then(user => {
-                  return Promise.all([
-                    user,
-                    enrollmentsService.getCourseEnrollments(courseId, {
-                      user_id: user.id,
-                      type: ['StudentEnrollment'],
-                      include: ['grades']
-                    })
-                  ]);
-                })
-                .then(([user, enrollments]) => {
-                  if (enrollments && enrollments.length > 0) {
-                    setEnrollment(enrollments[0]);
-
-                    // Fetch submissions for the course
-                    return assignmentsService.getSubmissions(courseId, {
-                      student_ids: [user.id.toString()],
-                      include: ['assignment'],
-                      workflow_state: 'graded'
-                    });
-                  } else {
-                    setError('このコースの成績はありません');
-                    return Promise.reject('No enrollment found');
-                  }
-                })
-                .then(submissions => {
-                  if (submissions && submissions.length > 0) {
-                    // Transform submissions into the format expected by GradeItem
-                    const gradeItems = submissions.map(submission => ({
-                      id: submission.assignment_id,
-                      title: submission.assignment.name,
-                      fullScore: submission.assignment.points_possible || 0,
-                      achievedScore: submission.score || 0,
-                      dueDate: submission.assignment.due_at ? new Date(submission.assignment.due_at).toLocaleDateString() : 'なし'
-                    }));
-
-                    setAssignments(gradeItems);
-                  } else {
-                    setAssignments([]);
-                  }
-                })
-                .catch(err => {
-                  console.error('Error retrying grades fetch:', err);
-                  setError('Failed to load grades. Please try again.');
-                })
-                .finally(() => setLoading(false));
-            }
-          }}
-        >
-          <Text>Retry</Text>
-        </View>
+        <Text>{error}</Text>
       </YStack>
     );
   }

@@ -2,14 +2,18 @@ import {Text, YStack} from "../../../components/ui";
 import {ScrollView} from "react-native";
 import AssignmentItem from "./AssignmentItem";
 import React, {useEffect, useState} from "react";
+import {Skeleton} from "../../../components/skeleton";
 import {Assignment, assignmentsService} from "../../../services/api";
-import {isDemoCourseId, mockAssignments, mockPastAssignments} from "../../../services/api/mockData";
+import {useNavigation} from "@react-navigation/native";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {RootStackParamList} from "../../../components/Navigation";
 
 interface AssignmentsTabProps {
   courseId: number;
 }
 
 export default function AssignmentsTab({courseId}: AssignmentsTabProps) {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [upcomingAssignments, setUpcomingAssignments] = useState<Assignment[]>([]);
   const [pastAssignments, setPastAssignments] = useState<Assignment[]>([]);
   const [loading, setLoading] = useState(true);
@@ -17,12 +21,6 @@ export default function AssignmentsTab({courseId}: AssignmentsTabProps) {
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
-        if (isDemoCourseId(courseId)) {
-          setUpcomingAssignments(mockAssignments.filter((assignment) => assignment.course_id === courseId));
-          setPastAssignments(mockPastAssignments.filter((assignment) => assignment.course_id === courseId));
-          return;
-        }
-
         // Fetch upcoming assignments
         const upcomingData = await assignmentsService.getAssignments(courseId, {
           bucket: 'upcoming'
@@ -50,9 +48,13 @@ export default function AssignmentsTab({courseId}: AssignmentsTabProps) {
     <ScrollView>
       <YStack backgroundColor={"white"} minHeight={"100%"} paddingHorizontal={"$4.5"} paddingVertical={"$4"}>
         <YStack marginTop={"$2"}>
-          <Text fontSize={22} marginTop={"$2"} marginBottom={"$3"} fontWeight={"bold"}>これからの課題</Text>
+          <Text fontSize={20} marginTop={"$2"} marginBottom={"$3"} fontWeight={"bold"}>これからの課題</Text>
           {loading ? (
-            <Text>Loading upcoming assignments...</Text>
+            Array.from({length: 2}).map((_, index) => (
+              <YStack key={index} marginBottom="$3">
+                <Skeleton width="100%" height={58}/>
+              </YStack>
+            ))
           ) : upcomingAssignments.length > 0 ? (
             upcomingAssignments.map((assignment) => (
               <AssignmentItem
@@ -60,9 +62,11 @@ export default function AssignmentsTab({courseId}: AssignmentsTabProps) {
                 id={assignment.id.toString()}
                 title={assignment.name}
                 dueDate={assignment.due_at ? new Date(assignment.due_at).toLocaleDateString() : 'なし'}
-                onPress={() => {
-                  // Navigate to assignment detail
-                }}
+                onPress={() => navigation.navigate("AssignmentDetail", {
+                  courseId,
+                  assignmentId: assignment.id,
+                  title: assignment.name,
+                })}
               />
             ))
           ) : (
@@ -70,9 +74,13 @@ export default function AssignmentsTab({courseId}: AssignmentsTabProps) {
           )}
         </YStack>
         <YStack marginTop={"$6"}>
-          <Text fontSize={22} marginTop={"$2"} marginBottom={"$3"} fontWeight={"bold"}>過ぎた課題</Text>
+          <Text fontSize={20} marginTop={"$2"} marginBottom={"$3"} fontWeight={"bold"}>過ぎた課題</Text>
           {loading ? (
-            <Text>Loading past assignments...</Text>
+            Array.from({length: 2}).map((_, index) => (
+              <YStack key={index} marginBottom="$3">
+                <Skeleton width="100%" height={58}/>
+              </YStack>
+            ))
           ) : pastAssignments.length > 0 ? (
             pastAssignments.map((assignment) => (
               <AssignmentItem
@@ -80,9 +88,11 @@ export default function AssignmentsTab({courseId}: AssignmentsTabProps) {
                 id={assignment.id.toString()}
                 title={assignment.name}
                 dueDate={assignment.due_at ? new Date(assignment.due_at).toLocaleDateString() : 'なし'}
-                onPress={() => {
-                  // Navigate to assignment detail
-                }}
+                onPress={() => navigation.navigate("AssignmentDetail", {
+                  courseId,
+                  assignmentId: assignment.id,
+                  title: assignment.name,
+                })}
               />
             ))
           ) : (
