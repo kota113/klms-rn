@@ -2,7 +2,7 @@ import {Text, XStack} from "./ui";
 import React from "react";
 import Animated, {useAnimatedStyle, withTiming} from "react-native-reanimated";
 import {Pressable, StyleSheet} from "react-native";
-import {MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
+import {MaterialIcons} from '@expo/vector-icons';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -48,14 +48,11 @@ export default function BottomBar({state, descriptors, navigation}: any) {
           case 'Dashboard':
             icon = <MaterialIcons name="home" size={24} color={isFocused ? "black" : "gray"} />;
             break;
-          case 'Courses':
-            icon = <MaterialCommunityIcons name="book-open-variant" size={24} color={isFocused ? "black" : "gray"}/>;
+          case 'Todo':
+            icon = <MaterialIcons name="check-circle-outline" size={24} color={isFocused ? "black" : "gray"} />;
             break;
           case 'Calendar':
             icon = <MaterialIcons name="calendar-today" size={24} color={isFocused ? "black" : "gray"} />;
-            break;
-          case 'Notifications':
-            icon = <MaterialIcons name="notifications" size={24} color={isFocused ? "black" : "gray"} />;
             break;
           default:
             icon = <MaterialIcons name="home" size={24} color={isFocused ? "black" : "gray"} />;

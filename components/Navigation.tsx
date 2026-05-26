@@ -8,25 +8,27 @@ import {createNativeStackNavigator, NativeStackScreenProps} from "@react-navigat
 import BottomBar from "./BottomBar";
 import DashboardScreen from "../screens/DashboardScreen";
 import CoursesScreen from "../screens/CoursesScreen";
+import TodoScreen from "../screens/TodoScreen";
 import CalendarScreen from "../screens/CalendarScreen";
-import NotificationsScreen from "../screens/NotificationsScreen";
 import CourseDetailScreen from "../screens/CourseDetailScreen";
-import HiddenCourses from "../screens/HiddenCoursesScreen";
+import AssignmentDetailScreen from "../screens/AssignmentDetailScreen";
 import TokenInputScreen from "../screens/TokenInputScreen";
+import AuthenticatedWebViewScreen from "../screens/AuthenticatedWebViewScreen";
 import {apiClient} from "../services/api";
 
 export type RootTabParamList = {
   Home: undefined;
   Dashboard: undefined;
-  Courses: undefined;
+  Todo: undefined;
   Calendar: undefined;
-  Notifications: undefined;
 };
 export type RootStackParamList = {
   Login: undefined;
   HomeTabs: undefined;
-  CourseDetail: { courseId: number };
-  HiddenCourses: undefined;
+  Courses: undefined;
+  CourseDetail: { courseId: number; initialTab?: 'home' | 'assignments' | 'grades' };
+  AssignmentDetail: { courseId: number; assignmentId: number; title?: string };
+  AuthenticatedWebView: { url: string; title?: string };
 };
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -34,21 +36,31 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const HomeTabs = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
   useEffect(() => {
-    const checkToken = async () => {
-      const tokenExists = await apiClient.hasToken();
-      if (!tokenExists) {
+    const checkSession = async () => {
+      const sessionExists = await apiClient.hasSession();
+      if (!sessionExists) {
         navigation.replace('Login');
         return;
       }
     };
-    checkToken().then();
+    checkSession().then();
+
+    // Navigate to Login when the session is cleared (e.g. expired 401).
+    const sessionChangeListener = (exists: boolean) => {
+      if (!exists) {
+        navigation.replace('Login');
+      }
+    };
+    apiClient.addSessionChangeListener(sessionChangeListener);
+    return () => {
+      apiClient.removeSessionChangeListener(sessionChangeListener);
+    };
   }, []);
   return (
     <Tab.Navigator tabBar={(props: any) => <BottomBar {...props} />}>
       <Tab.Screen name="Dashboard" component={DashboardScreen} options={{headerShown: false, title: "ダッシュボード"}}/>
-      <Tab.Screen name="Courses" component={CoursesScreen} options={{headerShown: false, title: "コース"}}/>
+      <Tab.Screen name="Todo" component={TodoScreen} options={{headerShown: false, title: "ToDo"}}/>
       <Tab.Screen name="Calendar" component={CalendarScreen} options={{headerShown: false, title: "カレンダー"}}/>
-      <Tab.Screen name="Notifications" component={NotificationsScreen} options={{headerShown: false, title: "通知"}}/>
     </Tab.Navigator>
   )
 }
@@ -65,8 +77,10 @@ export default function Navigation({initialRouteName}: NavigationProps) {
         <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName={initialRouteName}>
           <Stack.Screen name="Login" component={TokenInputScreen}/>
           <Stack.Screen name="HomeTabs" component={HomeTabs}/>
+          <Stack.Screen name="Courses" component={CoursesScreen}/>
           <Stack.Screen name="CourseDetail" component={CourseDetailScreen}/>
-          <Stack.Screen name="HiddenCourses" component={HiddenCourses}/>
+          <Stack.Screen name="AssignmentDetail" component={AssignmentDetailScreen}/>
+          <Stack.Screen name="AuthenticatedWebView" component={AuthenticatedWebViewScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </View>
