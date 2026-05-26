@@ -10,11 +10,13 @@ import DashboardScreen from "../screens/DashboardScreen";
 import CoursesScreen from "../screens/CoursesScreen";
 import TodoScreen from "../screens/TodoScreen";
 import CalendarScreen from "../screens/CalendarScreen";
+import MessagesScreen from "../screens/MessagesScreen";
 import CourseDetailScreen from "../screens/CourseDetailScreen";
 import AssignmentDetailScreen from "../screens/AssignmentDetailScreen";
 import TokenInputScreen from "../screens/TokenInputScreen";
 import OnboardingScreen from "../screens/OnboardingScreen";
 import AuthenticatedWebViewScreen from "../screens/AuthenticatedWebViewScreen";
+import ConversationDetailScreen from "../screens/ConversationDetailScreen";
 import {apiClient} from "../services/api";
 
 export type RootTabParamList = {
@@ -22,6 +24,7 @@ export type RootTabParamList = {
   Dashboard: undefined;
   Todo: undefined;
   Calendar: undefined;
+  Messages: undefined;
 };
 export type RootStackParamList = {
   Onboarding: undefined;
@@ -31,6 +34,7 @@ export type RootStackParamList = {
   CourseDetail: { courseId: number; initialTab?: 'home' | 'assignments' | 'grades' };
   AssignmentDetail: { courseId: number; assignmentId: number; title?: string };
   AuthenticatedWebView: { url: string; title?: string };
+  ConversationDetail: { conversationId: string; title?: string };
 };
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -63,6 +67,7 @@ const HomeTabs = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
       <Tab.Screen name="Dashboard" component={DashboardScreen} options={{headerShown: false, title: "ダッシュボード"}}/>
       <Tab.Screen name="Todo" component={TodoScreen} options={{headerShown: false, title: "ToDo"}}/>
       <Tab.Screen name="Calendar" component={CalendarScreen} options={{headerShown: false, title: "カレンダー"}}/>
+      <Tab.Screen name="Messages" component={MessagesScreen} options={{headerShown: false, title: "メッセージ"}}/>
     </Tab.Navigator>
   )
 }
@@ -84,6 +89,7 @@ export default function Navigation({initialRouteName}: NavigationProps) {
           <Stack.Screen name="CourseDetail" component={CourseDetailScreen}/>
           <Stack.Screen name="AssignmentDetail" component={AssignmentDetailScreen}/>
           <Stack.Screen name="AuthenticatedWebView" component={AuthenticatedWebViewScreen}/>
+          <Stack.Screen name="ConversationDetail" component={ConversationDetailScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </View>

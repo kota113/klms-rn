@@ -16,7 +16,6 @@ import {
 import {
   Button as ExpoButton,
   Host,
-  Text as ExpoText,
   TextInput as ExpoTextInput,
 } from "@expo/ui";
 
@@ -60,6 +59,8 @@ type BoxProps = RNViewProps & {
   marginTop?: Token;
   marginVertical?: Token;
   maxWidth?: Token;
+  minWidth?: Token;
+  maxHeight?: Token;
   minHeight?: Token;
   onPress?: () => void;
   padding?: Token;
@@ -207,52 +208,14 @@ type TextProps = RNTextProps & {
   marginRight?: Token;
   marginTop?: Token;
   marginVertical?: Token;
+  minHeight?: Token;
+  minWidth?: Token;
   opacity?: TextStyle["opacity"];
   paddingHorizontal?: Token;
   textAlign?: TextStyle["textAlign"];
 };
 
 export function Text({style, color, fontSize, fontWeight, marginBottom, marginRight, marginTop, marginVertical, opacity, paddingHorizontal, textAlign, ...props}: TextProps) {
-  const textStyle = StyleSheet.flatten([
-    {
-      color,
-      fontSize,
-      fontWeight,
-      opacity,
-      textAlign,
-    },
-    style,
-  ]) as TextStyle | undefined;
-  const hostStyle = StyleSheet.flatten([
-    {
-      marginBottom: token(marginBottom) as number | undefined,
-      marginRight: token(marginRight) as number | undefined,
-      marginTop: token(marginTop) as number | undefined,
-      marginVertical: token(marginVertical) as number | undefined,
-      paddingHorizontal: token(paddingHorizontal) as number | undefined,
-    },
-  ]) as ViewStyle;
-  const children = props.children;
-
-  if (typeof children === "string" || typeof children === "number") {
-    return (
-      <Host matchContents style={hostStyle}>
-        <ExpoText
-          numberOfLines={props.numberOfLines}
-          textStyle={{
-            color: typeof textStyle?.color === "string" ? textStyle.color : undefined,
-            fontSize: typeof textStyle?.fontSize === "number" ? textStyle.fontSize : undefined,
-            fontWeight: textStyle?.fontWeight ? String(textStyle.fontWeight) as "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900" : undefined,
-            lineHeight: typeof textStyle?.lineHeight === "number" ? textStyle.lineHeight : undefined,
-            textAlign: textStyle?.textAlign === "auto" || textStyle?.textAlign === "justify" ? undefined : textStyle?.textAlign,
-          }}
-        >
-          {String(children)}
-        </ExpoText>
-      </Host>
-    );
-  }
-
   return (
     <RNText
       {...props}

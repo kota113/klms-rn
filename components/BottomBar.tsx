@@ -54,6 +54,9 @@ export default function BottomBar({state, descriptors, navigation}: any) {
           case 'Calendar':
             icon = <MaterialIcons name="calendar-today" size={24} color={isFocused ? "black" : "gray"} />;
             break;
+          case 'Messages':
+            icon = <MaterialIcons name="mail-outline" size={24} color={isFocused ? "black" : "gray"} />;
+            break;
           default:
             icon = <MaterialIcons name="home" size={24} color={isFocused ? "black" : "gray"} />;
         }

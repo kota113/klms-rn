@@ -89,7 +89,7 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
         backgroundColor="white"
       >
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <MaterialIcons name="arrow-back" size={24} color="#333"/>
+          <MaterialIcons name="chevron-left" size={24} color="#333"/>
         </TouchableOpacity>
         <Text fontSize={22} fontWeight="800" color="#333">
           コース一覧
