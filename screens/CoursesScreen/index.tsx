@@ -79,23 +79,33 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
 
   return (
     <YStack flex={1} backgroundColor="#ffffff" minHeight={"100%"}>
-      {/* Header */}
-      <XStack
-        alignItems="center"
-        justifyContent="space-between"
-        paddingHorizontal="$5"
-        paddingVertical="$5"
-        paddingBottom="$6"
-        backgroundColor="white"
-      >
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <MaterialIcons name="chevron-left" size={24} color="#333"/>
-        </TouchableOpacity>
-        <Text fontSize={22} fontWeight="800" color="#333">
-          コース一覧
+
+      <YStack backgroundColor="white" paddingHorizontal="$4" paddingBottom="$5">
+        <XStack alignItems="center" height={34} marginTop={"$3"}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <MaterialIcons name="arrow-back" size={24} color="#333"/>
+          </TouchableOpacity>
+        </XStack>
+        <Text fontSize={22} fontWeight="800" color="#333" marginTop="$2" numberOfLines={1}>
+          すべてのコース
         </Text>
-        <XStack width={24}/>
-      </XStack>
+      </YStack>
+
+      {/*<XStack*/}
+      {/*  alignItems="center"*/}
+      {/*  backgroundColor="white"*/}
+      {/*  paddingHorizontal="$4"*/}
+      {/*  paddingVertical="$5"*/}
+      {/*  paddingBottom="$6"*/}
+      {/*  gap="$2"*/}
+      {/*>*/}
+      {/*  <TouchableOpacity onPress={() => navigation.goBack()}>*/}
+      {/*    <MaterialIcons name="chevron-left" size={24} color="#333"/>*/}
+      {/*  </TouchableOpacity>*/}
+      {/*  <Text fontSize={22} fontWeight="800" color="#333" numberOfLines={1} style={{flex: 1}}>*/}
+      {/*    すべてのコース*/}
+      {/*  </Text>*/}
+      {/*</XStack>*/}
 
       {/* Search Bar */}
       <XStack
@@ -103,11 +113,10 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
         marginHorizontal="$4"
         marginBottom="$4"
         paddingHorizontal="$4"
-        paddingVertical="$0.5"
         backgroundColor="#2222"
-        borderRadius="$6"
+        borderRadius="$5"
       >
-        <MaterialIcons name="search" size={26} color="#999" style={{ marginRight: 8 }} />
+        <MaterialIcons name="search" size={24} color="#999" style={{marginRight: 6}}/>
         <TextInput
           placeholder="コースを検索"
           placeholderTextColor="#999"
@@ -122,7 +131,7 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
       </XStack>
 
       {/* Filter Buttons */}
-      <XStack paddingHorizontal={16} marginTop={"$1"} marginBottom={"$4"}>
+      <XStack paddingHorizontal={16} marginBottom={"$5"}>
         <FilterButton title="すべて" selected={selectedFilter === 'all'} onPress={() => setSelectedFilter('all')} />
         <FilterButton title="受講中" selected={selectedFilter === 'active'} onPress={() => setSelectedFilter('active')} />
         <FilterButton title="過去のコース" selected={selectedFilter === 'completed'} onPress={() => setSelectedFilter('completed')} />

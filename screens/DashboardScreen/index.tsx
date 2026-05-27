@@ -1,6 +1,6 @@
 import {Image, Text, XStack, YStack} from "../../components/ui";
 import React, {useEffect, useState} from "react";
-import {Alert, ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions, View} from "react-native";
+import {ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions, View} from "react-native";
 import AnnouncementItem from "./AnnouncementItem";
 import AssignmentItem from "../CourseDetailScreen/AssignmentsTab/AssignmentItem";
 import {Skeleton, SkeletonText} from "../../components/skeleton";
@@ -16,6 +16,7 @@ import {
   UserColors,
   usersService
 } from "../../services/api";
+import TabHeader from "../../components/TabHeader";
 
 
 export default function DashboardScreen({navigation}: NativeStackScreenProps<RootStackParamList>) {
@@ -85,20 +86,14 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
     return courseColors[assetString] || '#f0f0f0'; // Default light gray if no color is set
   };
 
+  const getAnnouncementCourseId = (announcement: Announcement): number | null => {
+    const match = announcement.context_code.match(/^course_(\d+)$/);
+    return match ? Number(match[1]) : null;
+  };
+
   return (
     <YStack flex={1} backgroundColor="#ffffff" minHeight={"100%"}>
-      <XStack
-        alignItems="center"
-        justifyContent="center"
-        paddingHorizontal="$4"
-        paddingVertical="$5"
-        paddingBottom="$6"
-        backgroundColor="white"
-      >
-        <Text fontSize={22} fontWeight="800" color="#333">
-          ダッシュボード
-        </Text>
-      </XStack>
+      <TabHeader title="ダッシュボード"/>
       <ScrollView contentContainerStyle={{paddingBottom: 20}}>
         <YStack marginTop={"$2"}>
           <XStack
@@ -107,7 +102,7 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
             paddingHorizontal="$4.5"
             marginBottom="$3"
           >
-            <Text fontSize={22} fontWeight={"bold"}>コース</Text>
+            <Text fontSize={20} fontWeight={"bold"}>コース</Text>
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => navigation.navigate("Courses")}
@@ -147,7 +142,7 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
               ))}
             </View>
           ) : (
-            <Text textAlign="center" marginTop="$3" color="#666">
+            <Text paddingHorizontal={18} textAlign="left" marginTop="$3" color="#666">
               現在履修中のコースはありません
             </Text>
           )}
@@ -159,7 +154,7 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
             justifyContent="space-between"
             marginVertical={"$3"}
           >
-            <Text fontSize={22} fontWeight={"bold"}>これからの課題</Text>
+            <Text fontSize={20} fontWeight={"bold"}>これからの課題</Text>
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => (navigation as any).navigate("Todo")}
@@ -193,13 +188,13 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
               />
             ))
           ) : (
-            <Text textAlign="center" marginTop="$3" color="#666">
+            <Text textAlign="left" marginTop="$3" color="#666">
               これからの課題はありません
             </Text>
           )}
         </YStack>
         <YStack marginTop={"$5"} paddingHorizontal={"$4.5"}>
-          <Text fontSize={22} fontWeight={"bold"} marginVertical={"$3"}>最近のアナウンス</Text>
+          <Text fontSize={20} fontWeight={"bold"} marginVertical={"$3"}>最近のアナウンス</Text>
           {loading ? (
             Array.from({length: 2}).map((_, index) => (
               <XStack key={index} alignItems="center" paddingVertical="$3" gap="$2">
@@ -218,20 +213,21 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
                 title={announcement.title}
                 courseName={announcement.context_code.replace('course_', '')}
                 onPress={() => {
-                  if (!announcement.html_url) {
-                    Alert.alert("開けません", "表示先URLがありません。");
+                  const courseId = getAnnouncementCourseId(announcement);
+                  if (!courseId) {
                     return;
                   }
 
-                  navigation.navigate("AuthenticatedWebView", {
-                    url: announcement.html_url,
+                  navigation.navigate("AnnouncementDetail", {
+                    courseId,
+                    announcementId: announcement.id,
                     title: announcement.title,
                   });
                 }}
               />
             ))
           ) : (
-            <Text textAlign="center" marginTop="$3" color="#666">
+            <Text textAlign="left" marginTop="$3" color="#666">
               最近のアナウンスはありません
             </Text>
           )}

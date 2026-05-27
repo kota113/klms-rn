@@ -3,21 +3,17 @@ import {
   Image as RNImage,
   ImageProps as RNImageProps,
   Pressable,
-  StyleSheet,
   StyleProp,
+  StyleSheet,
   Text as RNText,
+  TextInputProps as RNTextInputProps,
   TextProps as RNTextProps,
   TextStyle,
-  TextInputProps as RNTextInputProps,
   View as RNView,
   ViewProps as RNViewProps,
   ViewStyle,
 } from "react-native";
-import {
-  Button as ExpoButton,
-  Host,
-  TextInput as ExpoTextInput,
-} from "@expo/ui";
+import {Button as ExpoButton, Host, TextInput as ExpoTextInput,} from "@expo/ui";
 
 type Token = number | string | undefined;
 
@@ -32,6 +28,10 @@ const space: Record<string, number> = {
   "$4.5": 18,
   "$5": 20,
   "$6": 24,
+  "$7": 32,
+  "$8": 40,
+  "$9": 48,
+  "$10": 56
 };
 
 function token(value: Token): number | string | undefined {

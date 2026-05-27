@@ -17,6 +17,7 @@ import TokenInputScreen from "../screens/TokenInputScreen";
 import OnboardingScreen from "../screens/OnboardingScreen";
 import AuthenticatedWebViewScreen from "../screens/AuthenticatedWebViewScreen";
 import ConversationDetailScreen from "../screens/ConversationDetailScreen";
+import AnnouncementDetailScreen from "../screens/AnnouncementDetailScreen";
 import ModulePageScreen from "../screens/ModulePageScreen";
 import {apiClient} from "../services/api";
 
@@ -37,6 +38,7 @@ export type RootStackParamList = {
   ModulePage: { courseId: number; pageUrl: string; title?: string };
   AuthenticatedWebView: { url: string; title?: string; downloadUrl?: string; showFileActions?: boolean };
   ConversationDetail: { conversationId: string; title?: string };
+  AnnouncementDetail: { courseId: number; announcementId: number; title?: string };
 };
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -93,6 +95,7 @@ export default function Navigation({initialRouteName}: NavigationProps) {
           <Stack.Screen name="ModulePage" component={ModulePageScreen}/>
           <Stack.Screen name="AuthenticatedWebView" component={AuthenticatedWebViewScreen}/>
           <Stack.Screen name="ConversationDetail" component={ConversationDetailScreen}/>
+          <Stack.Screen name="AnnouncementDetail" component={AnnouncementDetailScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </View>

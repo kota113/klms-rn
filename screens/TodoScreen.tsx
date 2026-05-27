@@ -3,6 +3,7 @@ import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Text, XStack, YStack} from '../components/ui';
 import {SkeletonText} from '../components/skeleton';
 import {assignmentsService, coursesService, DashboardCard, TodoItem} from '../services/api';
+import TabHeader from '../components/TabHeader';
 
 type TodoScreenProps = {
   navigation: {
@@ -120,18 +121,7 @@ export default function TodoScreen({navigation}: TodoScreenProps) {
 
   return (
     <YStack flex={1} backgroundColor="#ffffff" minHeight="100%">
-      <XStack
-        alignItems="center"
-        justifyContent="center"
-        paddingHorizontal="$4"
-        paddingVertical="$5"
-        paddingBottom="$6"
-        backgroundColor="white"
-      >
-        <Text fontSize={22} fontWeight="800" color="#333">
-          {"　ToDo　"}
-        </Text>
-      </XStack>
+      <TabHeader title="ToDo"/>
 
       {loading ? (
         <YStack paddingHorizontal="$4.5">

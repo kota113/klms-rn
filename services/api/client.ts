@@ -59,7 +59,7 @@ class ApiClient {
 
         const csrfToken = await this.getStoredCookieValue('_csrf_token');
         if (csrfToken && config.method && !['get', 'head', 'options'].includes(config.method.toLowerCase())) {
-          config.headers['X-CSRF-Token'] = csrfToken;
+          config.headers['X-CSRF-Token'] = this.decodeCookieValue(csrfToken);
           config.headers['X-Requested-With'] = 'XMLHttpRequest';
         }
 
@@ -360,6 +360,14 @@ class ApiClient {
   private async getStoredCookieValue(name: string): Promise<string | null> {
     const cookies = await this.getStoredCookies();
     return cookies.find((cookie) => cookie.name === name)?.value || null;
+  }
+
+  private decodeCookieValue(value: string): string {
+    try {
+      return decodeURIComponent(value);
+    } catch {
+      return value;
+    }
   }
 
   private async getStoredCookies(): Promise<StoredCanvasCookie[]> {

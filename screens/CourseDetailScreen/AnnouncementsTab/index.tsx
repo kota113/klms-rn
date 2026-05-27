@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Alert, ScrollView, View} from "react-native";
+import {ScrollView, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {Text, XStack, YStack} from "../../../components/ui";
@@ -96,14 +96,10 @@ export default function AnnouncementsTab({courseId}: AnnouncementsTabProps) {
                 />
               ) : undefined}
               onPress={() => {
-                if (!announcement.html_url) {
-                  Alert.alert("開けません", "表示先URLがありません。");
-                  return;
-                }
-
                 markAnnouncementRead(announcement.id);
-                navigation.navigate("AuthenticatedWebView", {
-                  url: announcement.html_url,
+                navigation.navigate("AnnouncementDetail", {
+                  courseId,
+                  announcementId: announcement.id,
                   title: announcement.title,
                 });
               }}

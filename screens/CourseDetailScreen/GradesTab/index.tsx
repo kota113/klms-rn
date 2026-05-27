@@ -1,5 +1,5 @@
 import {Text, YStack} from "../../../components/ui";
-import {ScrollView, View} from "react-native";
+import {ScrollView} from "react-native";
 import React, {useEffect, useState} from "react";
 import GradeItem from "./GradeItem";
 import {Skeleton, SkeletonText} from "../../../components/skeleton";
@@ -90,9 +90,11 @@ export default function GradesTab({courseId}: GradesTabProps) {
 
   if (error) {
     return (
-      <YStack flex={1} justifyContent="center" alignItems="center" backgroundColor="white">
-        <Text>{error}</Text>
-      </YStack>
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+        <YStack backgroundColor="white" minHeight="100%" paddingHorizontal="$4.5" paddingVertical="$4">
+          <Text marginTop="$6" textAlign="center">{error}</Text>
+        </YStack>
+      </ScrollView>
     );
   }
 

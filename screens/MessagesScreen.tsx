@@ -1,12 +1,13 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {RefreshControl, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Text, XStack, YStack} from '../components/ui';
-import {Skeleton, SkeletonText} from '../components/skeleton';
+import {SkeletonText} from '../components/skeleton';
 import {Conversation, conversationsService} from '../services/api';
 import {MaterialIcons} from '@expo/vector-icons';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../components/Navigation';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import TabHeader from '../components/TabHeader';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -77,18 +78,7 @@ export default function MessagesScreen({navigation}: Props) {
 
   return (
     <YStack flex={1} backgroundColor="#ffffff">
-      <XStack
-        alignItems="center"
-        justifyContent="center"
-        paddingHorizontal="$4"
-        paddingVertical="$5"
-        paddingBottom="$6"
-        backgroundColor="white"
-      >
-        <Text fontSize={22} fontWeight="800" color="#333">
-          メッセージ
-        </Text>
-      </XStack>
+      <TabHeader title="メッセージ"/>
 
       <ScrollView
         style={styles.scrollView}

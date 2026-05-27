@@ -41,6 +41,27 @@ const formatList = (value?: Array<string | number>) => {
   return value.join(", ");
 };
 
+const submissionTypeLabels: Record<string, string> = {
+  discussion_topic: "ディスカッション",
+  external_tool: "外部ツール",
+  media_recording: "録音・録画",
+  none: "提出なし",
+  online_quiz: "クイズ",
+  online_text_entry: "テキスト入力",
+  online_upload: "ファイルアップロード",
+  online_url: "URL",
+  on_paper: "紙で提出",
+  student_annotation: "学生による注釈",
+};
+
+const formatSubmissionTypes = (value?: string[]) => {
+  if (!value || value.length === 0) {
+    return "なし";
+  }
+
+  return value.map((type) => submissionTypeLabels[type] ?? type).join("・");
+};
+
 const submissionWorkflowStateLabels: Record<string, string> = {
   graded: "採点済み",
   pending_review: "レビュー待ち",
@@ -199,7 +220,7 @@ function BeforeSections({assignment, description}: {assignment: Assignment; desc
       </Section>
 
       <Section title="提出方法">
-        <DetailRow label="提出形式" value={formatList(assignment.submission_types)}/>
+        <DetailRow label="提出形式" value={formatSubmissionTypes(assignment.submission_types)}/>
         <DetailRow label="許可拡張子" value={formatList(assignment.allowed_extensions)}/>
         <DetailRow
           label="試行回数"
@@ -306,7 +327,7 @@ function SubmittedSections({assignment, description}: {assignment: Assignment; d
       )}
 
       <Section title="提出方法">
-        <DetailRow label="提出形式" value={formatList(assignment.submission_types)}/>
+        <DetailRow label="提出形式" value={formatSubmissionTypes(assignment.submission_types)}/>
         <DetailRow label="試行回数" value={assignment.allowed_attempts === -1 ? "無制限" : assignment.allowed_attempts ?? "なし"}/>
       </Section>
 
@@ -345,7 +366,7 @@ function OverdueSections({assignment, description}: {assignment: Assignment; des
       </Section>
 
       <Section title="提出方法">
-        <DetailRow label="提出形式" value={formatList(assignment.submission_types)}/>
+        <DetailRow label="提出形式" value={formatSubmissionTypes(assignment.submission_types)}/>
         <DetailRow label="許可拡張子" value={formatList(assignment.allowed_extensions)}/>
         <DetailRow label="試行回数" value={assignment.allowed_attempts === -1 ? "無制限" : assignment.allowed_attempts ?? "なし"}/>
       </Section>

@@ -18,7 +18,7 @@ export const FilterButton: React.FC<FilterButtonProps> = ({title, selected = fal
       backgroundColor={selected ? '#d6d6d6' : '#f5f5f5'}
       borderColor={selected ? '#d6d6d6' : '#f0f0f0'}
       borderWidth={1}
-      borderRadius="$3"
+      borderRadius="$3.5"
       gap="$1.5"
       marginRight="$3"
     >

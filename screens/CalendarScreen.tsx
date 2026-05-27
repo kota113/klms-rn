@@ -3,7 +3,8 @@ import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import {Text, XStack, YStack} from '../components/ui';
 import {Skeleton, SkeletonText} from '../components/skeleton';
-import {calendarService, CalendarEvent, coursesService, DashboardCard, usersService} from '../services/api';
+import {CalendarEvent, calendarService, coursesService, DashboardCard, usersService} from '../services/api';
+import TabHeader from '../components/TabHeader';
 
 type CalendarScreenProps = {
   navigation: {
@@ -164,18 +165,7 @@ export default function CalendarScreen({navigation}: CalendarScreenProps) {
 
   return (
     <YStack flex={1} backgroundColor="#ffffff" minHeight="100%">
-      <XStack
-        alignItems="center"
-        justifyContent="center"
-        paddingHorizontal="$4"
-        paddingVertical="$5"
-        paddingBottom="$6"
-        backgroundColor="white"
-      >
-        <Text fontSize={22} fontWeight="800" color="#333">
-          カレンダー
-        </Text>
-      </XStack>
+      <TabHeader title="カレンダー"/>
 
       {loading ? (
         <YStack paddingHorizontal="$4.5">

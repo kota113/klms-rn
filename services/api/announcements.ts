@@ -7,16 +7,24 @@ export interface Announcement {
   id: number;
   title: string;
   message: string;
-  posted_at: string;
+  posted_at: string | null;
   delayed_post_at: string | null;
   author: {
     id: number;
     display_name: string;
     avatar_image_url: string;
-  };
+  } | null;
   context_code: string;
+  user_name?: string;
   read_state: 'read' | 'unread';
   html_url: string;
+  attachments?: {
+    id: string | number;
+    display_name: string;
+    filename?: string;
+    url?: string;
+    'content-type'?: string;
+  }[];
 }
 
 /**
@@ -61,6 +69,13 @@ export const announcementsService = {
    */
   getCourseAnnouncement: async (courseId: number, announcementId: number): Promise<Announcement> => {
     return apiClient.get(`/courses/${courseId}/discussion_topics/${announcementId}`);
+  },
+
+  /**
+   * Mark the initial text of an announcement/discussion topic as read.
+   */
+  markCourseAnnouncementRead: async (courseId: number, announcementId: number): Promise<void> => {
+    await apiClient.put(`/courses/${courseId}/discussion_topics/${announcementId}/read`);
   },
 
   /**
