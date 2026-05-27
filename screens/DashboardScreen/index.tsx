@@ -124,7 +124,7 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
                 </View>
               ))}
             </View>
-          ) : (
+          ) : courses.length > 0 ? (
             <View style={styles.courseGrid}>
               {courses.map((item) => (
                 <TouchableOpacity
@@ -146,6 +146,10 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
                 </TouchableOpacity>
               ))}
             </View>
+          ) : (
+            <Text textAlign="center" marginTop="$3" color="#666">
+              現在履修中のコースはありません
+            </Text>
           )}
         </YStack>
 
@@ -189,7 +193,9 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
               />
             ))
           ) : (
-            <Text>これからの課題はありません</Text>
+            <Text textAlign="center" marginTop="$3" color="#666">
+              これからの課題はありません
+            </Text>
           )}
         </YStack>
         <YStack marginTop={"$5"} paddingHorizontal={"$4.5"}>
@@ -225,7 +231,9 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
               />
             ))
           ) : (
-            <Text>最近のアナウンスはありません</Text>
+            <Text textAlign="center" marginTop="$3" color="#666">
+              最近のアナウンスはありません
+            </Text>
           )}
         </YStack>
       </ScrollView>
