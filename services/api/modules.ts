@@ -15,7 +15,7 @@ export interface Module {
   completed_at: string | null;
   items_count: number;
   items_url: string;
-  items: ModuleItem[];
+  items?: ModuleItem[];
 }
 
 /**
@@ -28,8 +28,8 @@ export interface ModuleItem {
   title: string;
   indent: number;
   type: 'File' | 'Page' | 'Discussion' | 'Assignment' | 'Quiz' | 'SubHeader' | 'ExternalUrl' | 'ExternalTool';
-  content_id: number;
-  html_url: string;
+  content_id?: number;
+  html_url?: string;
   url: string;
   page_url?: string;
   external_url?: string;

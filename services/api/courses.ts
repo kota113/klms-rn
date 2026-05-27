@@ -88,7 +88,7 @@ export const coursesService = {
     enrollment_type?: 'teacher' | 'student' | 'ta' | 'observer' | 'designer';
     exclude_blueprint_courses?: boolean;
   }): Promise<Course[]> => {
-    return apiClient.get('/courses', {
+    return apiClient.getPaginated<Course>('/courses', {
       params: {
         ...params,
         include: params?.include ?? ['term', 'sections'],

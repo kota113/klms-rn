@@ -101,6 +101,25 @@ class ApiClient {
   }
 
   /**
+   * Make a paginated GET request to Canvas list endpoints.
+   * Canvas exposes the next page URL in the Link response header.
+   */
+  async getPaginated<T = any>(url: string, config?: AxiosRequestConfig): Promise<T[]> {
+    const results: T[] = [];
+    let nextUrl: string | null = url;
+    let nextConfig: AxiosRequestConfig | undefined = config;
+
+    while (nextUrl) {
+      const response: AxiosResponse<T[]> = await this.client.get<T[]>(nextUrl, nextConfig);
+      results.push(...response.data);
+      nextUrl = this.getNextPageUrl(response.headers.link);
+      nextConfig = undefined;
+    }
+
+    return results;
+  }
+
+  /**
    * Make a POST request to the API
    * @param url - The endpoint URL
    * @param data - The data to send in the request body
@@ -362,6 +381,19 @@ class ApiClient {
       console.error('Error getting stored Canvas cookies:', error);
       return [];
     }
+  }
+
+  private getNextPageUrl(linkHeader?: string): string | null {
+    if (!linkHeader) {
+      return null;
+    }
+
+    const nextLink = linkHeader
+      .split(',')
+      .map((link) => link.trim())
+      .find((link) => /rel="?next"?/.test(link));
+
+    return nextLink?.match(/<([^>]+)>/)?.[1] ?? null;
   }
 
 }

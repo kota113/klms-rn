@@ -1,6 +1,6 @@
 import {Image, Text, XStack, YStack} from "../../components/ui";
 import React, {useEffect, useState} from "react";
-import {ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions, View} from "react-native";
+import {Alert, ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions, View} from "react-native";
 import AnnouncementItem from "./AnnouncementItem";
 import AssignmentItem from "../CourseDetailScreen/AssignmentsTab/AssignmentItem";
 import {Skeleton, SkeletonText} from "../../components/skeleton";
@@ -211,6 +211,17 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
                 id={announcement.id.toString()}
                 title={announcement.title}
                 courseName={announcement.context_code.replace('course_', '')}
+                onPress={() => {
+                  if (!announcement.html_url) {
+                    Alert.alert("開けません", "表示先URLがありません。");
+                    return;
+                  }
+
+                  navigation.navigate("AuthenticatedWebView", {
+                    url: announcement.html_url,
+                    title: announcement.title,
+                  });
+                }}
               />
             ))
           ) : (

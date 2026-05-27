@@ -22,6 +22,7 @@ import {
 type Token = number | string | undefined;
 
 const space: Record<string, number> = {
+  "$0.5": 2,
   "$1": 4,
   "$1.5": 6,
   "$2": 8,

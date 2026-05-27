@@ -41,6 +41,22 @@ const formatList = (value?: Array<string | number>) => {
   return value.join(", ");
 };
 
+const submissionWorkflowStateLabels: Record<string, string> = {
+  graded: "採点済み",
+  pending_review: "レビュー待ち",
+  submitted: "提出済み",
+  unsubmitted: "未提出",
+};
+
+const formatSubmissionWorkflowState = (value?: string | null, fallback?: string) => {
+  const state = value ?? fallback;
+  if (!state) {
+    return "不明";
+  }
+
+  return submissionWorkflowStateLabels[state] ?? `不明（${state}）`;
+};
+
 const stripHtml = (html?: string | null) => {
   if (!html) {
     return "";
@@ -64,6 +80,14 @@ const stripHtml = (html?: string | null) => {
 type AssignmentPhase = "before" | "submitted" | "overdue";
 
 const getPhase = (assignment: Assignment): AssignmentPhase => {
+  if (
+    assignment.submission?.workflow_state === "submitted" ||
+    assignment.submission?.workflow_state === "graded" ||
+    assignment.submission?.workflow_state === "pending_review"
+  ) {
+    return "submitted";
+  }
+
   const isSubmitted = !!(
     assignment.submission?.submitted_at ||
     assignment.has_submitted_submissions
@@ -114,7 +138,7 @@ function PhaseBanner({phase, assignment}: {phase: AssignmentPhase; assignment: A
     submitted: {
       bg: "#F0FDF4",
       icon: "check-circle",
-      label: "提出済み",
+      label: formatSubmissionWorkflowState(assignment.submission?.workflow_state, "submitted"),
       sub: assignment.submission?.submitted_at
         ? `提出日時: ${formatDateTime(assignment.submission.submitted_at)}`
         : undefined,
@@ -237,7 +261,7 @@ function SubmittedSections({assignment, description}: {assignment: Assignment; d
     <>
       <Section title="提出情報">
         <DetailRow label="提出日時" value={formatDateTime(assignment.submission?.submitted_at)}/>
-        <DetailRow label="提出状況" value={assignment.submission?.workflow_state || "submitted"}/>
+        <DetailRow label="提出状況" value={formatSubmissionWorkflowState(assignment.submission?.workflow_state, "submitted")}/>
         <DetailRow label="遅延提出" value={formatBoolean(assignment.submission?.late)}/>
         <DetailRow label="免除" value={formatBoolean(assignment.submission?.excused)}/>
       </Section>
@@ -302,7 +326,7 @@ function OverdueSections({assignment, description}: {assignment: Assignment; des
       <Section title="提出状況">
         <DetailRow label="期限" value={formatDateTime(assignment.due_at)}/>
         <DetailRow label="未提出扱い" value={formatBoolean(assignment.submission?.missing)}/>
-        <DetailRow label="提出状況" value={assignment.submission?.workflow_state || "unsubmitted"}/>
+        <DetailRow label="提出状況" value={formatSubmissionWorkflowState(assignment.submission?.workflow_state, "unsubmitted")}/>
         <DetailRow label="免除" value={formatBoolean(assignment.submission?.excused)}/>
       </Section>
 
@@ -352,7 +376,7 @@ function OverdueSections({assignment, description}: {assignment: Assignment; des
 // ─── Main screen ───────────────────────────────────────────────────────────────
 
 export default function AssignmentDetailScreen({navigation, route}: Props) {
-  const {courseId, assignmentId, title} = route.params;
+  const {courseId, assignmentId} = route.params;
   const [assignment, setAssignment] = useState<Assignment | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

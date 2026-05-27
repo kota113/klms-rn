@@ -7,6 +7,7 @@ export {assignmentsService} from './assignments';
 export {announcementsService, formatContextCodes} from './announcements';
 export {usersService} from './users';
 export {modulesService} from './modules';
+export {pagesService} from './pages';
 export {enrollmentsService} from './enrollments';
 export {calendarService} from './calendar';
 export {conversationsService} from './conversations';
@@ -17,6 +18,7 @@ export type {Assignment, Submission, TodoItem, UpcomingEvent} from './assignment
 export type {Announcement} from './announcements';
 export type {User, UserColors} from './users';
 export type {Module, ModuleItem} from './modules';
+export type {Page} from './pages';
 export type {Enrollment} from './enrollments';
 export type {CalendarEvent} from './calendar';
 export type {Conversation, ConversationParticipant, ConversationDetail, ConversationMessage} from './conversations';

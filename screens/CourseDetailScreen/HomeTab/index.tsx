@@ -1,19 +1,58 @@
 import {Text, YStack} from "../../../components/ui";
 import {FileItem} from "./FileItem";
-import {ScrollView, Text as RNText, View} from "react-native";
+import {Alert, ScrollView, Text as RNText, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import AssignmentItem from "../AssignmentsTab/AssignmentItem";
-import {Skeleton, SkeletonText} from "../../../components/skeleton";
 import {Module, ModuleItem, modulesService} from "../../../services/api";
 import {useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../../components/Navigation";
 import {MaterialIcons} from "@expo/vector-icons";
 import Animated, {FadeIn, FadeOut, LinearTransition} from "react-native-reanimated";
+import * as WebBrowser from "expo-web-browser";
+import PageItem from "./PageItem";
+import ExternalLinkItem from "./ExternalLinkItem";
+import DiscussionItem from "./DiscussionItem";
+import QuizItem from "./QuizItem";
+import ExternalToolItem from "./ExternalToolItem";
+import SubHeaderItem from "./SubHeaderItem";
+import ModulesSkeleton from "./ModulesSkeleton";
 
 interface HomeTabProps {
   courseId: number;
 }
+
+const loadModulesWithItems = async (courseId: number): Promise<Module[]> => {
+  const modulesData = await modulesService.getModules(courseId, {
+    include: ['items', 'content_details']
+  });
+
+  return Promise.all(
+    modulesData.map(async (module) => {
+      if (module.items || module.items_count === 0) {
+        return module;
+      }
+
+      const items = await modulesService.getModuleItems(courseId, module.id, {
+        include: ['content_details'],
+      });
+      return {...module, items};
+    })
+  );
+};
+
+const formatModuleAssignmentDueDate = (value?: string | null) => {
+  if (!value) {
+    return 'なし';
+  }
+
+  return new Date(value).toLocaleString('ja-JP', {
+    month: 'numeric',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};
 
 export default function HomeTab({courseId}: HomeTabProps) {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -38,11 +77,7 @@ export default function HomeTab({courseId}: HomeTabProps) {
     const fetchModules = async () => {
       try {
         setLoading(true);
-        // Fetch modules with items included
-        const modulesData = await modulesService.getModules(courseId, {
-          include: ['items']
-        });
-        setModules(modulesData);
+        setModules(await loadModulesWithItems(courseId));
         setError(null);
       } catch (err) {
         console.error('Error fetching modules:', err);
@@ -57,7 +92,34 @@ export default function HomeTab({courseId}: HomeTabProps) {
     }
   }, [courseId]);
 
-  // Helper function to render a module item based on its type
+  const openExternalUrl = async (item: ModuleItem) => {
+    const url = item.external_url || item.html_url;
+    if (!url) {
+      Alert.alert("リンクを開けません", "リンク先URLがありません。");
+      return;
+    }
+
+    try {
+      await WebBrowser.openBrowserAsync(url);
+    } catch (err) {
+      console.error("Error opening external url:", err);
+      Alert.alert("リンクを開けません", "外部リンクを開けませんでした。");
+    }
+  };
+
+  const openAuthenticatedModuleItem = (item: ModuleItem) => {
+    const url = item.html_url || item.url;
+    if (!url) {
+      Alert.alert("開けません", "表示先URLがありません。");
+      return;
+    }
+
+    navigation.navigate("AuthenticatedWebView", {
+      url,
+      title: item.title,
+    });
+  };
+
   const renderModuleItem = (item: ModuleItem) => {
     switch (item.type) {
       case 'File':
@@ -65,48 +127,99 @@ export default function HomeTab({courseId}: HomeTabProps) {
           <FileItem
             key={item.id}
             title={item.title}
-            onPress={() => navigation.navigate("AuthenticatedWebView", {
-              url: item.html_url || item.url,
-              downloadUrl: item.url,
-              showFileActions: true,
-              title: item.title,
-            })}
+            onPress={() => {
+              if (!item.html_url && !item.url) {
+                Alert.alert("ファイルを開けません", "表示先URLがありません。");
+                return;
+              }
+
+              navigation.navigate("AuthenticatedWebView", {
+                url: item.html_url || item.url,
+                downloadUrl: item.url,
+                showFileActions: true,
+                title: item.title,
+              });
+            }}
+          />
+        );
+      case 'Page':
+        return (
+          <PageItem
+            key={item.id}
+            title={item.title}
+            onPress={() => {
+              if (item.page_url) {
+                navigation.navigate("ModulePage", {
+                  courseId,
+                  pageUrl: item.page_url,
+                  title: item.title,
+                });
+                return;
+              }
+              openAuthenticatedModuleItem(item);
+            }}
           />
         );
       case 'Assignment':
+        if (!item.content_id) {
+          return null;
+        }
+
+        const assignmentId = item.content_id;
         return (
           <AssignmentItem
             key={item.id}
             id={item.id.toString()}
             title={item.title}
-            dueDate={item.content_details?.due_at ? new Date(item.content_details.due_at).toLocaleDateString() : 'なし'}
+            dueDate={formatModuleAssignmentDueDate(item.content_details?.due_at)}
             onPress={() => navigation.navigate("AssignmentDetail", {
               courseId,
-              assignmentId: item.content_id,
+              assignmentId,
               title: item.title,
             })}
           />
         );
+      case 'ExternalUrl':
+        return (
+          <ExternalLinkItem
+            key={item.id}
+            title={item.title}
+            onPress={() => void openExternalUrl(item)}
+          />
+        );
+      case 'Discussion':
+        return (
+          <DiscussionItem
+            key={item.id}
+            title={item.title}
+            onPress={() => openAuthenticatedModuleItem(item)}
+          />
+        );
+      case 'Quiz':
+        return (
+          <QuizItem
+            key={item.id}
+            title={item.title}
+            onPress={() => openAuthenticatedModuleItem(item)}
+          />
+        );
+      case 'ExternalTool':
+        return (
+          <ExternalToolItem
+            key={item.id}
+            title={item.title}
+            onPress={() => openAuthenticatedModuleItem(item)}
+          />
+        );
+      case 'SubHeader':
+        return <SubHeaderItem key={item.id} title={item.title}/>;
       default:
         return null;
     }
   };
 
   if (loading) {
-    return (
-      <YStack flex={1} backgroundColor="white" paddingHorizontal="$4.5" paddingVertical="$4">
-        {Array.from({length: 2}).map((_, sectionIndex) => (
-          <YStack key={sectionIndex} marginTop="$2" marginBottom="$4">
-            <SkeletonText width="62%" height={22} style={{marginTop: 8, marginBottom: 12}}/>
-            {Array.from({length: 2}).map((__, itemIndex) => (
-              <YStack key={itemIndex} marginBottom="$3">
-                <Skeleton width="100%" height={58}/>
-              </YStack>
-            ))}
-          </YStack>
-        ))}
-      </YStack>
-    );
+    return <ModulesSkeleton/>;
   }
 
   if (error) {
@@ -123,7 +236,7 @@ export default function HomeTab({courseId}: HomeTabProps) {
           onTouchEnd={() => {
             if (courseId) {
               setLoading(true);
-              modulesService.getModules(courseId, {include: ['items']})
+              loadModulesWithItems(courseId)
                 .then(data => {
                   setModules(data);
                   setError(null);

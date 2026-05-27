@@ -12,6 +12,6 @@ export const FileItem: React.FC<ModuleItemProps> = ({title, onPress}) => (
   <Item
     title={title}
     onPress={onPress}
-    icon={<MaterialIcons name={"attach-file"} size={27} color={"666"}/>}
+    icon={<MaterialIcons name={"attach-file"} size={23} color={"#666"}/>}
   />
 );

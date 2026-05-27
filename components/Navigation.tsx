@@ -17,6 +17,7 @@ import TokenInputScreen from "../screens/TokenInputScreen";
 import OnboardingScreen from "../screens/OnboardingScreen";
 import AuthenticatedWebViewScreen from "../screens/AuthenticatedWebViewScreen";
 import ConversationDetailScreen from "../screens/ConversationDetailScreen";
+import ModulePageScreen from "../screens/ModulePageScreen";
 import {apiClient} from "../services/api";
 
 export type RootTabParamList = {
@@ -31,8 +32,9 @@ export type RootStackParamList = {
   Login: undefined;
   HomeTabs: undefined;
   Courses: undefined;
-  CourseDetail: { courseId: number; initialTab?: 'home' | 'assignments' | 'grades' };
+  CourseDetail: { courseId: number; initialTab?: 'home' | 'assignments' | 'announcements' | 'grades' };
   AssignmentDetail: { courseId: number; assignmentId: number; title?: string };
+  ModulePage: { courseId: number; pageUrl: string; title?: string };
   AuthenticatedWebView: { url: string; title?: string; downloadUrl?: string; showFileActions?: boolean };
   ConversationDetail: { conversationId: string; title?: string };
 };
@@ -88,6 +90,7 @@ export default function Navigation({initialRouteName}: NavigationProps) {
           <Stack.Screen name="Courses" component={CoursesScreen}/>
           <Stack.Screen name="CourseDetail" component={CourseDetailScreen}/>
           <Stack.Screen name="AssignmentDetail" component={AssignmentDetailScreen}/>
+          <Stack.Screen name="ModulePage" component={ModulePageScreen}/>
           <Stack.Screen name="AuthenticatedWebView" component={AuthenticatedWebViewScreen}/>
           <Stack.Screen name="ConversationDetail" component={ConversationDetailScreen}/>
         </Stack.Navigator>
