@@ -2,10 +2,9 @@ import type React from "react";
 import Item from "../../components/Item";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 
-export default function AnnouncementItem({id, title, courseName, onPress, rightElement}: {
-  id: string,
+export default function AnnouncementItem({title, courseName, onPress, rightElement}: {
   title: string,
-  courseName: string,
+  courseName?: string,
   onPress: () => void,
   rightElement?: React.ReactNode,
 }) {

@@ -80,7 +80,6 @@ export default function AnnouncementsTab({courseId}: AnnouncementsTabProps) {
           announcements.map((announcement) => (
             <AnnouncementItem
               key={announcement.id.toString()}
-              id={announcement.id.toString()}
               title={announcement.title}
               courseName={formatPostedAt(announcement.posted_at || announcement.delayed_post_at)}
               rightElement={announcement.read_state === "unread" ? (

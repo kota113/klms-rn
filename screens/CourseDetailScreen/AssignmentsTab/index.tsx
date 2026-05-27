@@ -59,7 +59,6 @@ export default function AssignmentsTab({courseId}: AssignmentsTabProps) {
             upcomingAssignments.map((assignment) => (
               <AssignmentItem
                 key={assignment.id.toString()}
-                id={assignment.id.toString()}
                 title={assignment.name}
                 dueDate={assignment.due_at ? new Date(assignment.due_at).toLocaleDateString() : 'なし'}
                 onPress={() => navigation.navigate("AssignmentDetail", {
@@ -85,7 +84,6 @@ export default function AssignmentsTab({courseId}: AssignmentsTabProps) {
             pastAssignments.map((assignment) => (
               <AssignmentItem
                 key={assignment.id.toString()}
-                id={assignment.id.toString()}
                 title={assignment.name}
                 dueDate={assignment.due_at ? new Date(assignment.due_at).toLocaleDateString() : 'なし'}
                 onPress={() => navigation.navigate("AssignmentDetail", {

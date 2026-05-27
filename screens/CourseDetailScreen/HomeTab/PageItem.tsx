@@ -1,5 +1,5 @@
 import React from "react";
-import {MaterialIcons} from "@expo/vector-icons";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 import Item from "../../../components/Item";
 
 type PageItemProps = {
@@ -12,7 +12,7 @@ export default function PageItem({title, onPress}: PageItemProps) {
     <Item
       title={title}
       onPress={onPress}
-      icon={<MaterialIcons name="article" size={23} color="#666"/>}
+      icon={<MaterialCommunityIcons name="text-box-outline" size={23} color="#666"/>}
     />
   );
 }

@@ -1,19 +1,21 @@
 import {MaterialCommunityIcons} from "@expo/vector-icons";
+import {StyleProp, TextStyle} from "react-native";
 import Item from "../../../components/Item";
 
-export default function AssignmentItem({id, title, dueDate, courseName, onPress}: {
-  id: string,
+export default function AssignmentItem({title, dueDate, courseName, onPress, titleStyle}: {
   title: string,
   dueDate: string,
   courseName?: string,
-  onPress: () => void
+  onPress: () => void,
+  titleStyle?: StyleProp<TextStyle>,
 }) {
   return (
     <Item
       title={title}
-      subText={`課題・期限: ${dueDate} ${courseName ? `・${courseName}` : ""}`}
+      subText={`期限: ${dueDate} ${courseName ? `・${courseName}` : ""}`}
       onPress={onPress}
-      icon={<MaterialCommunityIcons name={"clipboard-text-outline"} size={23} color="#666"/>}
+      icon={<MaterialCommunityIcons name={"clipboard-text"} size={23} color="#666"/>}
+      titleStyle={titleStyle}
     />
   )
 }

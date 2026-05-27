@@ -131,13 +131,13 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
                   }}
                 >
                   <Image
-                    height={courseTileWidth * 0.7}
+                    height={courseTileWidth * 0.6}
                     width={courseTileWidth}
                     borderRadius={8}
                     backgroundColor={item.image_download_url ? undefined : getCourseColor(item.id)}
                     source={{uri: item.image_download_url || undefined}}
                   />
-                  <Text fontSize={13} marginTop={"$2"} fontWeight={"bold"} numberOfLines={1}>{item.courseCode}</Text>
+                  <Text fontSize={13} marginTop={"$2"} fontWeight={"bold"} numberOfLines={2}>{item.courseCode}</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -176,7 +176,6 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
             assignments.slice(0, 2).map((assignment) => (
               <AssignmentItem
                 key={assignment.id.toString()}
-                id={assignment.id.toString()}
                 title={assignment.name}
                 courseName={courses.find(course => course.id === assignment.course_id)?.courseCode || ''}
                 dueDate={assignment.due_at ? new Date(assignment.due_at).toLocaleDateString() : 'なし'}
@@ -185,6 +184,7 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
                   assignmentId: assignment.id,
                   title: assignment.name,
                 })}
+                titleStyle={styles.dashboardAssignmentTitle}
               />
             ))
           ) : (
@@ -209,9 +209,8 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
             announcements.slice(0, 2).map((announcement) => (
               <AnnouncementItem
                 key={announcement.id.toString()}
-                id={announcement.id.toString()}
                 title={announcement.title}
-                courseName={announcement.context_code.replace('course_', '')}
+                courseName={announcement.author?.display_name}
                 onPress={() => {
                   const courseId = getAnnouncementCourseId(announcement);
                   if (!courseId) {
@@ -247,5 +246,8 @@ const styles = StyleSheet.create({
   },
   courseTile: {
     marginBottom: 8,
+  },
+  dashboardAssignmentTitle: {
+    fontWeight: '700',
   },
 });

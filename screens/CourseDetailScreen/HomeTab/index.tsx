@@ -169,7 +169,6 @@ export default function HomeTab({courseId}: HomeTabProps) {
         return (
           <AssignmentItem
             key={item.id}
-            id={item.id.toString()}
             title={item.title}
             dueDate={formatModuleAssignmentDueDate(item.content_details?.due_at)}
             onPress={() => navigation.navigate("AssignmentDetail", {
