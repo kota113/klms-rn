@@ -1,8 +1,9 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {ScrollView, TextInput, TouchableOpacity} from 'react-native';
+import {ScrollView, TouchableOpacity} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import {Text, XStack, YStack} from "../../components/ui";
 import {FilterButton} from "./FilterButton";
+import {CourseSearchBar} from "./CourseSearchBar";
 import {CourseCard} from "../../components/CourseCard";
 import {Skeleton, SkeletonText} from "../../components/skeleton";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
@@ -107,28 +108,7 @@ const CoursesListScreen = ({navigation}: NativeStackScreenProps<RootStackParamLi
       {/*  </Text>*/}
       {/*</XStack>*/}
 
-      {/* Search Bar */}
-      <XStack
-        alignItems="center"
-        marginHorizontal="$4"
-        marginBottom="$4"
-        paddingHorizontal="$4"
-        backgroundColor="#2222"
-        borderRadius="$5"
-      >
-        <MaterialIcons name="search" size={24} color="#999" style={{marginRight: 6}}/>
-        <TextInput
-          placeholder="コースを検索"
-          placeholderTextColor="#999"
-          style={{
-            flex: 1,
-            fontSize: 17,
-            color: '#666'
-          }}
-          value={searchTerm}
-          onChangeText={setSearchTerm}
-        />
-      </XStack>
+      <CourseSearchBar value={searchTerm} onChangeText={setSearchTerm}/>
 
       {/* Filter Buttons */}
       <XStack paddingHorizontal={16} marginBottom={"$5"}>
