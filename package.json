@@ -7,7 +7,6 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "postinstall": "node scripts/patch-expo-swift-weak.js",
     "download-materials": "ts-node scripts/dump-course-materials.ts"
   },
   "dependencies": {
