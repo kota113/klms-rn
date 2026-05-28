@@ -1,6 +1,7 @@
 import {Image, Text, XStack, YStack} from "../../components/ui";
 import React, {useEffect, useState} from "react";
-import {ScrollView, StyleSheet, TouchableOpacity, useWindowDimensions, View} from "react-native";
+import {Alert, ScrollView, Share, StyleSheet, TouchableOpacity, useWindowDimensions, View} from "react-native";
+import {MaterialIcons} from "@expo/vector-icons";
 import AnnouncementItem from "./AnnouncementItem";
 import AssignmentItem from "../CourseDetailScreen/AssignmentsTab/AssignmentItem";
 import {Skeleton, SkeletonText} from "../../components/skeleton";
@@ -18,6 +19,12 @@ import {
 } from "../../services/api";
 import TabHeader from "../../components/TabHeader";
 
+const APP_SHARE_URL = "https://play.google.com/store/apps/details?id=com.kota113.klms";
+const APP_SHARE_CONFIG_URL = "https://k-app.kota113.com/share-url.json";
+
+type AppShareConfig = {
+  shareUrl?: unknown;
+};
 
 export default function DashboardScreen({navigation}: NativeStackScreenProps<RootStackParamList>) {
   const [courses, setCourses] = useState<DashboardCard[]>([]);
@@ -91,9 +98,42 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
     return match ? Number(match[1]) : null;
   };
 
+  const handleShareApp = async () => {
+    try {
+      const response = await fetch(APP_SHARE_CONFIG_URL);
+      const config = await response.json() as AppShareConfig;
+      const shareUrl = typeof config.shareUrl === "string" && config.shareUrl.length > 0
+        ? config.shareUrl
+        : APP_SHARE_URL;
+      const shareMessage = `K-appでKLMSの課題やお知らせを確認できます。\n${shareUrl}`;
+
+      await Share.share({
+        title: "K-app",
+        message: shareMessage,
+        url: shareUrl,
+      });
+    } catch (error) {
+      console.error("Error sharing app:", error);
+      Alert.alert("共有できません", "共有シートを開けませんでした。もう一度お試しください。");
+    }
+  };
+
   return (
     <YStack flex={1} backgroundColor="#ffffff" minHeight={"100%"}>
-      <TabHeader title="ダッシュボード"/>
+      <TabHeader
+        title="ダッシュボード"
+        rightElement={
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityLabel="K-appを共有"
+            activeOpacity={0.7}
+            onPress={handleShareApp}
+            style={styles.shareButton}
+          >
+            <MaterialIcons name="ios-share" size={22} color="#333"/>
+          </TouchableOpacity>
+        }
+      />
       <ScrollView contentContainerStyle={{paddingBottom: 20}}>
         <YStack marginTop={"$2"}>
           <XStack
@@ -249,5 +289,11 @@ const styles = StyleSheet.create({
   },
   dashboardAssignmentTitle: {
     fontWeight: '700',
+  },
+  shareButton: {
+    alignItems: "center",
+    height: 44,
+    justifyContent: "center",
+    width: 44,
   },
 });
