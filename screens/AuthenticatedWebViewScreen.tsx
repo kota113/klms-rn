@@ -120,7 +120,7 @@ export default function AuthenticatedWebViewScreen({navigation, route}: Props) {
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <MaterialIcons name="chevron-left" size={24} color="#333"/>
         </TouchableOpacity>
-        <Text fontSize={18} color="#333" numberOfLines={1}>
+        <Text fontSize={18} color="#333" numberOfLines={1} style={styles.headerTitle}>
           {title}
         </Text>
       </XStack>
@@ -218,6 +218,11 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+  },
+  headerTitle: {
+    flex: 1,
+    flexShrink: 1,
+    minWidth: 0,
   },
   fileActionButton: {
     alignItems: "center",
