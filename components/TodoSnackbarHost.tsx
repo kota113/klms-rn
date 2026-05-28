@@ -1,5 +1,5 @@
 import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Animated, Easing, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Text, XStack} from './ui';
 
 export type TodoSnackbarResult = 'actionPerformed' | 'dismissed';
@@ -34,6 +34,7 @@ const durationMs = (duration: TodoSnackbarOptions['duration'], hasAction: boolea
 export const TodoSnackbarHost = forwardRef<TodoSnackbarHostRef>((_, ref) => {
   const [activeSnackbar, setActiveSnackbar] = useState<ActiveSnackbar | null>(null);
   const activeSnackbarRef = useRef<ActiveSnackbar | null>(null);
+  const snackbarProgress = useRef(new Animated.Value(0)).current;
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const clearCurrentTimeout = () => {
@@ -43,11 +44,35 @@ export const TodoSnackbarHost = forwardRef<TodoSnackbarHostRef>((_, ref) => {
     }
   };
 
+  useEffect(() => {
+    if (!activeSnackbar) {
+      return;
+    }
+
+    snackbarProgress.stopAnimation();
+    snackbarProgress.setValue(0);
+    Animated.timing(snackbarProgress, {
+      toValue: 1,
+      duration: 220,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    }).start();
+  }, [activeSnackbar, snackbarProgress]);
+
   const resolveSnackbar = (result: TodoSnackbarResult) => {
     clearCurrentTimeout();
     activeSnackbarRef.current?.resolve(result);
     activeSnackbarRef.current = null;
-    setActiveSnackbar(null);
+    Animated.timing(snackbarProgress, {
+      toValue: 0,
+      duration: 180,
+      easing: Easing.in(Easing.cubic),
+      useNativeDriver: true,
+    }).start(() => {
+      if (!activeSnackbarRef.current) {
+        setActiveSnackbar(null);
+      }
+    });
   };
 
   useEffect(() => {
@@ -77,20 +102,40 @@ export const TodoSnackbarHost = forwardRef<TodoSnackbarHostRef>((_, ref) => {
     return null;
   }
 
+  const animatedSnackbarStyle = {
+    opacity: snackbarProgress,
+    transform: [
+      {
+        translateY: snackbarProgress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [72, 0],
+        }),
+      },
+      {
+        scale: snackbarProgress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0.98, 1],
+        }),
+      },
+    ],
+  };
+
   return (
     <View pointerEvents="box-none" style={styles.container}>
-      <XStack alignItems="center" justifyContent="space-between" gap="$3" style={styles.snackbar}>
-        <Text color="#ffffff" fontSize={14} style={styles.message}>
-          {activeSnackbar.message}
-        </Text>
-        {activeSnackbar.actionLabel ? (
-          <TouchableOpacity activeOpacity={0.75} onPress={() => resolveSnackbar('actionPerformed')}>
-            <Text color="#ffffff" fontSize={14} fontWeight="700">
-              {activeSnackbar.actionLabel}
-            </Text>
-          </TouchableOpacity>
-        ) : null}
-      </XStack>
+      <Animated.View style={animatedSnackbarStyle}>
+        <XStack alignItems="center" justifyContent="space-between" gap="$3" style={styles.snackbar}>
+          <Text color="#ffffff" fontSize={14} style={styles.message}>
+            {activeSnackbar.message}
+          </Text>
+          {activeSnackbar.actionLabel ? (
+            <TouchableOpacity activeOpacity={0.75} onPress={() => resolveSnackbar('actionPerformed')}>
+              <Text color="#ffffff" fontSize={14} fontWeight="700">
+                {activeSnackbar.actionLabel}
+              </Text>
+            </TouchableOpacity>
+          ) : null}
+        </XStack>
+      </Animated.View>
     </View>
   );
 });
