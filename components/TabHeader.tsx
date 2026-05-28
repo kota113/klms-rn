@@ -3,13 +3,14 @@ import {Text, XStack} from "./ui";
 
 type TabHeaderProps = {
   title: string;
+  rightElement?: React.ReactNode;
 };
 
-export default function TabHeader({title}: TabHeaderProps) {
+export default function TabHeader({title, rightElement}: TabHeaderProps) {
   return (
     <XStack
-      alignItems="flex-end"
-      justifyContent="flex-start"
+      alignItems="center"
+      justifyContent="space-between"
       paddingHorizontal="$4"
       paddingVertical="$5"
       paddingBottom="$7"
@@ -18,6 +19,7 @@ export default function TabHeader({title}: TabHeaderProps) {
       <Text fontSize={22} fontWeight="800" color="#333">
         {title}
       </Text>
+      {rightElement}
     </XStack>
   );
 }

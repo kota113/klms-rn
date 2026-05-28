@@ -6,6 +6,7 @@ import NativeLoadingIndicator from "../components/NativeLoadingIndicator";
 import {Text, XStack, YStack} from "../components/ui";
 import {RootStackParamList} from "../components/Navigation";
 import {Assignment, assignmentsService} from "../services/api";
+import {AssignmentPhase, getPhase, isUnsubmittedGraded} from "../utils/assignmentPhase";
 
 type Props = NativeStackScreenProps<RootStackParamList, "AssignmentDetail">;
 
@@ -96,33 +97,6 @@ const stripHtml = (html?: string | null) => {
     .trim();
 };
 
-// ─── State detection ───────────────────────────────────────────────────────────
-
-type AssignmentPhase = "before" | "submitted" | "overdue";
-
-const getPhase = (assignment: Assignment): AssignmentPhase => {
-  if (
-    assignment.submission?.workflow_state === "submitted" ||
-    assignment.submission?.workflow_state === "graded" ||
-    assignment.submission?.workflow_state === "pending_review"
-  ) {
-    return "submitted";
-  }
-
-  const isSubmitted = !!(
-    assignment.submission?.submitted_at ||
-    assignment.has_submitted_submissions
-  );
-  if (isSubmitted) return "submitted";
-
-  const isPastDue = !!(
-    assignment.due_at && new Date(assignment.due_at) < new Date()
-  );
-  if (isPastDue) return "overdue";
-
-  return "before";
-};
-
 // ─── Sub-components ────────────────────────────────────────────────────────────
 
 function DetailRow({label, value}: {label: string; value?: string | number | null}) {
@@ -147,11 +121,12 @@ function Section({title, children}: {title: string; children: React.ReactNode}) 
 
 /** 状態バナー（提出前 / 提出済み / 期限切れ） */
 function PhaseBanner({phase, assignment}: {phase: AssignmentPhase; assignment: Assignment}) {
+  const unsubmittedGraded = isUnsubmittedGraded(assignment);
   const configs: Record<AssignmentPhase, {bg: string; icon: string; label: string; sub?: string}> = {
     before: {
-      bg: "#EFF6FF",
-      icon: "schedule",
-      label: "未提出",
+      bg: "#FEF2F2",
+      icon: "cancel",
+      label: unsubmittedGraded ? "未提出・採点済み" : "未提出",
       sub: assignment.due_at
         ? `期限: ${formatDateTime(assignment.due_at)}`
         : undefined,
@@ -167,7 +142,7 @@ function PhaseBanner({phase, assignment}: {phase: AssignmentPhase; assignment: A
     overdue: {
       bg: "#FEF2F2",
       icon: "warning",
-      label: "期限切れ（未提出）",
+      label: unsubmittedGraded ? "未提出・採点済み" : "未提出・期限切れ",
       sub: assignment.due_at
         ? `期限: ${formatDateTime(assignment.due_at)}`
         : undefined,
@@ -175,7 +150,7 @@ function PhaseBanner({phase, assignment}: {phase: AssignmentPhase; assignment: A
   };
 
   const {bg, icon, label, sub} = configs[phase];
-  const iconColor = phase === "before" ? "#2563EB" : phase === "submitted" ? "#16A34A" : "#DC2626";
+  const iconColor = phase === "submitted" ? "#16A34A" : "#DC2626";
 
   return (
     <XStack

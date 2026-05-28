@@ -19,7 +19,7 @@ const OnboardingScreen = ({navigation}: NativeStackScreenProps<RootStackParamLis
             style={styles.icon}
             resizeMode="contain"
           />
-          <Text style={styles.appName}>K-LMS</Text>
+          <Text style={styles.appName}>K-app</Text>
         </View>
 
         <YStack gap={20} style={styles.featuresSection}>

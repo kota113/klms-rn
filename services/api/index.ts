@@ -11,6 +11,7 @@ export {pagesService} from './pages';
 export {enrollmentsService} from './enrollments';
 export {calendarService} from './calendar';
 export {conversationsService} from './conversations';
+export {plannerService} from './planner';
 
 // Export the interfaces
 export type {Course, DashboardCard} from './courses';
@@ -22,3 +23,4 @@ export type {Page} from './pages';
 export type {Enrollment} from './enrollments';
 export type {CalendarEvent} from './calendar';
 export type {Conversation, ConversationParticipant, ConversationDetail, ConversationMessage} from './conversations';
+export type {PlannerItem, PlannerOverride, PlannerPlannableType} from './planner';
