@@ -31,6 +31,7 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [courseColors, setCourseColors] = useState<UserColors>({});
+  const [shareUrl, setShareUrl] = useState(APP_SHARE_URL);
   const [loading, setLoading] = useState(true);
   const {width} = useWindowDimensions();
   const courseColumnCount = width >= 720 ? 5 : width >= 520 ? 4 : 3;
@@ -87,6 +88,23 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchShareUrl = async () => {
+      try {
+        const response = await fetch(APP_SHARE_CONFIG_URL);
+        const config = await response.json() as AppShareConfig;
+        if (typeof config.shareUrl === "string" && config.shareUrl.length > 0) {
+          setShareUrl(config.shareUrl);
+        }
+      } catch (error) {
+        console.error("Error fetching share URL:", error);
+        setShareUrl(APP_SHARE_URL);
+      }
+    };
+
+    fetchShareUrl();
+  }, []);
+
   // Get color for a course from user colors or return a default color
   const getCourseColor = (courseId: number): string => {
     const assetString = usersService.formatCourseAssetString(courseId);
@@ -100,11 +118,6 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
 
   const handleShareApp = async () => {
     try {
-      const response = await fetch(APP_SHARE_CONFIG_URL);
-      const config = await response.json() as AppShareConfig;
-      const shareUrl = typeof config.shareUrl === "string" && config.shareUrl.length > 0
-        ? config.shareUrl
-        : APP_SHARE_URL;
       const shareMessage = `K-appでKLMSの課題やお知らせを確認できます。\n${shareUrl}`;
 
       await Share.share({
