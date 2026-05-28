@@ -130,7 +130,7 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
             onPress={handleShareApp}
             style={styles.shareButton}
           >
-            <MaterialIcons name="ios-share" size={22} color="#333"/>
+            <MaterialIcons name="share" size={22} color="#333"/>
           </TouchableOpacity>
         }
       />
