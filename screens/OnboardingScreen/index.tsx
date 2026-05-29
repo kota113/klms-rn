@@ -3,11 +3,28 @@ import {Image, ScrollView, StyleSheet, Text as RNText, TouchableOpacity, View} f
 import {Text, YStack} from '../../components/ui';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../components/Navigation';
+import {apiClient} from '../../services/api';
 export const ONBOARDING_COMPLETED_KEY = 'onboarding_completed';
 
 const OnboardingScreen = ({navigation}: NativeStackScreenProps<RootStackParamList>) => {
+  const demoModeActivatedRef = React.useRef(false);
+
   const handleStart = () => {
+    if (demoModeActivatedRef.current) {
+      return;
+    }
+
     navigation.replace('Login');
+  };
+
+  const handleDemoMode = async () => {
+    if (demoModeActivatedRef.current) {
+      return;
+    }
+
+    demoModeActivatedRef.current = true;
+    await apiClient.enableMockMode();
+    navigation.replace('HomeTabs');
   };
 
   return (
@@ -49,6 +66,10 @@ const OnboardingScreen = ({navigation}: NativeStackScreenProps<RootStackParamLis
           <TouchableOpacity
             activeOpacity={0.82}
             onPress={handleStart}
+            onLongPress={() => {
+              handleDemoMode().then();
+            }}
+            delayLongPress={5000}
             style={styles.startButton}
           >
             <RNText style={styles.startButtonText}>はじめる</RNText>

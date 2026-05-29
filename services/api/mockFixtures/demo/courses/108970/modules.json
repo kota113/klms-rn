@@ -1,0 +1,1802 @@
+[
+  {
+    "id": 1807589,
+    "position": 1,
+    "name": "1. 初めに / Introduction",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 14,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807589/items",
+    "items": [
+      {
+        "id": 4686395,
+        "position": 1,
+        "title": "Discussion of prerequisites: LA, some calculus; QIP at least concurrent; networking recommended",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807589,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4691026,
+        "position": 3,
+        "title": "-----===== Signups \u0026 Administrivia =====-----",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807589,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686398,
+        "position": 4,
+        "title": "Sign up for IBM Quantum",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807589,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686398",
+        "external_url": "https://quantum-computing.ibm.com/",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686397,
+        "position": 5,
+        "title": "Join the rdv-keio-classes Slack workspace (channel #f23-quantum-internet)",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807589,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686397",
+        "external_url": "https://join.slack.com/t/rdv-keio-classes/shared_invite/abcd",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686399,
+        "position": 6,
+        "title": "Q-Leap LMS (for Quantum Communications)",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807589,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686399",
+        "external_url": "https://q-leap.lms.nii.ac.jp/auth/shibboleth/login.php",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686400,
+        "position": 7,
+        "title": "Sign up for Q-Leap Edu \"From Classical to Quantum Light\"",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807589,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686401,
+        "position": 8,
+        "title": "Sign up for Q-Leap Edu \"Quantum Internet\"",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807589,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4691028,
+        "position": 9,
+        "title": "-----===== Important Links =====------",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807589,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4691029,
+        "position": 10,
+        "title": "Quantum Communications textbook (background for this class)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807589,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4691029",
+        "external_url": "https://arxiv.org/abs/2311.02367",
+        "new_tab": true,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686402,
+        "position": 11,
+        "title": "Q-Leap Communications (both E and J) on YouTube",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807589,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686402",
+        "external_url": "https://www.youtube.com/channel/UCV4-6c-I9FwskqU-DsI04Zg/playlists",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686403,
+        "position": 12,
+        "title": "Additional information on Quantum Academy (Q-Leap)",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807589,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686403",
+        "external_url": "https://qacademy.jp/en/",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686405,
+        "position": 13,
+        "title": "rdv's Linear Algebra Lessons 1-5 on YouTube",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807589,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686405",
+        "external_url": "https://www.youtube.com/playlist?list=PLibMrvP9xUbeWZ1pCKnbTn2FO-c1PqHZr",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686406,
+        "position": 14,
+        "title": "AQUA (Advancing Quantum Architecture) kenkyuukai",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807589,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686406",
+        "external_url": "https://aqua.sfc.wide.ad.jp/",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686407,
+        "position": 15,
+        "title": "Quantum Internet Task Force (QITF)",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807589,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686407",
+        "external_url": "https://qitf.org/",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1807590,
+    "position": 2,
+    "name": "2. 波 / Waves",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 6,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807590/items",
+    "items": [
+      {
+        "id": 4686408,
+        "position": 1,
+        "title": "FCQL Quiz 1 (Lessons 1 \u0026 2)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Quiz",
+        "module_id": 1807590,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686408",
+        "content_id": 392983,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/quizzes/392983",
+        "content_details": {
+          "unlock_at": "2024-10-13T15:00:00Z",
+          "lock_at": "2024-10-14T00:45:00Z",
+          "points_possible": 3.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-10-14T00:45:00Z",
+            "can_view": true,
+            "asset_string": "quizzes:quiz_392983"
+          },
+          "lock_explanation": "この小テストは 2024年10月14日 9:45 に締め切られました。"
+        }
+      },
+      {
+        "id": 4686409,
+        "position": 2,
+        "title": "Discussion of FCQL Lessons 1 (Waves) and 2 (Wave Examples)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807590,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697452,
+        "position": 3,
+        "title": "R3 - Lesson 1 - Wave motion.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807590,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697452",
+        "content_id": 5700921,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700921",
+        "content_details": {
+          "display_name": "R3 - Lesson 1 - Wave motion.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697458,
+        "position": 4,
+        "title": "R3 - Lesson 2 - Wave Examples.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807590,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697458",
+        "content_id": 5700944,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700944",
+        "content_details": {
+          "display_name": "R3 - Lesson 2 - Wave Examples.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686410,
+        "position": 5,
+        "title": "Pulses from Waves Jupyter Notebook",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1807590,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686410",
+        "content_id": 1040359,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/assignments/1040359",
+        "content_details": {
+          "due_at": "2024-10-20T14:59:59Z",
+          "points_possible": 10.0,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686411,
+        "position": 6,
+        "title": "pulsed_sum_cosines_qinternet.ipynb",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807590,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686411",
+        "content_id": 5646843,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5646843",
+        "content_details": {
+          "display_name": "pulsed_sum_cosines_qinternet.ipynb",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1807591,
+    "position": 3,
+    "name": "3. フーリエ解析 / Fourier Analysis",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 11,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807591/items",
+    "items": [
+      {
+        "id": 4686413,
+        "position": 1,
+        "title": "Discussion of FCQL Lessons 3 (Fourier Analysis 1) and 4 (Fourier Analysis II)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807591,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686412,
+        "position": 2,
+        "title": "FCQL Quiz 2 (Lessons 3 \u0026 4)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Quiz",
+        "module_id": 1807591,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686412",
+        "content_id": 392993,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/quizzes/392993",
+        "content_details": {
+          "due_at": "2024-10-21T00:40:00Z",
+          "unlock_at": "2024-10-21T00:25:00Z",
+          "lock_at": "2024-10-21T00:40:00Z",
+          "points_possible": 5.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-10-21T00:40:00Z",
+            "can_view": true,
+            "asset_string": "quizzes:quiz_392993"
+          },
+          "lock_explanation": "この小テストは 2024年10月21日 9:40 に締め切られました。"
+        }
+      },
+      {
+        "id": 4697459,
+        "position": 3,
+        "title": "R3 - Lesson 3 - Fourier Analysis I.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807591,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697459",
+        "content_id": 5700946,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700946",
+        "content_details": {
+          "display_name": "R3 - Lesson 3 - Fourier Analysis I.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697460,
+        "position": 4,
+        "title": "R3 - Lesson 4 - Fourier Analysis II.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807591,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697460",
+        "content_id": 5700947,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700947",
+        "content_details": {
+          "display_name": "R3 - Lesson 4 - Fourier Analysis II.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686414,
+        "position": 5,
+        "title": "Scan of Ch. 11 of Hecht, \"Fourier Optics\" (external link)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807591,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686414",
+        "external_url": "https://people.brandeis.edu/~kuntawu/advanced_physics_laboratory/optics_Hecht%20chap%2011.pdf",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686415,
+        "position": 6,
+        "title": "Excellent slides on diffraction \u0026 Fourier transform (Prof. Trebino of GaTech via UW)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807591,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686415",
+        "external_url": "https://faculty.washington.edu/seattle/gis129/575%20copy/pdf/diffraction%201.pdf",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686416,
+        "position": 7,
+        "title": "Fraunhofer (far field) diffraction at Wikipedia",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807591,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686416",
+        "external_url": "https://en.wikipedia.org/wiki/Fraunhofer_diffraction",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686417,
+        "position": 8,
+        "title": "Rosalind Franklin's X-ray diffraction image of DNA (experiment)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807591,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686417",
+        "external_url": "https://pubs.aip.org/aapt/ajp/article/86/2/95/1057814/Rosalind-Franklin-s-X-ray-photo-of-DNA-as-an",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686418,
+        "position": 9,
+        "title": "Rosalind Franklin's X-ray diffraction image of DNA (Wikipedia)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807591,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686418",
+        "external_url": "https://en.wikipedia.org/wiki/Photo_51",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686419,
+        "position": 10,
+        "title": "QI_f23_2_D_Fourier.ipynb",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807591,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686419",
+        "content_id": 5646830,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5646830",
+        "content_details": {
+          "display_name": "QI_f23_2_D_Fourier.ipynb",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686420,
+        "position": 11,
+        "title": "2-D Fourier optics",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1807591,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686420",
+        "content_id": 1040353,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/assignments/1040353",
+        "content_details": {
+          "due_at": "2024-10-27T14:59:59Z",
+          "points_possible": 10.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1807592,
+    "position": 4,
+    "name": "4. 光 / Light",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 12,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807592/items",
+    "items": [
+      {
+        "id": 4686422,
+        "position": 1,
+        "title": "Discussion of FCQL Lessons 5 (Maxwell’s Laws I), 6 (Maxwell’s Laws II) and 7 (EM Waves)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807592,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686423,
+        "position": 2,
+        "title": "FCQL Quiz 3",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Quiz",
+        "module_id": 1807592,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686423",
+        "content_id": 392991,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/quizzes/392991",
+        "content_details": {
+          "unlock_at": "2024-10-28T00:25:00Z",
+          "lock_at": "2024-10-28T00:45:00Z",
+          "points_possible": 15.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-10-28T00:45:00Z",
+            "can_view": true,
+            "asset_string": "quizzes:quiz_392991"
+          },
+          "lock_explanation": "この小テストは 2024年10月28日 9:45 に締め切られました。"
+        }
+      },
+      {
+        "id": 4697462,
+        "position": 3,
+        "title": "R3 - Lesson 5 - Maxwell’s Laws I.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807592,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697462",
+        "content_id": 5700949,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700949",
+        "content_details": {
+          "display_name": "R3 - Lesson 5 - Maxwell’s Laws I.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697463,
+        "position": 4,
+        "title": "R3 - Lesson 6 - Maxwell's Laws II.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807592,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697463",
+        "content_id": 5700950,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700950",
+        "content_details": {
+          "display_name": "R3 - Lesson 6 - Maxwell's Laws II.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697464,
+        "position": 5,
+        "title": "R3 - Lesson 7 - Electromagnetic Waves.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807592,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697464",
+        "content_id": 5700952,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700952",
+        "content_details": {
+          "display_name": "R3 - Lesson 7 - Electromagnetic Waves.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686424,
+        "position": 6,
+        "title": "Maxwell's Equations at Wolfram",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807592,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686424",
+        "external_url": "https://mathworld.wolfram.com/MaxwellsEquations.html",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686425,
+        "position": 7,
+        "title": "Divergence and curl (3Blue1Brown)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807592,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686425",
+        "external_url": "https://www.youtube.com/watch?v=rB83DpBJQsE",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686426,
+        "position": 8,
+        "title": "Description of CEMSIM (browser-base EM wave simulator)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807592,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686426",
+        "external_url": "https://www.reddit.com/r/Physics/comments/dmxgh3/i_made_a_webbased_interactive_simulator_for/",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686427,
+        "position": 9,
+        "title": "CEMSIM (EM wave simulator)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807592,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686427",
+        "external_url": "https://cemsim.com/",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686428,
+        "position": 10,
+        "title": "QI_Symbolic.ipynb",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807592,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686428",
+        "content_id": 5646829,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5646829",
+        "content_details": {
+          "display_name": "QI_Symbolic.ipynb",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686429,
+        "position": 11,
+        "title": "LA_Lec07_Gaussian_Elimination_LinearAlgebraPracticeSpring2023_SymPy (1).ipynb",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807592,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686429",
+        "content_id": 5646827,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5646827",
+        "content_details": {
+          "display_name": "LA_Lec07_Gaussian_Elimination_LinearAlgebraPracticeSpring2023_SymPy (1).ipynb",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686431,
+        "position": 12,
+        "title": "Symbolic Computation in Python",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1807592,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686431",
+        "content_id": 1040363,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/assignments/1040363",
+        "content_details": {
+          "due_at": "2024-11-03T14:59:59Z",
+          "points_possible": 5.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1807593,
+    "position": 5,
+    "name": "5. 物質と電磁波放射 / Interaction of Electromagnetic Radiation with Matter",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 9,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807593/items",
+    "items": [
+      {
+        "id": 4686432,
+        "position": 1,
+        "title": "Discussion of FCQL Lessons 8 (EM Waves in Optical Media I), 9 (EM Waves in Optical Media II) and 10 (Photoelectric Effect)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807593,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686433,
+        "position": 2,
+        "title": "FCQL Quiz #4 (Lessons 8-10)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Quiz",
+        "module_id": 1807593,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686433",
+        "content_id": 392988,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/quizzes/392988",
+        "content_details": {
+          "due_at": "2024-11-04T00:45:00Z",
+          "unlock_at": "2024-11-04T00:25:00Z",
+          "lock_at": "2024-11-04T00:45:00Z",
+          "points_possible": 15.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-11-04T00:45:00Z",
+            "can_view": true,
+            "asset_string": "quizzes:quiz_392988"
+          },
+          "lock_explanation": "この小テストは 2024年11月4日 9:45 に締め切られました。"
+        }
+      },
+      {
+        "id": 4697468,
+        "position": 3,
+        "title": "R3 - Lesson 8 - EM Waves in Optical Media I.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807593,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697468",
+        "content_id": 5700962,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700962",
+        "content_details": {
+          "display_name": "R3 - Lesson 8 - EM Waves in Optical Media I.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697469,
+        "position": 4,
+        "title": "R3 - Lesson 9 - EM Waves in Optical Media II.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807593,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697469",
+        "content_id": 5700963,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700963",
+        "content_details": {
+          "display_name": "R3 - Lesson 9 - EM Waves in Optical Media II.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697470,
+        "position": 5,
+        "title": "R3 - Lesson 10 - Photoelectric Effect.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807593,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697470",
+        "content_id": 5700965,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700965",
+        "content_details": {
+          "display_name": "R3 - Lesson 10 - Photoelectric Effect.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686435,
+        "position": 7,
+        "title": "QuTools demonstration \u0026 CHSH calculation",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807593,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686436,
+        "position": 8,
+        "title": "CHSH calculation (corrected)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807593,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686436",
+        "content_id": 5646826,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5646826",
+        "content_details": {
+          "display_name": "CHSH-calculation-from-book.png",
+          "thumbnail_url": "https://keio-canvas-prod-bucket.s3.ap-northeast-1.amazonaws.com/account_1/thumbnails/5646826/CHSH-calculation-from-book_thumb.png?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=AKIA5PMSWJDOUADO5J6F%2F20260528%2Fap-northeast-1%2Fs3%2Faws4_request\u0026X-Amz-Date=20260528T192510Z\u0026X-Amz-Expires=518400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=6fcd19aae95483bdd4f67bbabb4520b68d33ca3936ae747635c893863189fbaf",
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686438,
+        "position": 10,
+        "title": "CHSH Inequality Calculation",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1807593,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686438",
+        "content_id": 1040357,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/assignments/1040357",
+        "content_details": {
+          "due_at": "2024-11-17T14:59:59Z",
+          "points_possible": 10.0,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686439,
+        "position": 11,
+        "title": "qutools_manual.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807593,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686439",
+        "content_id": 5646844,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5646844",
+        "content_details": {
+          "display_name": "qutools_manual.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1807594,
+    "position": 6,
+    "name": "6. 量子光 / Quantum Light",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 9,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807594/items",
+    "items": [
+      {
+        "id": 4686441,
+        "position": 2,
+        "title": "Discussion of FCQL Lessons 11 (Quantized Electromagnetic Field), 12 (Single Photons) and 13 (Interference of Quantum Light)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807594,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686443,
+        "position": 4,
+        "title": "QMZI JS App",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807594,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686444,
+        "position": 5,
+        "title": "Q-Leap interactive JS apps",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807594,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4686444",
+        "external_url": "https://aqua.sfc.wide.ad.jp/qleap-c2q-optics-js-app/index.html#/",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686445,
+        "position": 6,
+        "title": "FCQL Quiz #5 (Lessons 11-13)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Quiz",
+        "module_id": 1807594,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686445",
+        "content_id": 392990,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/quizzes/392990",
+        "content_details": {
+          "unlock_at": "2024-11-11T00:25:00Z",
+          "lock_at": "2024-11-11T00:50:00Z",
+          "points_possible": 15.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-11-11T00:50:00Z",
+            "can_view": true,
+            "asset_string": "quizzes:quiz_392990"
+          },
+          "lock_explanation": "この小テストは 2024年11月11日 9:50 に締め切られました。"
+        }
+      },
+      {
+        "id": 4697479,
+        "position": 7,
+        "title": "R3 - Lesson 11 - Quantized Electromagnetic Radiation.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807594,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697479",
+        "content_id": 5700980,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700980",
+        "content_details": {
+          "display_name": "R3 - Lesson 11 - Quantized Electromagnetic Radiation.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697472,
+        "position": 8,
+        "title": "R3 - Lesson 12 - Single Photons.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807594,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697472",
+        "content_id": 5700969,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700969",
+        "content_details": {
+          "display_name": "R3 - Lesson 12 - Single Photons.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697473,
+        "position": 9,
+        "title": "R3 - Lesson 13 - Interference of Quantum Light.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807594,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697473",
+        "content_id": 5700970,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700970",
+        "content_details": {
+          "display_name": "R3 - Lesson 13 - Interference of Quantum Light.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4718852,
+        "position": 10,
+        "title": "YouTube recording of QIRG session at IETF 121",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807594,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4718852",
+        "external_url": "https://www.youtube.com/watch?v=-PDHp9Bqu4A",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4723787,
+        "position": 11,
+        "title": "quED worksheet with optimal optical angles.png",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807594,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4723787",
+        "content_id": 5922921,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5922921",
+        "content_details": {
+          "display_name": "quED worksheet with optimal optical angles.png",
+          "thumbnail_url": "https://keio-canvas-prod-bucket.s3.ap-northeast-1.amazonaws.com/account_1/thumbnails/5922921/quED%252Bworksheet%252Bwith%252Boptimal%252Boptical%252Bangles_thumb.png?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=AKIA5PMSWJDOUADO5J6F%2F20260528%2Fap-northeast-1%2Fs3%2Faws4_request\u0026X-Amz-Date=20260528T192510Z\u0026X-Amz-Expires=518400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=c927a280f3d3410421632b384aed9edc3b062f8776d78ac1e144cad83f643521",
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1807596,
+    "position": 7,
+    "name": "7. 単一光子、シングルモードのその先へ / Beyond Single Photons and Single Modes",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 5,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807596/items",
+    "items": [
+      {
+        "id": 4686446,
+        "position": 1,
+        "title": "Discussion of FCQL Lessons 14 (Important States of Light) and 15 (Realistic Single Photons)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807596,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697474,
+        "position": 4,
+        "title": "R3 - Lesson 14 - Important States of Light.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807596,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697474",
+        "content_id": 5700971,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700971",
+        "content_details": {
+          "display_name": "R3 - Lesson 14 - Important States of Light.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697477,
+        "position": 5,
+        "title": "R3 - Lesson 15 - Realistic Single Photons.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807596,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697477",
+        "content_id": 5700976,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700976",
+        "content_details": {
+          "display_name": "R3 - Lesson 15 - Realistic Single Photons.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686452,
+        "position": 6,
+        "title": "FCQL Quiz #6 (Lessons 14-15)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Quiz",
+        "module_id": 1807596,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686452",
+        "content_id": 392989,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/quizzes/392989",
+        "content_details": {
+          "due_at": "2024-11-18T00:45:00Z",
+          "unlock_at": "2024-11-18T00:25:00Z",
+          "lock_at": "2024-11-18T00:45:00Z",
+          "points_possible": 10.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-11-18T00:45:00Z",
+            "can_view": true,
+            "asset_string": "quizzes:quiz_392989"
+          },
+          "lock_explanation": "この小テストは 2024年11月18日 9:45 に締め切られました。"
+        }
+      },
+      {
+        "id": 4723743,
+        "position": 8,
+        "title": "QIRG Report (2411)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1807596,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4723743",
+        "content_id": 1050094,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/assignments/1050094",
+        "content_details": {
+          "due_at": "2024-12-02T14:59:59Z",
+          "points_possible": 10.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1807598,
+    "position": 8,
+    "name": "8. Quantum Internet introduction (was ハードウエア / Hardware)",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 8,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807598/items",
+    "items": [
+      {
+        "id": 4686453,
+        "position": 1,
+        "title": "Discussion of QI Lessons 1 (Error Management Generations: 1G, 2G, 3G), 2 (Purification), and 3 (QEC)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807598,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686454,
+        "position": 2,
+        "title": "QI Quiz #1 (Lessons 1-3)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Quiz",
+        "module_id": 1807598,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686454",
+        "content_id": 392986,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/quizzes/392986",
+        "content_details": {
+          "due_at": "2024-12-02T00:50:00Z",
+          "unlock_at": "2024-12-02T00:25:00Z",
+          "lock_at": "2024-12-02T00:50:00Z",
+          "points_possible": 16.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-12-02T00:50:00Z",
+            "can_view": true,
+            "asset_string": "quizzes:quiz_392986"
+          },
+          "lock_explanation": "この小テストは 2024年12月2日 9:50 に締め切られました。"
+        }
+      },
+      {
+        "id": 4697486,
+        "position": 3,
+        "title": "R4 - Lesson 1 - Error Management Generations.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807598,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697486",
+        "content_id": 5700993,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700993",
+        "content_details": {
+          "display_name": "R4 - Lesson 1 - Error Management Generations.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697487,
+        "position": 4,
+        "title": "R4 - Lesson 2 - Purification.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807598,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697487",
+        "content_id": 5700994,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700994",
+        "content_details": {
+          "display_name": "R4 - Lesson 2 - Purification.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697488,
+        "position": 5,
+        "title": "R4 - Lesson 3 - Quantum Error Corrected Repeaters.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807598,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697488",
+        "content_id": 5700995,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700995",
+        "content_details": {
+          "display_name": "R4 - Lesson 3 - Quantum Error Corrected Repeaters.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4730138,
+        "position": 7,
+        "title": "QI_Purification_2024.ipynb",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807598,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4730138",
+        "content_id": 5971593,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5971593",
+        "content_details": {
+          "display_name": "QI_Purification_2024.ipynb",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4730139,
+        "position": 8,
+        "title": "QI_Purification_ja_2024.ipynb",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807598,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4730139",
+        "content_id": 5971594,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5971594",
+        "content_details": {
+          "display_name": "QI_Purification_ja_2024.ipynb",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4730141,
+        "position": 9,
+        "title": "CEMSIM (EM wave simulator)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807598,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4730141",
+        "external_url": "https://cemsim.com/",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1807599,
+    "position": 10,
+    "name": "9. ハードウェア / Hardware",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 9,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807599/items",
+    "items": [
+      {
+        "id": 4686456,
+        "position": 1,
+        "title": "Discussion of QI Lessons 4 (Qubits: Memory and Optical States, Other Components), 5 (Link Architectures), and 6 (Node Types)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807599,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686459,
+        "position": 4,
+        "title": "QI Quiz 2 (Lessons 4-6)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Quiz",
+        "module_id": 1807599,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686459",
+        "content_id": 392984,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/quizzes/392984",
+        "content_details": {
+          "due_at": "2024-12-09T00:50:00Z",
+          "unlock_at": "2024-12-09T00:25:00Z",
+          "lock_at": "2024-12-09T00:50:00Z",
+          "points_possible": 9.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-12-09T00:50:00Z",
+            "can_view": true,
+            "asset_string": "quizzes:quiz_392984"
+          },
+          "lock_explanation": "この小テストは 2024年12月9日 9:50 に締め切られました。"
+        }
+      },
+      {
+        "id": 4697489,
+        "position": 6,
+        "title": "R4 - Lesson 4 - Flying Qubits and Stationary Memories.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807599,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697489",
+        "content_id": 5700996,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700996",
+        "content_details": {
+          "display_name": "R4 - Lesson 4 - Flying Qubits and Stationary Memories.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697490,
+        "position": 7,
+        "title": "R4 - Lesson 5 - Link Architectures.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807599,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697490",
+        "content_id": 5700998,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5700998",
+        "content_details": {
+          "display_name": "R4 - Lesson 5 - Link Architectures.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697492,
+        "position": 8,
+        "title": "R4 - Lesson 6 - Types of Network Nodes.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807599,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697492",
+        "content_id": 5701000,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5701000",
+        "content_details": {
+          "display_name": "R4 - Lesson 6 - Types of Network Nodes.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697496,
+        "position": 9,
+        "title": "R4 - Lesson 7 - Types of Networks.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807599,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697496",
+        "content_id": 5701003,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5701003",
+        "content_details": {
+          "display_name": "R4 - Lesson 7 - Types of Networks.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697497,
+        "position": 10,
+        "title": "R4 - Lesson 8 - Connections.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807599,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697497",
+        "content_id": 5701004,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5701004",
+        "content_details": {
+          "display_name": "R4 - Lesson 8 - Connections.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697498,
+        "position": 11,
+        "title": "R4 - Lesson 9 - Routing and Multiplexing.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807599,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697498",
+        "content_id": 5701005,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5701005",
+        "content_details": {
+          "display_name": "R4 - Lesson 9 - Routing and Multiplexing.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4735209,
+        "position": 12,
+        "title": "Protocol Development Process.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807599,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4735209",
+        "content_id": 6014379,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/6014379",
+        "content_details": {
+          "display_name": "Protocol Development Process.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1807600,
+    "position": 11,
+    "name": "10. ネットワーク / Networks",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 5,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807600/items",
+    "items": [
+      {
+        "id": 4686462,
+        "position": 3,
+        "title": "QI Quiz 3 (Lessons 7-10)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Quiz",
+        "module_id": 1807600,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686462",
+        "content_id": 392992,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/quizzes/392992",
+        "content_details": {
+          "due_at": "2024-12-16T00:55:00Z",
+          "unlock_at": "2024-12-16T00:30:00Z",
+          "lock_at": "2024-12-16T00:55:00Z",
+          "points_possible": 16.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-12-16T00:55:00Z",
+            "can_view": true,
+            "asset_string": "quizzes:quiz_392992"
+          },
+          "lock_explanation": "この小テストは 2024年12月16日 9:55 に締め切られました。"
+        }
+      },
+      {
+        "id": 4697502,
+        "position": 4,
+        "title": "R4 - Lesson 10 - Quantum Recursive Network Architecture.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807600,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697502",
+        "content_id": 5701011,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5701011",
+        "content_details": {
+          "display_name": "R4 - Lesson 10 - Quantum Recursive Network Architecture.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697499,
+        "position": 5,
+        "title": "R4 - Lesson 11 - Security and Sensing.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807600,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697499",
+        "content_id": 5701008,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5701008",
+        "content_details": {
+          "display_name": "R4 - Lesson 11 - Security and Sensing.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697500,
+        "position": 6,
+        "title": "R4 - Lesson 12 - Blind Quantum Computation I.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807600,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697500",
+        "content_id": 5701009,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5701009",
+        "content_details": {
+          "display_name": "R4 - Lesson 12 - Blind Quantum Computation I.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697501,
+        "position": 7,
+        "title": "R4 - Lesson 13 - Blind Quantum Computation II.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807600,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697501",
+        "content_id": 5701010,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5701010",
+        "content_details": {
+          "display_name": "R4 - Lesson 13 - Blind Quantum Computation II.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1807602,
+    "position": 12,
+    "name": "11. テストベッド / Testbeds",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 6,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807602/items",
+    "items": [
+      {
+        "id": 4686464,
+        "position": 1,
+        "title": "Discussion of QI Lessons 13 (Netherlands \u0026 QIA) and 14 (QITF)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807602,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686465,
+        "position": 2,
+        "title": "Report on a testbed",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1807602,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686465",
+        "content_id": 1040362,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/assignments/1040362",
+        "content_details": {
+          "due_at": "2025-01-19T14:59:59Z",
+          "points_possible": 10.0,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4686466,
+        "position": 3,
+        "title": "QI Quiz 4 (Lessons 11-13)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Quiz",
+        "module_id": 1807602,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4686466",
+        "content_id": 392987,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/quizzes/392987",
+        "content_details": {
+          "due_at": "2024-12-23T00:45:00Z",
+          "unlock_at": "2024-12-23T00:25:00Z",
+          "lock_at": "2024-12-23T00:45:00Z",
+          "points_possible": 9.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-12-23T00:45:00Z",
+            "can_view": true,
+            "asset_string": "quizzes:quiz_392987"
+          },
+          "lock_explanation": "この小テストは 2024年12月23日 9:45 に締め切られました。"
+        }
+      },
+      {
+        "id": 4697503,
+        "position": 4,
+        "title": "R4 - Lesson 14 - Important Experimental Steps.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807602,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697503",
+        "content_id": 5701012,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5701012",
+        "content_details": {
+          "display_name": "R4 - Lesson 14 - Important Experimental Steps.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697504,
+        "position": 5,
+        "title": "R4 - Lesson 15 - QITF.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807602,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4697504",
+        "content_id": 5701013,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/5701013",
+        "content_details": {
+          "display_name": "R4 - Lesson 15 - QITF.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4745038,
+        "position": 6,
+        "title": "Quantum Year 2024 (241223).pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1807602,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4745038",
+        "content_id": 6103678,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/files/6103678",
+        "content_details": {
+          "display_name": "Quantum Year 2024 (241223).pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1807601,
+    "position": 13,
+    "name": "11. アプリケーション / Applications",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 0,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807601/items",
+    "items": []
+  },
+  {
+    "id": 1807603,
+    "position": 14,
+    "name": "13. Internet",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 2,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807603/items",
+    "items": [
+      {
+        "id": 4686467,
+        "position": 1,
+        "title": "Discussion of QI Lesson 15 (QRNA)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "SubHeader",
+        "module_id": 1807603,
+        "content_details": {
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4757223,
+        "position": 2,
+        "title": "QuISP(WASM)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "ExternalUrl",
+        "module_id": 1807603,
+        "html_url": "https://lms.keio.jp/api/v1/courses/108970/module_item_redirect/4757223",
+        "external_url": "https://aqua.sfc.wide.ad.jp/quisp-online/demo-2025-v3/",
+        "new_tab": false,
+        "content_details": {
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1807595,
+    "position": 15,
+    "name": "14special. ラボ訪問 / Lab Visit (KBIC / QITF / Moonshot)  OR Guest Lecture (date TBD)",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 1,
+    "items_url": "https://lms.keio.jp/api/v1/courses/108970/modules/1807595/items",
+    "items": [
+      {
+        "id": 4757333,
+        "position": 1,
+        "title": "Signal Strength Review ",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Quiz",
+        "module_id": 1807595,
+        "html_url": "https://lms.keio.jp/courses/108970/modules/items/4757333",
+        "content_id": 397035,
+        "url": "https://lms.keio.jp/api/v1/courses/108970/quizzes/397035",
+        "content_details": {
+          "due_at": "2025-01-20T00:45:00Z",
+          "unlock_at": "2025-01-20T00:25:00Z",
+          "lock_at": "2025-01-20T00:45:00Z",
+          "points_possible": 9.5,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2025-01-20T00:45:00Z",
+            "can_view": true,
+            "asset_string": "quizzes:quiz_397035"
+          },
+          "lock_explanation": "この小テストは 2025年1月20日 9:45 に締め切られました。"
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,496 @@
+[
+  {
+    "id": 1806912,
+    "position": 3,
+    "name": "第1回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 2,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1806912/items",
+    "items": [
+      {
+        "id": 4683296,
+        "position": 1,
+        "title": "出席レポート",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1806912,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4683296",
+        "content_id": 1039223,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1039223",
+        "content_details": {
+          "due_at": "2024-10-03T14:59:59Z",
+          "unlock_at": "2024-09-30T15:00:00Z",
+          "lock_at": "2024-10-08T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-10-08T14:59:59Z",
+            "can_view": true,
+            "asset_string": "assignment_1039223"
+          },
+          "lock_explanation": "この課題は 2024年10月8日 23:59 にロックされました。"
+        }
+      },
+      {
+        "id": 4690971,
+        "position": 2,
+        "title": "第1回.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1806912,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4690971",
+        "content_id": 5658733,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/files/5658733",
+        "content_details": {
+          "display_name": "第1回.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1808741,
+    "position": 4,
+    "name": "第2回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 1,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1808741/items",
+    "items": [
+      {
+        "id": 4694093,
+        "position": 1,
+        "title": "出席レポート-2回",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1808741,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4694093",
+        "content_id": 1042284,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1042284",
+        "content_details": {
+          "due_at": "2024-10-09T14:59:59Z",
+          "unlock_at": "2024-10-09T05:00:00Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809261,
+    "position": 5,
+    "name": " 第3回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 1,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1809261/items",
+    "items": [
+      {
+        "id": 4699905,
+        "position": 1,
+        "title": "出席レポート-3回",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809261,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4699905",
+        "content_id": 1043852,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1043852",
+        "content_details": {
+          "due_at": "2024-10-16T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809655,
+    "position": 6,
+    "name": "第4回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 1,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1809655/items",
+    "items": [
+      {
+        "id": 4705248,
+        "position": 1,
+        "title": "出席レポート-4回",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809655,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4705248",
+        "content_id": 1045175,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1045175",
+        "content_details": {
+          "due_at": "2024-10-23T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1810060,
+    "position": 7,
+    "name": "第5回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 2,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1810060/items",
+    "items": [
+      {
+        "id": 4710396,
+        "position": 1,
+        "title": "出席レポート-5回",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1810060,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4710396",
+        "content_id": 1046469,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1046469",
+        "content_details": {
+          "due_at": "2024-10-30T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4710398,
+        "position": 2,
+        "title": "第5回.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1810060,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4710398",
+        "content_id": 5812228,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/files/5812228",
+        "content_details": {
+          "display_name": "第5回.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1810420,
+    "position": 8,
+    "name": "第6回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 1,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1810420/items",
+    "items": [
+      {
+        "id": 4715364,
+        "position": 1,
+        "title": "出席レポート-6回",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1810420,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4715364",
+        "content_id": 1047693,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1047693",
+        "content_details": {
+          "due_at": "2024-11-06T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1811185,
+    "position": 9,
+    "name": "第7回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 2,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1811185/items",
+    "items": [
+      {
+        "id": 4721358,
+        "position": 1,
+        "title": "出席レポート-7回",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1811185,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4721358",
+        "content_id": 1049467,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1049467",
+        "content_details": {
+          "due_at": "2024-11-13T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4721364,
+        "position": 2,
+        "title": "07_機械学習の実務プロセスと課題設定.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1811185,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4721364",
+        "content_id": 5900936,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/files/5900936",
+        "content_details": {
+          "display_name": "07_機械学習の実務プロセスと課題設定.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1811767,
+    "position": 10,
+    "name": "第8回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 1,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1811767/items",
+    "items": [
+      {
+        "id": 4727243,
+        "position": 1,
+        "title": "出席レポート-8回",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1811767,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4727243",
+        "content_id": 1050930,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1050930",
+        "content_details": {
+          "due_at": "2024-11-27T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1812406,
+    "position": 11,
+    "name": "第9回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 1,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1812406/items",
+    "items": [
+      {
+        "id": 4732387,
+        "position": 1,
+        "title": "出席レポート-9回",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1812406,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4732387",
+        "content_id": 1052459,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1052459",
+        "content_details": {
+          "due_at": "2024-12-04T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1812682,
+    "position": 12,
+    "name": "第10回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 1,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1812682/items",
+    "items": [
+      {
+        "id": 4737259,
+        "position": 1,
+        "title": "出席レポート-10回",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1812682,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4737259",
+        "content_id": 1053745,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1053745",
+        "content_details": {
+          "due_at": "2024-12-11T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1812957,
+    "position": 13,
+    "name": "第11回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 1,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1812957/items",
+    "items": [
+      {
+        "id": 4742234,
+        "position": 1,
+        "title": "出席レポート-11回",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1812957,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4742234",
+        "content_id": 1055055,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1055055",
+        "content_details": {
+          "due_at": "2024-12-18T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1813389,
+    "position": 14,
+    "name": "第12回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 1,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1813389/items",
+    "items": [
+      {
+        "id": 4747104,
+        "position": 1,
+        "title": "出席レポート-12回",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1813389,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4747104",
+        "content_id": 1056503,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1056503",
+        "content_details": {
+          "due_at": "2024-12-25T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1813584,
+    "position": 15,
+    "name": "機械学習ケーススタディ課題",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 1,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1813584/items",
+    "items": [
+      {
+        "id": 4749467,
+        "position": 1,
+        "title": "機械学習ケーススタディ調査",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1813584,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4749467",
+        "content_id": 1057228,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1057228",
+        "content_details": {
+          "due_at": "2025-01-10T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1813763,
+    "position": 16,
+    "name": "第13回",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 1,
+    "items_url": "https://lms.keio.jp/api/v1/courses/102326/modules/1813763/items",
+    "items": [
+      {
+        "id": 4752146,
+        "position": 1,
+        "title": "出席レポート-13回",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1813763,
+        "html_url": "https://lms.keio.jp/courses/102326/modules/items/4752146",
+        "content_id": 1057964,
+        "url": "https://lms.keio.jp/api/v1/courses/102326/assignments/1057964",
+        "content_details": {
+          "due_at": "2025-01-08T14:59:59Z",
+          "points_possible": 0.0,
+          "locked_for_user": false
+        }
+      }
+    ]
+  }
+]

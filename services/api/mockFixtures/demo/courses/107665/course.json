@@ -1,0 +1,122 @@
+{
+  "id": 107665,
+  "name": "5-12 秋[月2]上山 信一　改革とイノベーション [湘南藤沢 ο22]",
+  "course_code": "[月2]上山 信一　改革とイノベーション [湘南藤沢 ο22]",
+  "account_id": 39,
+  "created_at": "2024-07-29T10:03:55Z",
+  "start_at": null,
+  "default_view": "modules",
+  "enrollment_term_id": 34,
+  "is_public": false,
+  "grading_standard_id": null,
+  "root_account_id": 1,
+  "uuid": "hAV9vQD8T8kzZy1icRZMRtocAvPbbbYhFgWTfH1e",
+  "license": "private",
+  "grade_passback_setting": null,
+  "end_at": null,
+  "public_syllabus": false,
+  "public_syllabus_to_auth": true,
+  "storage_quota_mb": 10485,
+  "is_public_to_auth_users": false,
+  "homeroom_course": false,
+  "course_color": null,
+  "friendly_name": null,
+  "term": {
+    "id": 34,
+    "name": "2024年度秋学期",
+    "start_at": "2024-08-31T15:00:00Z",
+    "end_at": "2025-03-31T15:00:00Z",
+    "workflow_state": "active",
+    "grading_period_group_id": null,
+    "created_at": "2024-02-05T01:30:44Z"
+  },
+  "apply_assignment_group_weights": false,
+  "is_favorite": false,
+  "tabs": [
+    {
+      "id": "home",
+      "html_url": "/courses/107665",
+      "full_url": "https://lms.keio.jp/courses/107665",
+      "position": 1,
+      "visibility": "public",
+      "label": "ホーム",
+      "type": "internal"
+    },
+    {
+      "id": "announcements",
+      "html_url": "/courses/107665/announcements",
+      "full_url": "https://lms.keio.jp/courses/107665/announcements",
+      "position": 2,
+      "visibility": "public",
+      "label": "アナウンスメント",
+      "type": "internal"
+    },
+    {
+      "id": "context_external_tool_3",
+      "html_url": "/courses/107665/external_tools/3",
+      "full_url": "https://lms.keio.jp/courses/107665/external_tools/3",
+      "position": 3,
+      "visibility": "public",
+      "label": "Zoom",
+      "type": "external",
+      "url": "https://lms.keio.jp/api/v1/courses/107665/external_tools/sessionless_launch?id=3\u0026launch_type=course_navigation"
+    },
+    {
+      "id": "discussions",
+      "html_url": "/courses/107665/discussion_topics",
+      "full_url": "https://lms.keio.jp/courses/107665/discussion_topics",
+      "position": 4,
+      "visibility": "public",
+      "label": "ディスカッション",
+      "type": "internal"
+    },
+    {
+      "id": "grades",
+      "html_url": "/courses/107665/grades",
+      "full_url": "https://lms.keio.jp/courses/107665/grades",
+      "position": 5,
+      "visibility": "public",
+      "label": "成績",
+      "type": "internal"
+    },
+    {
+      "id": "syllabus",
+      "html_url": "/courses/107665/assignments/syllabus",
+      "full_url": "https://lms.keio.jp/courses/107665/assignments/syllabus",
+      "position": 6,
+      "visibility": "public",
+      "label": "要綱",
+      "type": "internal"
+    },
+    {
+      "id": "context_external_tool_161",
+      "html_url": "/courses/107665/external_tools/161",
+      "full_url": "https://lms.keio.jp/courses/107665/external_tools/161",
+      "position": 7,
+      "visibility": "public",
+      "label": "VideoPortal",
+      "type": "external",
+      "url": "https://lms.keio.jp/api/v1/courses/107665/external_tools/sessionless_launch?id=161\u0026launch_type=course_navigation"
+    }
+  ],
+  "calendar": {
+    "ics": "https://lms.keio.jp/feeds/calendars/course_hAV9vQD8T8kzZy1icRZMRtocAvPbbbYhFgWTfH1e.ics"
+  },
+  "time_zone": "Asia/Tokyo",
+  "image_download_url": null,
+  "blueprint": false,
+  "template": false,
+  "enrollments": [
+    {
+      "type": "student",
+      "role": "StudentEnrollment",
+      "role_id": 14,
+      "user_id": 127617,
+      "enrollment_state": "active",
+      "limit_privileges_to_course_section": false
+    }
+  ],
+  "hide_final_grades": true,
+  "workflow_state": "available",
+  "restrict_enrollments_to_course_dates": false
+}

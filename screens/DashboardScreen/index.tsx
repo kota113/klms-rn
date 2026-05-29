@@ -10,6 +10,7 @@ import {RootStackParamList} from "../../components/Navigation";
 import {
   Announcement,
   announcementsService,
+  apiClient,
   Assignment,
   assignmentsService,
   coursesService,
@@ -90,6 +91,10 @@ export default function DashboardScreen({navigation}: NativeStackScreenProps<Roo
 
   useEffect(() => {
     const fetchShareUrl = async () => {
+      if (await apiClient.isMockModeEnabled()) {
+        return;
+      }
+
       try {
         const response = await fetch(APP_SHARE_CONFIG_URL);
         const config = await response.json() as AppShareConfig;

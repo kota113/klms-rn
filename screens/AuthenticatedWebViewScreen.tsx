@@ -34,25 +34,31 @@ export default function AuthenticatedWebViewScreen({navigation, route}: Props) {
   useEffect(() => {
     let isMounted = true;
 
-    apiClient.prepareAuthenticatedWebView(url)
-      .then((prepared) => {
+    const prepareWebView = async () => {
+      try {
+        const isMockMode = await apiClient.isMockModeEnabled();
+        const prepared = isMockMode ? false : await apiClient.prepareAuthenticatedWebView(url);
         if (!isMounted) {
           return;
         }
 
         if (!prepared) {
-          setError("認証情報を読み込めませんでした。もう一度ログインしてください。");
+          setError(isMockMode
+            ? "デモモードでは外部ページを開けません。"
+            : "認証情報を読み込めませんでした。もう一度ログインしてください。");
           return;
         }
 
         setIsReady(true);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("Error preparing authenticated WebView:", err);
         if (isMounted) {
           setError("ファイルを開けませんでした。");
         }
-      });
+      }
+    };
+
+    void prepareWebView();
 
     return () => {
       isMounted = false;

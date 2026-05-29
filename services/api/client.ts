@@ -2,6 +2,7 @@ import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import type CookieManagerModule from '@preeternal/react-native-cookie-manager';
 import type {Cookie, Cookies} from '@preeternal/react-native-cookie-manager';
 import type * as SecureStoreModule from 'expo-secure-store';
+import {getMockApiMutationResponse, getMockApiResponse} from './mockData';
 
 const STORAGE_KEYS = {
   SESSION_AUTHENTICATED: 'klms_session_authenticated',
@@ -35,6 +36,7 @@ const CookieManager: typeof CookieManagerModule | null = isNodeEnvironment
 class ApiClient {
   private client: AxiosInstance;
   private baseURL: string = `${CANVAS_BASE_URL}/api/v1`;
+  private mockModeEnabled: boolean | null = null;
 
   // Event listeners for session changes
   private sessionChangeListeners: Array<(hasSession: boolean) => void> = [];
@@ -96,6 +98,15 @@ class ApiClient {
    * @returns Promise with the response data
    */
   async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    if (await this.isMockModeEnabled()) {
+      const mockResponse = getMockApiResponse(url, config);
+      if (mockResponse !== undefined) {
+        return mockResponse as T;
+      }
+
+      throw new Error(`Mock mode has no GET response for: ${url}`);
+    }
+
     const response: AxiosResponse<T> = await this.client.get<T>(url, config);
     return response.data;
   }
@@ -105,6 +116,19 @@ class ApiClient {
    * Canvas exposes the next page URL in the Link response header.
    */
   async getPaginated<T = any>(url: string, config?: AxiosRequestConfig): Promise<T[]> {
+    if (await this.isMockModeEnabled()) {
+      const mockResponse = getMockApiResponse(url, config);
+      if (Array.isArray(mockResponse)) {
+        return mockResponse as T[];
+      }
+
+      if (mockResponse !== undefined) {
+        return [mockResponse as T];
+      }
+
+      throw new Error(`Mock mode has no paginated GET response for: ${url}`);
+    }
+
     const results: T[] = [];
     let nextUrl: string | null = url;
     let nextConfig: AxiosRequestConfig | undefined = config;
@@ -127,6 +151,15 @@ class ApiClient {
    * @returns Promise with the response data
    */
   async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    if (await this.isMockModeEnabled()) {
+      const mockResponse = getMockApiMutationResponse('post', url, data);
+      if (mockResponse.handled) {
+        return mockResponse.data as T;
+      }
+
+      throw new Error(`Mock mode has no POST response for: ${url}`);
+    }
+
     const response: AxiosResponse<T> = await this.client.post<T>(url, data, config);
     return response.data;
   }
@@ -139,6 +172,15 @@ class ApiClient {
    * @returns Promise with the response data
    */
   async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+    if (await this.isMockModeEnabled()) {
+      const mockResponse = getMockApiMutationResponse('put', url, data);
+      if (mockResponse.handled) {
+        return mockResponse.data as T;
+      }
+
+      throw new Error(`Mock mode has no PUT response for: ${url}`);
+    }
+
     const response: AxiosResponse<T> = await this.client.put<T>(url, data, config);
     return response.data;
   }
@@ -150,6 +192,15 @@ class ApiClient {
    * @returns Promise with the response data
    */
   async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    if (await this.isMockModeEnabled()) {
+      const mockResponse = getMockApiMutationResponse('delete', url);
+      if (mockResponse.handled) {
+        return mockResponse.data as T;
+      }
+
+      throw new Error(`Mock mode has no DELETE response for: ${url}`);
+    }
+
     const response: AxiosResponse<T> = await this.client.delete<T>(url, config);
     return response.data;
   }
@@ -158,6 +209,10 @@ class ApiClient {
    * Check that the shared Canvas cookie session can authenticate an API request.
    */
   public async verifySession(): Promise<boolean> {
+    if (await this.isMockModeEnabled()) {
+      return true;
+    }
+
     try {
       await this.get('/users/self/profile');
       return true;
@@ -171,6 +226,13 @@ class ApiClient {
    * Copy Canvas cookies out of the native WebView cookie store into app-owned storage.
    */
   public async captureSessionFromCookieJar(notify = true): Promise<boolean> {
+    if (await this.isMockModeEnabled()) {
+      if (notify) {
+        this.notifySessionChangeListeners(true);
+      }
+      return true;
+    }
+
     if (!CookieManager || !SecureStore) {
       return false;
     }
@@ -211,6 +273,7 @@ class ApiClient {
    */
   public async clearSession(): Promise<void> {
     try {
+      await this.setMockModeEnabled(false, false);
       await SecureStore?.deleteItemAsync(STORAGE_KEYS.SESSION_AUTHENTICATED);
       await SecureStore?.deleteItemAsync(STORAGE_KEYS.SESSION_COOKIES);
       await SecureStore?.deleteItemAsync(STORAGE_KEYS.ACCESS_TOKEN);
@@ -225,6 +288,11 @@ class ApiClient {
    */
   public async setSessionAuthenticated(): Promise<void> {
     try {
+      if (await this.isMockModeEnabled()) {
+        this.notifySessionChangeListeners(true);
+        return;
+      }
+
       await SecureStore?.deleteItemAsync(STORAGE_KEYS.ACCESS_TOKEN);
       const hasCookies = Boolean(await this.getCookieHeader());
       if (!hasCookies) {
@@ -243,6 +311,10 @@ class ApiClient {
    */
   public async hasSession(): Promise<boolean> {
     try {
+      if (await this.isMockModeEnabled()) {
+        return true;
+      }
+
       const sessionAuthenticated = await SecureStore?.getItemAsync(STORAGE_KEYS.SESSION_AUTHENTICATED);
       const hasCookies = Boolean(await this.getCookieHeader());
       return sessionAuthenticated === 'true' && hasCookies;
@@ -256,6 +328,10 @@ class ApiClient {
    * Restore stored Canvas cookies to the native cookie jar before opening Canvas in a WebView.
    */
   public async prepareAuthenticatedWebView(url = CANVAS_BASE_URL): Promise<boolean> {
+    if (await this.isMockModeEnabled()) {
+      return false;
+    }
+
     if (!CookieManager) {
       return false;
     }
@@ -316,7 +392,19 @@ class ApiClient {
   }
 
   public async getSessionCookieHeader(): Promise<string | null> {
+    if (await this.isMockModeEnabled()) {
+      return null;
+    }
+
     return this.getCookieHeader();
+  }
+
+  public async enableMockMode(): Promise<void> {
+    await this.setMockModeEnabled(true);
+  }
+
+  public async isMockModeEnabled(): Promise<boolean> {
+    return this.mockModeEnabled === true;
   }
 
   public addTokenChangeListener(listener: (hasToken: boolean) => void): void {
@@ -333,6 +421,19 @@ class ApiClient {
    */
   private notifySessionChangeListeners(hasSession: boolean): void {
     this.sessionChangeListeners.forEach(listener => listener(hasSession));
+  }
+
+  private async setMockModeEnabled(enabled: boolean, notify = true): Promise<void> {
+    this.mockModeEnabled = enabled;
+
+    try {
+      if (notify) {
+        this.notifySessionChangeListeners(enabled);
+      }
+    } catch (error) {
+      console.error('Error setting mock mode flag:', error);
+      throw error;
+    }
   }
 
   private async getCanvasCookiesFromNativeStore(): Promise<Cookies> {

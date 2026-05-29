@@ -1,0 +1,1703 @@
+[
+  {
+    "id": 1751519,
+    "position": 2,
+    "name": "第1回　10月7日　イントロダクション",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 8,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1751519/items",
+    "items": [
+      {
+        "id": 4691416,
+        "position": 1,
+        "title": "1-1　イントロダクション.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1751519,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4691416",
+        "content_id": 5659815,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5659815",
+        "content_details": {
+          "display_name": "1-1　イントロダクション.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4691315,
+        "position": 2,
+        "title": "第1回投影資料　改革のやり方.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1751519,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4691315",
+        "content_id": 5616611,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5616611",
+        "content_details": {
+          "display_name": "第1回投影資料　改革のやり方.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4664605,
+        "position": 3,
+        "title": "「文明が衰亡するとき」（高坂正堯）新潮選書、2012年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1751519,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4664605",
+        "content_id": 5616615,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5616615",
+        "content_details": {
+          "display_name": "「文明が衰亡するとき」（高坂正堯）新潮選書、2012年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4664607,
+        "position": 4,
+        "title": "参考　ウォーラースティン『入門世界システム分析』藤原書店.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1751519,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4664607",
+        "content_id": 5616608,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5616608",
+        "content_details": {
+          "display_name": "参考　ウォーラースティン『入門世界システム分析』藤原書店.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4664610,
+        "position": 5,
+        "title": "参考　帝国としての中国　新版（中西輝政）東洋経済新報社、2013年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1751519,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4664610",
+        "content_id": 5616618,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5616618",
+        "content_details": {
+          "display_name": "帝国としての中国　新版（中西輝政）東洋経済新報社、2013年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4664608,
+        "position": 6,
+        "title": "参考　萱野稔人　国家とは何か　はじめからP137まで.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1751519,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4664608",
+        "content_id": 5616609,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5616609",
+        "content_details": {
+          "display_name": "参考　萱野稔人　国家とは何か　はじめからP137まで.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4664611,
+        "position": 7,
+        "title": "参考　遊牧民から見た世界史（杉山正明）日経ビジネス人文庫、2011年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1751519,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4664611",
+        "content_id": 5616619,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5616619",
+        "content_details": {
+          "display_name": "遊牧民から見た世界史（杉山正明）日経ビジネス人文庫、2011年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4691413,
+        "position": 8,
+        "title": "改革とイノベーション_シラバス.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1751519,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4691413",
+        "content_id": 5659783,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5659783",
+        "content_details": {
+          "display_name": "改革とイノベーション_シラバス.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1802071,
+    "position": 3,
+    "name": "第2回　10月14日　日本国のビジネスモデル",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 8,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1802071/items",
+    "items": [
+      {
+        "id": 4700337,
+        "position": 1,
+        "title": "第2回必読文献事前レポート提出欄",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1802071,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700337",
+        "content_id": 1041812,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1041812",
+        "content_details": {
+          "due_at": "2024-10-14T02:00:00Z",
+          "lock_at": "2024-11-14T14:59:59Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-11-14T14:59:59Z",
+            "can_view": true,
+            "asset_string": "assignment_1041812"
+          },
+          "lock_explanation": "この課題は 2024年11月14日 23:59 にロックされました。"
+        }
+      },
+      {
+        "id": 4700338,
+        "position": 2,
+        "title": "第2回終了後課題(10月28日までに提出)",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1802071,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700338",
+        "content_id": 1043451,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1043451",
+        "content_details": {
+          "due_at": "2024-10-28T02:10:00Z",
+          "points_possible": 100.0,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4696204,
+        "position": 3,
+        "title": "事前必読　大阪維新　橋下改革が日本を変える（上山信一）角川SSC新書、2012年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1802071,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4696204",
+        "content_id": 5691233,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5691233",
+        "content_details": {
+          "display_name": "事前必読　大阪維新　橋下改革が日本を変える（上山信一）角川SSC新書、2012年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4696205,
+        "position": 4,
+        "title": "事前必読　高坂正堯「海洋国家日本の構想」中央公論新社　抜粋（はじめ～P30、175～最後）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1802071,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4696205",
+        "content_id": 5691234,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5691234",
+        "content_details": {
+          "display_name": "事前必読　高坂正堯「海洋国家日本の構想」中央公論新社　抜粋（はじめ～P30、175～最後）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4664615,
+        "position": 6,
+        "title": "2-1　これからの世界と日本.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1802071,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4664615",
+        "content_id": 5616644,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5616644",
+        "content_details": {
+          "display_name": "2-1　これからの世界と日本.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4664617,
+        "position": 8,
+        "title": "2-2　ビジネスモデルの考え方.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1802071,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4664617",
+        "content_id": 5616646,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5616646",
+        "content_details": {
+          "display_name": "2-2　ビジネスモデルの考え方.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4696202,
+        "position": 9,
+        "title": "参考　世界史を創ったビジネスモデル（野口悠紀雄）新潮選書、2017年_Part2.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1802071,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4696202",
+        "content_id": 5691231,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5691231",
+        "content_details": {
+          "display_name": "参考　世界史を創ったビジネスモデル（野口悠紀雄）新潮選書、2017年_Part2.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4696203,
+        "position": 10,
+        "title": "参考　世界史を創ったビジネスモデル（野口悠紀雄）新潮選書、2017年_Part1.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1802071,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4696203",
+        "content_id": 5691232,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5691232",
+        "content_details": {
+          "display_name": "参考　世界史を創ったビジネスモデル（野口悠紀雄）新潮選書、2017年_Part1.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1802072,
+    "position": 4,
+    "name": "第３回　10月21日　改革と改善",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 4,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1802072/items",
+    "items": [
+      {
+        "id": 4700339,
+        "position": 1,
+        "title": "第3回課題提出欄",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1802072,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700339",
+        "content_id": 1041813,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1041813",
+        "content_details": {
+          "due_at": "2024-10-21T02:00:00Z",
+          "lock_at": "2024-11-21T14:59:59Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-11-21T14:59:59Z",
+            "can_view": true,
+            "asset_string": "assignment_1041813"
+          },
+          "lock_explanation": "この課題は 2024年11月21日 23:59 にロックされました。"
+        }
+      },
+      {
+        "id": 4666091,
+        "position": 2,
+        "title": "事前必読　改革力（上山信一、朝日新聞出版）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1802072,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4666091",
+        "content_id": 5617942,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5617942",
+        "content_details": {
+          "display_name": "改革力（上山信一、朝日新聞出版）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4697625,
+        "position": 3,
+        "title": "参考　学校が崩れる（220723週刊東洋経済）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1802072,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4697625",
+        "content_id": 5701501,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5701501",
+        "content_details": {
+          "display_name": "参考　学校が崩れる（220723週刊東洋経済）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700970,
+        "position": 5,
+        "title": "3-2　チェンジメーカーズについて.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1802072,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700970",
+        "content_id": 5729502,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729502",
+        "content_details": {
+          "display_name": "3-2　チェンジメーカーズについて.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809355,
+    "position": 5,
+    "name": "第4回　10月28日　改革と社会的イノベーションの歴史",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 6,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1809355/items",
+    "items": [
+      {
+        "id": 4702912,
+        "position": 1,
+        "title": "第4回課題提出欄",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809355,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4702912",
+        "content_id": 1044611,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1044611",
+        "content_details": {
+          "due_at": "2024-10-28T02:00:00Z",
+          "lock_at": "2024-11-04T02:00:00Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-11-04T02:00:00Z",
+            "can_view": true,
+            "asset_string": "assignment_1044611"
+          },
+          "lock_explanation": "この課題は 2024年11月4日 11:00 にロックされました。"
+        }
+      },
+      {
+        "id": 4704790,
+        "position": 2,
+        "title": "10月28日までに提出の課題（身近な課題出し）",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809355,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4704790",
+        "content_id": 1045052,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1045052",
+        "content_details": {
+          "due_at": "2024-10-28T02:00:00Z",
+          "lock_at": "2024-11-04T02:00:00Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-11-04T02:00:00Z",
+            "can_view": true,
+            "asset_string": "assignment_1045052"
+          },
+          "lock_explanation": "この課題は 2024年11月4日 11:00 にロックされました。"
+        }
+      },
+      {
+        "id": 4700972,
+        "position": 3,
+        "title": "必読文献　銃・病原菌・鉄　上（ジャレド・ダイアモンド）草思社文庫、2012年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809355,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700972",
+        "content_id": 5729510,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729510",
+        "content_details": {
+          "display_name": "必読文献　銃・病原菌・鉄　上（ジャレド・ダイアモンド）草思社文庫、2012年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700973,
+        "position": 4,
+        "title": "必読文献　銃・病原菌・鉄　下（ジャレド・ダイアモンド）草思社文庫、2012年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809355,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700973",
+        "content_id": 5729511,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729511",
+        "content_details": {
+          "display_name": "必読文献　銃・病原菌・鉄　下（ジャレド・ダイアモンド）草思社文庫、2012年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700974,
+        "position": 5,
+        "title": "[参考]　世界史を創ったビジネスモデル（野口悠紀雄）新潮選書、2017年_Part2.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809355,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700974",
+        "content_id": 5729512,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729512",
+        "content_details": {
+          "display_name": "[参考]　世界史を創ったビジネスモデル（野口悠紀雄）新潮選書、2017年_Part2.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700975,
+        "position": 6,
+        "title": "[参考]　世界史を創ったビジネスモデル（野口悠紀雄）新潮選書、2017年_Part1.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809355,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700975",
+        "content_id": 5729518,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729518",
+        "content_details": {
+          "display_name": "[参考]　世界史を創ったビジネスモデル（野口悠紀雄）新潮選書、2017年_Part1.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809356,
+    "position": 6,
+    "name": "第5回　11月4日　21世紀後半の未来",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 7,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1809356/items",
+    "items": [
+      {
+        "id": 4702949,
+        "position": 1,
+        "title": "第5回課題提出欄",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809356,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4702949",
+        "content_id": 1044616,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1044616",
+        "content_details": {
+          "due_at": "2024-11-04T02:00:00Z",
+          "lock_at": "2024-11-11T02:00:00Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-11-11T02:00:00Z",
+            "can_view": true,
+            "asset_string": "assignment_1044616"
+          },
+          "lock_explanation": "この課題は 2024年11月11日 11:00 にロックされました。"
+        }
+      },
+      {
+        "id": 4700976,
+        "position": 2,
+        "title": "5-1　地球環境と持続可能性.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809356,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700976",
+        "content_id": 5729522,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729522",
+        "content_details": {
+          "display_name": "5-1　地球環境と持続可能性.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700977,
+        "position": 3,
+        "title": "5-2　デジタル時代の国家安全保障（交詢雑誌2021.11）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809356,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700977",
+        "content_id": 5729528,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729528",
+        "content_details": {
+          "display_name": "5-2　デジタル時代の国家安全保障（交詢雑誌2021.11）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700978,
+        "position": 4,
+        "title": "事前必読　21世紀の歴史--未来の人類から見た世界 ジャック・アタリ 352p_4861821959.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809356,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700978",
+        "content_id": 5729527,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729527",
+        "content_details": {
+          "display_name": "事前必読　21世紀の歴史--未来の人類から見た世界 ジャック・アタリ 352p_4861821959.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700979,
+        "position": 5,
+        "title": "参考　ホモ・デウス  上（ユヴァル・ノア・ハラリ、河出書房新社、2018年）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809356,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700979",
+        "content_id": 5729526,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729526",
+        "content_details": {
+          "display_name": "参考　ホモ・デウス  上（ユヴァル・ノア・ハラリ、河出書房新社、2018年）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700980,
+        "position": 6,
+        "title": "参考　ホモ・デウス　下（ユヴァル・ノア・ハラリ、河出書房新社、2018年）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809356,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700980",
+        "content_id": 5729525,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729525",
+        "content_details": {
+          "display_name": "参考　ホモ・デウス　下（ユヴァル・ノア・ハラリ、河出書房新社、2018年）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700981,
+        "position": 7,
+        "title": "参考　AIと私たち　脳化社会への直言　養老孟司（240113朝日新聞）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809356,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700981",
+        "content_id": 5729523,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729523",
+        "content_details": {
+          "display_name": "参考　AIと私たち　脳化社会への直言　養老孟司（240113朝日新聞）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809357,
+    "position": 7,
+    "name": "第6回　11月11日　資本主義",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 6,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1809357/items",
+    "items": [
+      {
+        "id": 4702950,
+        "position": 1,
+        "title": "第6回課題提出欄",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809357,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4702950",
+        "content_id": 1044617,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1044617",
+        "content_details": {
+          "due_at": "2024-11-11T02:00:00Z",
+          "lock_at": "2024-11-18T02:00:00Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-11-18T02:00:00Z",
+            "can_view": true,
+            "asset_string": "assignment_1044617"
+          },
+          "lock_explanation": "この課題は 2024年11月18日 11:00 にロックされました。"
+        }
+      },
+      {
+        "id": 4700982,
+        "position": 2,
+        "title": "事前必読　産業社会の病理（村上泰亮）中公叢書　目次～P210.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809357,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700982",
+        "content_id": 5729575,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729575",
+        "content_details": {
+          "display_name": "事前必読　産業社会の病理（村上泰亮）中公叢書　目次～P210.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700986,
+        "position": 3,
+        "title": "事前必読　帝国主義論（レーニン）光文社文庫、2006年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809357,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700986",
+        "content_id": 5729581,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729581",
+        "content_details": {
+          "display_name": "事前必読　帝国主義論（レーニン）光文社文庫、2006年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700985,
+        "position": 4,
+        "title": "参考　マルクス・エンゲルス「共産党宣言」1章2章岩波文庫.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809357,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700985",
+        "content_id": 5729579,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729579",
+        "content_details": {
+          "display_name": "参考　マルクス・エンゲルス「共産党宣言」1章2章岩波文庫.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700984,
+        "position": 5,
+        "title": "参考　シュムペータ『資本主義・社会主義・民主主義』東洋経済新報社（P51まで、P95～295）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809357,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700984",
+        "content_id": 5729578,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729578",
+        "content_details": {
+          "display_name": "参考　シュムペータ『資本主義・社会主義・民主主義』東洋経済新報社（P51まで、P95～295）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700983,
+        "position": 6,
+        "title": "参考　マルクスVSケインズ（210410週刊東洋経済）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809357,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700983",
+        "content_id": 5729576,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729576",
+        "content_details": {
+          "display_name": "参考　マルクスVSケインズ（210410週刊東洋経済）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809358,
+    "position": 8,
+    "name": "第7回　11月18日　民主主義",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 9,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1809358/items",
+    "items": [
+      {
+        "id": 4702951,
+        "position": 1,
+        "title": "第7回課題提出欄",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809358,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4702951",
+        "content_id": 1044618,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1044618",
+        "content_details": {
+          "due_at": "2024-11-18T02:00:00Z",
+          "lock_at": "2024-11-25T02:00:00Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-11-25T02:00:00Z",
+            "can_view": true,
+            "asset_string": "assignment_1044618"
+          },
+          "lock_explanation": "この課題は 2024年11月25日 11:00 にロックされました。"
+        }
+      },
+      {
+        "id": 4700994,
+        "position": 2,
+        "title": "7-1　民主主義と資本主義.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809358,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700994",
+        "content_id": 5729598,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729598",
+        "content_details": {
+          "display_name": "7-1　民主主義と資本主義.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700993,
+        "position": 3,
+        "title": "7-2　民主主義年表.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809358,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700993",
+        "content_id": 5729597,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729597",
+        "content_details": {
+          "display_name": "7-2　民主主義年表.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700992,
+        "position": 4,
+        "title": "事前必読　民主主義という不思議な仕組み（佐々木毅）ちくまプリマ―新書、2007年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809358,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700992",
+        "content_id": 5729596,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729596",
+        "content_details": {
+          "display_name": "事前必読　民主主義という不思議な仕組み（佐々木毅）ちくまプリマ―新書、2007年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700991,
+        "position": 5,
+        "title": "参考　国民主権の危うさ（210925朝日新聞）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809358,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700991",
+        "content_id": 5729595,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729595",
+        "content_details": {
+          "display_name": "参考　国民主権の危うさ（210925朝日新聞）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700990,
+        "position": 6,
+        "title": "参考　衆院選の無風化に歯止めを（211202日経新聞）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809358,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700990",
+        "content_id": 5729594,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729594",
+        "content_details": {
+          "display_name": "参考　衆院選の無風化に歯止めを（211202日経新聞）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700987,
+        "position": 7,
+        "title": "参考　AIと憲法　山本龍彦（2019.12交詢雑誌）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809358,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700987",
+        "content_id": 5729590,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729590",
+        "content_details": {
+          "display_name": "参考　AIと憲法　山本龍彦（2019.12交詢雑誌）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700989,
+        "position": 8,
+        "title": "参考文献　大衆の反逆（オルテガ）中央公論新社、2002年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809358,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700989",
+        "content_id": 5729593,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729593",
+        "content_details": {
+          "display_name": "参考文献　大衆の反逆（オルテガ）中央公論新社、2002年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4700988,
+        "position": 9,
+        "title": "参考文献　民主主義の非西洋起源について（デヴィッド・グレーバー）以文社、2020年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809358,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4700988",
+        "content_id": 5729591,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5729591",
+        "content_details": {
+          "display_name": "参考文献　民主主義の非西洋起源について（デヴィッド・グレーバー）以文社、2020年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809489,
+    "position": 9,
+    "name": "第8回　宗教、思想、理念（１）　12月2日",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 8,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1809489/items",
+    "items": [
+      {
+        "id": 4725002,
+        "position": 1,
+        "title": "中間レポート課題",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809489,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4725002",
+        "content_id": 1050285,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1050285",
+        "content_details": {
+          "due_at": "2024-12-02T02:00:00Z",
+          "lock_at": "2024-12-31T14:59:59Z",
+          "points_possible": 200.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-12-31T14:59:59Z",
+            "can_view": true,
+            "asset_string": "assignment_1050285"
+          },
+          "lock_explanation": "この課題は 2024年12月31日 23:59 にロックされました。"
+        }
+      },
+      {
+        "id": 4702952,
+        "position": 2,
+        "title": "第8回課題提出欄",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809489,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4702952",
+        "content_id": 1044619,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1044619",
+        "content_details": {
+          "due_at": "2024-12-02T02:00:00Z",
+          "lock_at": "2024-12-09T01:10:00Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-12-09T01:10:00Z",
+            "can_view": true,
+            "asset_string": "assignment_1044619"
+          },
+          "lock_explanation": "この課題は 2024年12月9日 10:10 にロックされました。"
+        }
+      },
+      {
+        "id": 4725004,
+        "position": 3,
+        "title": "中間レポート課題",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809489,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4725004",
+        "content_id": 1050285,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1050285",
+        "content_details": {
+          "due_at": "2024-12-02T02:00:00Z",
+          "lock_at": "2024-12-31T14:59:59Z",
+          "points_possible": 200.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-12-31T14:59:59Z",
+            "can_view": true,
+            "asset_string": "assignment_1050285"
+          },
+          "lock_explanation": "この課題は 2024年12月31日 23:59 にロックされました。"
+        }
+      },
+      {
+        "id": 4724973,
+        "position": 4,
+        "title": "参考文献　ハーバーマス『公共性の構造転換』１　P150まで.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809489,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724973",
+        "content_id": 5934292,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934292",
+        "content_details": {
+          "display_name": "参考文献　ハーバーマス『公共性の構造転換』１　P150まで.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4724974,
+        "position": 5,
+        "title": "参考文献　ハーバーマス『公共性の構造転換』2　P150-.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809489,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724974",
+        "content_id": 5934293,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934293",
+        "content_details": {
+          "display_name": "参考文献　ハーバーマス『公共性の構造転換』2　P150-.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4724975,
+        "position": 6,
+        "title": "参考文献　歴史哲学講義　下（ヘーゲル）岩波文庫、1994年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809489,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724975",
+        "content_id": 5934295,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934295",
+        "content_details": {
+          "display_name": "参考文献　歴史哲学講義　下（ヘーゲル）岩波文庫、1994年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4724976,
+        "position": 7,
+        "title": "参考文献　歴史哲学講義　上（ヘーゲル）岩波文庫、1994年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809489,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724976",
+        "content_id": 5934296,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934296",
+        "content_details": {
+          "display_name": "参考文献　歴史哲学講義　上（ヘーゲル）岩波文庫、1994年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4724977,
+        "position": 8,
+        "title": "事前必読　マックス・ウェーバー「宗教社会学　経済と社会」創文社.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809489,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724977",
+        "content_id": 5934297,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934297",
+        "content_details": {
+          "display_name": "事前必読　マックス・ウェーバー「宗教社会学　経済と社会」創文社.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809491,
+    "position": 10,
+    "name": "第9回　宗教・思想・理念（２）　12月9日",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 3,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1809491/items",
+    "items": [
+      {
+        "id": 4702953,
+        "position": 1,
+        "title": "第9回課題提出欄",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809491,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4702953",
+        "content_id": 1044620,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1044620",
+        "content_details": {
+          "due_at": "2024-12-09T01:10:00Z",
+          "lock_at": "2024-12-16T01:10:00Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-12-16T01:10:00Z",
+            "can_view": true,
+            "asset_string": "assignment_1044620"
+          },
+          "lock_explanation": "この課題は 2024年12月16日 10:10 にロックされました。"
+        }
+      },
+      {
+        "id": 4724978,
+        "position": 2,
+        "title": "参考文献「プロテスタンティズムの倫理と資本主義の精神」（マックス・ウェーバー）日経BP社、2010（第1章）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809491,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724978",
+        "content_id": 5934299,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934299",
+        "content_details": {
+          "display_name": "参考文献「プロテスタンティズムの倫理と資本主義の精神」（マックス・ウェーバー）日経BP社、2010（第1章）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4724979,
+        "position": 3,
+        "title": "事前必読　佐々木毅　宗教と権力の政治3-5章.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809491,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724979",
+        "content_id": 5934300,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934300",
+        "content_details": {
+          "display_name": "事前必読　佐々木毅　宗教と権力の政治3-5章.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809493,
+    "position": 11,
+    "name": "第10回　新知性　12月16日",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 6,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1809493/items",
+    "items": [
+      {
+        "id": 4724984,
+        "position": 1,
+        "title": "事前必読　人間にとって科学とはなにか（湯川・梅棹）中央公論新社、2012年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809493,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724984",
+        "content_id": 5934306,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934306",
+        "content_details": {
+          "display_name": "事前必読　人間にとって科学とはなにか（湯川・梅棹）中央公論新社、2012年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4703158,
+        "position": 2,
+        "title": "第10回提出課題欄",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809493,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4703158",
+        "content_id": 1044621,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1044621",
+        "content_details": {
+          "due_at": "2024-12-16T02:00:00Z",
+          "lock_at": "2024-12-23T01:10:00Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-12-23T01:10:00Z",
+            "can_view": true,
+            "asset_string": "assignment_1044621"
+          },
+          "lock_explanation": "この課題は 2024年12月23日 10:10 にロックされました。"
+        }
+      },
+      {
+        "id": 4724980,
+        "position": 3,
+        "title": "参考文献　世界は分けてもわからない（福岡伸一）講談社現代新書、2009年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809493,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724980",
+        "content_id": 5934301,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934301",
+        "content_details": {
+          "display_name": "参考文献　世界は分けてもわからない（福岡伸一）講談社現代新書、2009年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4724981,
+        "position": 4,
+        "title": "参考文献　量子力学が明らかにする存在、意志、生命の意味（山田廣成）光子研出版、2011.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809493,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724981",
+        "content_id": 5934302,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934302",
+        "content_details": {
+          "display_name": "参考文献　量子力学が明らかにする存在、意志、生命の意味（山田廣成）光子研出版、2011.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4724982,
+        "position": 5,
+        "title": "10-1　東洋哲学と公共精神.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809493,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724982",
+        "content_id": 5934303,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934303",
+        "content_details": {
+          "display_name": "10-1　東洋哲学と公共精神.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4724993,
+        "position": 6,
+        "title": "10-2　ニュートン力学から量子力学へ_241120.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809493,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724993",
+        "content_id": 5934317,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934317",
+        "content_details": {
+          "display_name": "10-2　ニュートン力学から量子力学へ_241120.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809495,
+    "position": 12,
+    "name": "第11回　リーダーシップ　12月23日",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 6,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1809495/items",
+    "items": [
+      {
+        "id": 4703159,
+        "position": 1,
+        "title": "第11回提出課題欄",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809495,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4703159",
+        "content_id": 1044656,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1044656",
+        "content_details": {
+          "due_at": "2024-12-23T01:10:00Z",
+          "lock_at": "2024-12-30T01:10:00Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2024-12-30T01:10:00Z",
+            "can_view": true,
+            "asset_string": "assignment_1044656"
+          },
+          "lock_explanation": "この課題は 2024年12月30日 10:10 にロックされました。"
+        }
+      },
+      {
+        "id": 4724985,
+        "position": 2,
+        "title": "参考　学級崩壊立て直し人（Works　20212-3）.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809495,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724985",
+        "content_id": 5934307,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934307",
+        "content_details": {
+          "display_name": "参考　学級崩壊立て直し人（Works　20212-3）.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4724986,
+        "position": 3,
+        "title": "参考　権力と支配（マックス・ウェーバー、講談社学術文庫）支配の3類型.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809495,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724986",
+        "content_id": 5934308,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934308",
+        "content_details": {
+          "display_name": "参考　権力と支配（マックス・ウェーバー、講談社学術文庫）支配の3類型.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4724987,
+        "position": 4,
+        "title": "参考文献　信念に生きる　ネルソン・マンデラの行動哲学（リチャード・ステンゲル）英治出版、2012年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809495,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724987",
+        "content_id": 5934309,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934309",
+        "content_details": {
+          "display_name": "参考文献　信念に生きる　ネルソン・マンデラの行動哲学（リチャード・ステンゲル）英治出版、2012年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4724988,
+        "position": 5,
+        "title": "事前必読　君主論（マキアヴェリ）中公文庫、1975年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809495,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724988",
+        "content_id": 5934310,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934310",
+        "content_details": {
+          "display_name": "事前必読　君主論（マキアヴェリ）中公文庫、1975年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4724989,
+        "position": 6,
+        "title": "事前必読　孫氏の兵法（守屋洋）産能大学出版部、1979年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809495,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724989",
+        "content_id": 5934311,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934311",
+        "content_details": {
+          "display_name": "事前必読　孫氏の兵法（守屋洋）産能大学出版部、1979年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809496,
+    "position": 13,
+    "name": "第12回　マネジメント　1月6日",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 8,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1809496/items",
+    "items": [
+      {
+        "id": 4703160,
+        "position": 1,
+        "title": "第12回提出課題欄",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809496,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4703160",
+        "content_id": 1044657,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1044657",
+        "content_details": {
+          "due_at": "2025-01-06T01:10:00Z",
+          "lock_at": "2025-01-13T01:10:00Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2025-01-13T01:10:00Z",
+            "can_view": true,
+            "asset_string": "assignment_1044657"
+          },
+          "lock_explanation": "この課題は 2025年1月13日 10:10 にロックされました。"
+        }
+      },
+      {
+        "id": 4724990,
+        "position": 2,
+        "title": "事前必読　プロフェッショナルの条件（ドラッカー）ダイヤモンド社、2000年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809496,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724990",
+        "content_id": 5934313,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934313",
+        "content_details": {
+          "display_name": "事前必読　プロフェッショナルの条件（ドラッカー）ダイヤモンド社、2000年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4750384,
+        "position": 3,
+        "title": "A班",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809496,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4750384",
+        "content_id": 6156980,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/6156980",
+        "content_details": {
+          "display_name": "IMG_3898.jpeg",
+          "thumbnail_url": "https://keio-canvas-prod-bucket.s3.ap-northeast-1.amazonaws.com/account_1/thumbnails/6156980/IMG_3898_thumb.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=AKIA5PMSWJDOUADO5J6F%2F20260528%2Fap-northeast-1%2Fs3%2Faws4_request\u0026X-Amz-Date=20260528T193158Z\u0026X-Amz-Expires=518400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=6fa5ea382536e9655a214da7280e1bface8b3ffe0b6886d102acacfc93ae3940",
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4750385,
+        "position": 4,
+        "title": "B班",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809496,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4750385",
+        "content_id": 6156981,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/6156981",
+        "content_details": {
+          "display_name": "IMG_3897.jpeg",
+          "thumbnail_url": "https://keio-canvas-prod-bucket.s3.ap-northeast-1.amazonaws.com/account_1/thumbnails/6156981/IMG_3897_thumb.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=AKIA5PMSWJDOUADO5J6F%2F20260528%2Fap-northeast-1%2Fs3%2Faws4_request\u0026X-Amz-Date=20260528T193158Z\u0026X-Amz-Expires=518400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=68a6498f5d5e3b86340c74ffcd1bb03b023578b2373af1ea098066036b965d13",
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4750386,
+        "position": 5,
+        "title": "C班",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809496,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4750386",
+        "content_id": 6156982,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/6156982",
+        "content_details": {
+          "display_name": "IMG_3896.jpeg",
+          "thumbnail_url": "https://keio-canvas-prod-bucket.s3.ap-northeast-1.amazonaws.com/account_1/thumbnails/6156982/IMG_3896_thumb.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=AKIA5PMSWJDOUADO5J6F%2F20260528%2Fap-northeast-1%2Fs3%2Faws4_request\u0026X-Amz-Date=20260528T193158Z\u0026X-Amz-Expires=518400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=b74619b5d62bf2e0fa3497d5a3a5e0ea55a964cb3ae2dce20d6dce3485e49578",
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4750387,
+        "position": 6,
+        "title": "D班",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809496,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4750387",
+        "content_id": 6156983,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/6156983",
+        "content_details": {
+          "display_name": "IMG_3895.jpeg",
+          "thumbnail_url": "https://keio-canvas-prod-bucket.s3.ap-northeast-1.amazonaws.com/account_1/thumbnails/6156983/IMG_3895_thumb.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=AKIA5PMSWJDOUADO5J6F%2F20260528%2Fap-northeast-1%2Fs3%2Faws4_request\u0026X-Amz-Date=20260528T193158Z\u0026X-Amz-Expires=518400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=4e0e72e7783d9128ae1d8046b2ef4c4150533df725b274266e921e5f776ae563",
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4750388,
+        "position": 7,
+        "title": "E班",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809496,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4750388",
+        "content_id": 6156984,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/6156984",
+        "content_details": {
+          "display_name": "IMG_3894.jpeg",
+          "thumbnail_url": "https://keio-canvas-prod-bucket.s3.ap-northeast-1.amazonaws.com/account_1/thumbnails/6156984/IMG_3894_thumb.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=AKIA5PMSWJDOUADO5J6F%2F20260528%2Fap-northeast-1%2Fs3%2Faws4_request\u0026X-Amz-Date=20260528T193158Z\u0026X-Amz-Expires=518400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=18babd0414f0e9a3e5039376b3c8b5698c75102e5972eeb9a6dc99788d217280",
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4750389,
+        "position": 8,
+        "title": "F班",
+        "indent": 1,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809496,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4750389",
+        "content_id": 6156985,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/6156985",
+        "content_details": {
+          "display_name": "IMG_3893.jpeg",
+          "thumbnail_url": "https://keio-canvas-prod-bucket.s3.ap-northeast-1.amazonaws.com/account_1/thumbnails/6156985/IMG_3893_thumb.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=AKIA5PMSWJDOUADO5J6F%2F20260528%2Fap-northeast-1%2Fs3%2Faws4_request\u0026X-Amz-Date=20260528T193158Z\u0026X-Amz-Expires=518400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=3700b1e43a2b467cbcbcc0a4b8623ef3753b5ef632b89eaa99fe4e3b6f2e1512",
+          "locked_for_user": false
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809498,
+    "position": 14,
+    "name": "第13回　1月15日　フォロワーシップ",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 3,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1809498/items",
+    "items": [
+      {
+        "id": 4724991,
+        "position": 1,
+        "title": "事前必読　人を動かす（カーネギー）創元社、2016年.pdf",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "File",
+        "module_id": 1809498,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4724991",
+        "content_id": 5934314,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/files/5934314",
+        "content_details": {
+          "display_name": "事前必読　人を動かす（カーネギー）創元社、2016年.pdf",
+          "thumbnail_url": null,
+          "locked_for_user": false
+        }
+      },
+      {
+        "id": 4703161,
+        "position": 2,
+        "title": "第13回課題提出欄",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809498,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4703161",
+        "content_id": 1044661,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1044661",
+        "content_details": {
+          "due_at": "2025-01-15T02:00:00Z",
+          "lock_at": "2025-01-22T02:00:00Z",
+          "points_possible": 100.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2025-01-22T02:00:00Z",
+            "can_view": true,
+            "asset_string": "assignment_1044661"
+          },
+          "lock_explanation": "この課題は 2025年1月22日 11:00 にロックされました。"
+        }
+      },
+      {
+        "id": 4749301,
+        "position": 3,
+        "title": "最終レポート課題の提出欄です（1月16日２３：５９締切）",
+        "indent": 0,
+        "quiz_lti": false,
+        "type": "Assignment",
+        "module_id": 1809498,
+        "html_url": "https://lms.keio.jp/courses/107665/modules/items/4749301",
+        "content_id": 1057188,
+        "url": "https://lms.keio.jp/api/v1/courses/107665/assignments/1057188",
+        "content_details": {
+          "due_at": "2025-01-16T14:59:59Z",
+          "lock_at": "2025-01-23T14:59:59Z",
+          "points_possible": 200.0,
+          "locked_for_user": true,
+          "lock_info": {
+            "lock_at": "2025-01-23T14:59:59Z",
+            "can_view": true,
+            "asset_string": "assignment_1057188"
+          },
+          "lock_explanation": "この課題は 2025年1月23日 23:59 にロックされました。"
+        }
+      }
+    ]
+  },
+  {
+    "id": 1809500,
+    "position": 15,
+    "name": "第14回　1月20日　各人の事例発表会",
+    "unlock_at": null,
+    "require_sequential_progress": false,
+    "requirement_type": "all",
+    "publish_final_grade": false,
+    "prerequisite_module_ids": [],
+    "items_count": 0,
+    "items_url": "https://lms.keio.jp/api/v1/courses/107665/modules/1809500/items",
+    "items": []
+  }
+]

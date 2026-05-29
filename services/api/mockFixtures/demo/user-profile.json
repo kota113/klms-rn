@@ -1,0 +1,23 @@
+{
+  "id": 127617,
+  "name": "72300932 岩渕　航太　|総 総合 3-19| IWABUCHI　KOTA　",
+  "short_name": "岩渕　航太　 IWABUCHI　KOTA　",
+  "sortable_name": "72300932,11,22,29000,00,3,19,IWABUCHI　KOTA　,岩渕　航太　",
+  "avatar_url": "https://lms.keio.jp/images/messages/avatar-50.png",
+  "title": null,
+  "bio": null,
+  "pronunciation": null,
+  "primary_email": "kota113@keio.jp",
+  "login_id": "3010:72300932",
+  "sis_user_id": "72300932",
+  "integration_id": null,
+  "time_zone": "Asia/Tokyo",
+  "locale": null,
+  "effective_locale": "ja",
+  "calendar": {
+    "ics": "https://lms.keio.jp/feeds/calendars/user_JRVdCUuCcR3E9gDOElbA2fxG0RrvaOqxOhLFoUv4.ics"
+  },
+  "lti_user_id": "7ab9d7ce53b9bb0839f5ad1a65f6170c02636bbf",
+  "k5_user": false,
+  "use_classic_font_in_k5": false
+}
