@@ -122,10 +122,11 @@ function Section({title, children}: {title: string; children: React.ReactNode}) 
 /** 状態バナー（提出前 / 提出済み / 期限切れ） */
 function PhaseBanner({phase, assignment}: {phase: AssignmentPhase; assignment: Assignment}) {
   const unsubmittedGraded = isUnsubmittedGraded(assignment);
+  const canSubmit = assignment.can_submit !== false;
   const configs: Record<AssignmentPhase, {bg: string; icon: string; label: string; sub?: string}> = {
     before: {
-      bg: "#FEF2F2",
-      icon: "cancel",
+      bg: unsubmittedGraded ? "#FEF2F2" : canSubmit ? "#FFF7ED" : "#FEF2F2",
+      icon: unsubmittedGraded ? "cancel" : canSubmit ? "schedule" : "cancel",
       label: unsubmittedGraded ? "未提出・採点済み" : "未提出",
       sub: assignment.due_at
         ? `期限: ${formatDateTime(assignment.due_at)}`
@@ -142,7 +143,7 @@ function PhaseBanner({phase, assignment}: {phase: AssignmentPhase; assignment: A
     overdue: {
       bg: "#FEF2F2",
       icon: "warning",
-      label: unsubmittedGraded ? "未提出・採点済み" : "未提出・期限切れ",
+      label: unsubmittedGraded ? "未提出・採点済み" : assignment.can_submit === false ? "未提出・ロック済み" : "未提出・期限切れ",
       sub: assignment.due_at
         ? `期限: ${formatDateTime(assignment.due_at)}`
         : undefined,
@@ -150,7 +151,9 @@ function PhaseBanner({phase, assignment}: {phase: AssignmentPhase; assignment: A
   };
 
   const {bg, icon, label, sub} = configs[phase];
-  const iconColor = phase === "submitted" ? "#16A34A" : "#DC2626";
+  const iconColor = phase === "submitted" ? "#16A34A"
+    : (phase === "before" && !unsubmittedGraded && canSubmit) ? "#F97316"
+      : "#DC2626";
 
   return (
     <XStack
@@ -439,9 +442,9 @@ export default function AssignmentDetailScreen({navigation, route}: Props) {
     if (phase === "overdue") {
       // 期限切れでも can_submit が true なら提出可能
       if (assignment.can_submit) {
-        return {label: "提出する（期限超過）", disabled: false};
+        return {label: "提出する（遅延）", disabled: false};
       }
-      return {label: "提出期限切れ", disabled: true};
+      return {label: "ロック済み", disabled: true};
     }
 
     // before

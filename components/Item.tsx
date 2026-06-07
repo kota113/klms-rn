@@ -4,10 +4,12 @@ import {Text, XStack, YStack} from "./ui";
 
 type ItemProps = {
   title: string;
-  subText?: string;
+  subText?: React.ReactNode;
+  subTextColor?: string;
   onPress?: () => void;
   icon: React.ReactNode;
   iconContainerStyle?: StyleProp<ViewStyle>;
+  barColor?: string;
   rightElement?: React.ReactNode;
   titleRightElement?: React.ReactNode;
   titleStyle?: StyleProp<TextStyle>;
@@ -17,9 +19,11 @@ type ItemProps = {
 export default function Item({
   title,
   subText,
+                               subTextColor = '#666',
   onPress,
   icon,
   iconContainerStyle,
+                               barColor = '#d8d8d8',
   rightElement,
   titleRightElement,
   titleStyle,
@@ -32,22 +36,33 @@ export default function Item({
       paddingRight="$4.5"
       backgroundColor="white"
     >
-      <View
-        style={[
-          {
-            width: 48,
-            height: 48,
-            backgroundColor: '#f5f5f5',
-            borderRadius: 8,
-            marginRight: 14,
-            justifyContent: 'center',
-            alignItems: 'center'
-          },
-          iconContainerStyle,
-        ]}
-      >
-        {icon}
-      </View>
+      {icon === null ? (
+        <View style={{
+          width: 5,
+          alignSelf: 'stretch',
+          backgroundColor: barColor,
+          opacity: 1,
+          borderRadius: 2,
+          marginRight: 12
+        }}/>
+      ) : (
+        <View
+          style={[
+            {
+              width: 48,
+              height: 48,
+              backgroundColor: '#f5f5f5',
+              borderRadius: 8,
+              marginRight: 14,
+              justifyContent: 'center',
+              alignItems: 'center'
+            },
+            iconContainerStyle,
+          ]}
+        >
+          {icon}
+        </View>
+      )}
       <YStack flex={1} justifyContent={"space-between"} gap={"$0.5"}>
         {subText ? (<>
           <XStack alignItems="center" gap="$0.5">
@@ -56,7 +71,7 @@ export default function Item({
             </Text>
             {titleRightElement}
           </XStack>
-          <Text fontSize={13} color="#666">
+          <Text fontSize={13} color={subTextColor} style={{flexWrap: 'wrap'}}>
             {subText}
           </Text>
         </>) : (

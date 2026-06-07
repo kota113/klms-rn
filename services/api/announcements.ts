@@ -53,7 +53,7 @@ export const announcementsService = {
     include?: string[];
     latest_only?: boolean;
   }): Promise<Announcement[]> => {
-    return apiClient.get(`/courses/${courseId}/discussion_topics`, {
+    return apiClient.getPaginated(`/courses/${courseId}/discussion_topics`, {
       params: {
         ...params,
         only_announcements: true
@@ -99,7 +99,7 @@ export const announcementsService = {
       ? formatContextCodes(contextCodes as number[])
       : contextCodes;
 
-    return apiClient.get('/announcements', {
+    return apiClient.getPaginated('/announcements', {
       params: {
         ...params,
         'context_codes[]': formattedContextCodes

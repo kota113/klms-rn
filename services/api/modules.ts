@@ -62,7 +62,7 @@ export const modulesService = {
     search_term?: string;
     student_id?: number;
   }): Promise<Module[]> => {
-    return apiClient.get(`/courses/${courseId}/modules`, {params});
+    return apiClient.getPaginated(`/courses/${courseId}/modules`, {params});
   },
 
   /**
@@ -91,7 +91,7 @@ export const modulesService = {
     search_term?: string;
     student_id?: number;
   }): Promise<ModuleItem[]> => {
-    return apiClient.get(`/courses/${courseId}/modules/${moduleId}/items`, {params});
+    return apiClient.getPaginated(`/courses/${courseId}/modules/${moduleId}/items`, {params});
   },
 
   /**

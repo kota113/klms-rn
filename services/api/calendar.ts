@@ -30,6 +30,6 @@ export const calendarService = {
     excludes?: string[];
     includes?: string[];
   }): Promise<CalendarEvent[]> => {
-    return apiClient.get('/calendar_events', {params});
+    return apiClient.getPaginated('/calendar_events', {params});
   },
 };

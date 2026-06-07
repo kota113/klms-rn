@@ -53,7 +53,7 @@ export const enrollmentsService = {
     user_id?: number;
     grading_period_id?: number;
   }): Promise<Enrollment[]> => {
-    return apiClient.get(`/courses/${courseId}/enrollments`, {params});
+    return apiClient.getPaginated(`/courses/${courseId}/enrollments`, {params});
   },
 
   /**
@@ -69,7 +69,7 @@ export const enrollmentsService = {
     course_id?: number;
     grading_period_id?: number;
   }): Promise<Enrollment[]> => {
-    return apiClient.get(`/users/${userId}/enrollments`, {params});
+    return apiClient.getPaginated(`/users/${userId}/enrollments`, {params});
   },
 
   /**
@@ -84,7 +84,7 @@ export const enrollmentsService = {
     course_id?: number;
     grading_period_id?: number;
   }): Promise<Enrollment[]> => {
-    return apiClient.get('/users/self/enrollments', {params});
+    return apiClient.getPaginated('/users/self/enrollments', {params});
   },
 
   /**

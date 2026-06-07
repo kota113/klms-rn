@@ -23,13 +23,15 @@ export default function AssignmentsTab({courseId}: AssignmentsTabProps) {
       try {
         // Fetch upcoming assignments
         const upcomingData = await assignmentsService.getAssignments(courseId, {
-          bucket: 'upcoming'
+          bucket: 'upcoming',
+          include: ['submission'],
         });
         setUpcomingAssignments(upcomingData);
 
         // Fetch past assignments
         const pastData = await assignmentsService.getAssignments(courseId, {
-          bucket: 'past'
+          bucket: 'past',
+          include: ['submission'],
         });
         setPastAssignments(pastData);
       } catch (error) {
@@ -61,11 +63,15 @@ export default function AssignmentsTab({courseId}: AssignmentsTabProps) {
                 key={assignment.id.toString()}
                 title={assignment.name}
                 dueDate={assignment.due_at ? new Date(assignment.due_at).toLocaleDateString() : 'なし'}
+                dueDateRaw={assignment.due_at ?? undefined}
                 onPress={() => navigation.navigate("AssignmentDetail", {
                   courseId,
                   assignmentId: assignment.id,
                   title: assignment.name,
                 })}
+                submission={assignment.submission}
+                pointsPossible={assignment.points_possible}
+                lockedForUser={assignment.locked_for_user}
               />
             ))
           ) : (
@@ -86,11 +92,15 @@ export default function AssignmentsTab({courseId}: AssignmentsTabProps) {
                 key={assignment.id.toString()}
                 title={assignment.name}
                 dueDate={assignment.due_at ? new Date(assignment.due_at).toLocaleDateString() : 'なし'}
+                dueDateRaw={assignment.due_at ?? undefined}
                 onPress={() => navigation.navigate("AssignmentDetail", {
                   courseId,
                   assignmentId: assignment.id,
                   title: assignment.name,
                 })}
+                submission={assignment.submission}
+                pointsPossible={assignment.points_possible}
+                lockedForUser={assignment.locked_for_user}
               />
             ))
           ) : (

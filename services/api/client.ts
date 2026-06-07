@@ -116,31 +116,46 @@ class ApiClient {
    * Canvas exposes the next page URL in the Link response header.
    */
   async getPaginated<T = any>(url: string, config?: AxiosRequestConfig): Promise<T[]> {
-    if (await this.isMockModeEnabled()) {
-      const mockResponse = getMockApiResponse(url, config);
-      if (Array.isArray(mockResponse)) {
-        return mockResponse as T[];
-      }
-
-      if (mockResponse !== undefined) {
-        return [mockResponse as T];
-      }
-
-      throw new Error(`Mock mode has no paginated GET response for: ${url}`);
-    }
-
+    // Delegate to getPagedResponse and accumulate all pages
     const results: T[] = [];
     let nextUrl: string | null = url;
     let nextConfig: AxiosRequestConfig | undefined = config;
 
     while (nextUrl) {
-      const response: AxiosResponse<T[]> = await this.client.get<T[]>(nextUrl, nextConfig);
-      results.push(...response.data);
-      nextUrl = this.getNextPageUrl(response.headers.link);
+      const page: { data: T[]; nextUrl: string | null } = await this.getPagedResponse<T>(nextUrl, nextConfig);
+      results.push(...page.data);
+      nextUrl = page.nextUrl;
       nextConfig = undefined;
     }
 
     return results;
+  }
+
+  /**
+   * Fetch a single page and return its data along with the next-page URL.
+   */
+  async getPagedResponse<T = any>(url: string, config?: AxiosRequestConfig): Promise<{
+    data: T[];
+    nextUrl: string | null
+  }> {
+    if (await this.isMockModeEnabled()) {
+      const mockResponse = getMockApiResponse(url, config);
+      if (Array.isArray(mockResponse)) {
+        return {data: mockResponse as T[], nextUrl: null};
+      }
+
+      if (mockResponse !== undefined) {
+        return {data: [mockResponse as T], nextUrl: null};
+      }
+
+      throw new Error(`Mock mode has no paginated GET response for: ${url}`);
+    }
+
+    const response: AxiosResponse<T[]> = await this.client.get<T[]>(url, config);
+    return {
+      data: response.data,
+      nextUrl: this.getNextPageUrl(response.headers.link),
+    };
   }
 
   /**
@@ -492,7 +507,7 @@ class ApiClient {
     }
   }
 
-  private getNextPageUrl(linkHeader?: string): string | null {
+  public getNextPageUrl(linkHeader?: string): string | null {
     if (!linkHeader) {
       return null;
     }

@@ -4,6 +4,7 @@ import {Alert, ScrollView, Text as RNText, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import AssignmentItem from "../AssignmentsTab/AssignmentItem";
 import {Module, ModuleItem, modulesService} from "../../../services/api";
+import {assignmentsService, Submission} from "../../../services/api";
 import {useNavigation} from "@react-navigation/native";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {RootStackParamList} from "../../../components/Navigation";
@@ -60,6 +61,11 @@ export default function HomeTab({courseId}: HomeTabProps) {
   const [expandedModuleIds, setExpandedModuleIds] = useState<Set<number>>(() => new Set());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [submissionMap, setSubmissionMap] = useState<Map<number, {
+    submission?: Submission;
+    pointsPossible?: number;
+    lockedForUser?: boolean
+  }>>(() => new Map());
 
   const toggleModule = (moduleId: number) => {
     setExpandedModuleIds((current) => {
@@ -77,7 +83,21 @@ export default function HomeTab({courseId}: HomeTabProps) {
     const fetchModules = async () => {
       try {
         setLoading(true);
-        setModules(await loadModulesWithItems(courseId));
+        const [modulesData, upcomingAssignments, pastAssignments] = await Promise.all([
+          loadModulesWithItems(courseId),
+          assignmentsService.getAssignments(courseId, {bucket: 'upcoming', include: ['submission']}),
+          assignmentsService.getAssignments(courseId, {bucket: 'past', include: ['submission']}),
+        ]);
+        setModules(modulesData);
+        const map = new Map<number, { submission?: Submission; pointsPossible?: number; lockedForUser?: boolean }>();
+        for (const assignment of [...upcomingAssignments, ...pastAssignments]) {
+          map.set(assignment.id, {
+            submission: assignment.submission,
+            pointsPossible: assignment.points_possible,
+            lockedForUser: assignment.locked_for_user
+          });
+        }
+        setSubmissionMap(map);
         setError(null);
       } catch (err) {
         console.error('Error fetching modules:', err);
@@ -166,16 +186,22 @@ export default function HomeTab({courseId}: HomeTabProps) {
         }
 
         const assignmentId = item.content_id;
+        const submissionInfo = submissionMap.get(assignmentId);
         return (
           <AssignmentItem
             key={item.id}
             title={item.title}
             dueDate={formatModuleAssignmentDueDate(item.content_details?.due_at)}
+            dueDateRaw={item.content_details?.due_at ?? undefined}
             onPress={() => navigation.navigate("AssignmentDetail", {
               courseId,
               assignmentId,
               title: item.title,
             })}
+            submission={submissionInfo?.submission}
+            pointsPossible={submissionInfo?.pointsPossible}
+            lockedForUser={submissionInfo?.lockedForUser}
+            showIcon
           />
         );
       case 'ExternalUrl':

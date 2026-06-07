@@ -54,7 +54,7 @@ export default function GradesTab({courseId}: GradesTabProps) {
             setAssignments([]);
           }
         } else {
-          setError('このコースの成績はありません');
+          setError('成績は非公開です');
         }
       } catch (err) {
         console.error('Error fetching grades:', err);

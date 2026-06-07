@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {RefreshControl, ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {FlatList, RefreshControl, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Text, XStack, YStack} from '../components/ui';
 import {SkeletonText} from '../components/skeleton';
 import {Conversation, conversationsService} from '../services/api';
@@ -8,6 +8,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../components/Navigation';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import TabHeader from '../components/TabHeader';
+import NativeLoadingIndicator from '../components/NativeLoadingIndicator';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -41,17 +42,21 @@ export default function MessagesScreen({navigation}: Props) {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [nextUrl, setNextUrl] = useState<string | null>(null);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   const fetchData = useCallback(async () => {
     try {
-      const data = await conversationsService.getConversations({
+      const page = await conversationsService.getConversationsPage({
         per_page: 50,
         include: ['participant_avatars'],
       });
-      setConversations(data);
+      setConversations(page.data);
+      setNextUrl(page.nextUrl);
     } catch (error) {
       console.error('Error fetching conversations:', error);
       setConversations([]);
+      setNextUrl(null);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -64,8 +69,24 @@ export default function MessagesScreen({navigation}: Props) {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
+    setConversations([]);
+    setNextUrl(null);
     fetchData();
   }, [fetchData]);
+
+  const loadMore = useCallback(async () => {
+    if (!nextUrl || loadingMore) return;
+    setLoadingMore(true);
+    try {
+      const page = await conversationsService.getConversationsPage(nextUrl);
+      setConversations(prev => [...prev, ...page.data]);
+      setNextUrl(page.nextUrl);
+    } catch (error) {
+      console.error('Error loading more conversations:', error);
+    } finally {
+      setLoadingMore(false);
+    }
+  }, [nextUrl, loadingMore]);
 
   const openConversation = (conversation: Conversation) => {
     navigation.navigate('ConversationDetail', {
@@ -76,91 +97,112 @@ export default function MessagesScreen({navigation}: Props) {
 
   const tabBarHeight = useBottomTabBarHeight();
 
+  const renderItem = useCallback(({item: conversation}: { item: Conversation }) => {
+    const isUnread = conversation.workflow_state === 'unread';
+    return (
+      <TouchableOpacity
+        onPress={() => openConversation(conversation)}
+        activeOpacity={0.7}
+      >
+        <XStack
+          alignItems="center"
+          paddingVertical="$3"
+          paddingHorizontal="$4.5"
+          backgroundColor="white"
+        >
+          <YStack flex={1} justifyContent="space-between" gap="$1" style={styles.conversationContent}>
+            <XStack justifyContent="space-between" alignItems="flex-start" style={styles.titleRow}>
+              <Text
+                fontSize={15}
+                fontWeight={isUnread ? '700' : '400'}
+                color="#333"
+                numberOfLines={1}
+                style={styles.titleText}
+              >
+                {getConversationTitle(conversation)}
+              </Text>
+              <Text fontSize={12} color="#999" style={styles.dateText}>
+                {formatDate(conversation.last_message_at)}
+              </Text>
+            </XStack>
+            <Text
+              fontSize={13}
+              color={isUnread ? '#555' : '#999'}
+              numberOfLines={1}
+              style={styles.previewText}
+            >
+              {conversation.last_message || conversation.context_name || ''}
+            </Text>
+          </YStack>
+          {isUnread && <View style={styles.unreadDot}/>}
+          <MaterialIcons name="chevron-right" size={20} color="#ccc" style={styles.chevron}/>
+        </XStack>
+        <View style={styles.separator}/>
+      </TouchableOpacity>
+    );
+  }, []);
+
   return (
     <YStack flex={1} backgroundColor="#ffffff">
       <TabHeader title="メッセージ"/>
 
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={[styles.scrollContent, {paddingBottom: tabBarHeight}]}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
-        {loading ? (
-          Array.from({length: 6}).map((_, index) => (
+      {loading ? (
+        <YStack flex={1}>
+          {Array.from({length: 6}).map((_, index) => (
             <XStack key={index} alignItems="center" paddingVertical="$3" paddingHorizontal="$4.5" gap="$3">
               <YStack flex={1} gap="$2">
-                <SkeletonText width="70%" height={15} />
-                <SkeletonText width="90%" height={13} />
+                <SkeletonText width="70%" height={15}/>
+                <SkeletonText width="90%" height={13}/>
               </YStack>
             </XStack>
-          ))
-        ) : conversations.length > 0 ? (
-          conversations.map((conversation) => {
-            const isUnread = conversation.workflow_state === 'unread';
-            return (
-              <TouchableOpacity
-                key={conversation.id}
-                onPress={() => openConversation(conversation)}
-                activeOpacity={0.7}
-              >
-                <XStack
-                  alignItems="center"
-                  paddingVertical="$3"
-                  paddingHorizontal="$4.5"
-                  backgroundColor="white"
-                >
-                  <YStack flex={1} justifyContent="space-between" gap="$1" style={styles.conversationContent}>
-                    <XStack justifyContent="space-between" alignItems="flex-start" style={styles.titleRow}>
-                      <Text
-                        fontSize={15}
-                        fontWeight={isUnread ? '700' : '400'}
-                        color="#333"
-                        numberOfLines={1}
-                        style={styles.titleText}
-                      >
-                        {getConversationTitle(conversation)}
-                      </Text>
-                      <Text fontSize={12} color="#999" style={styles.dateText}>
-                        {formatDate(conversation.last_message_at)}
-                      </Text>
-                    </XStack>
-                    <Text
-                      fontSize={13}
-                      color={isUnread ? '#555' : '#999'}
-                      numberOfLines={1}
-                      style={styles.previewText}
-                    >
-                      {conversation.last_message || conversation.context_name || ''}
-                    </Text>
-                  </YStack>
-                  {isUnread && <View style={styles.unreadDot} />}
-                  <MaterialIcons name="chevron-right" size={20} color="#ccc" style={styles.chevron} />
-                </XStack>
-                <View style={styles.separator} />
-              </TouchableOpacity>
-            );
-          })
-        ) : (
-          <YStack flex={1} alignItems="center" justifyContent="center" paddingTop="$10" paddingHorizontal="$4">
-            <MaterialIcons name="mail-outline" size={48} color="#ccc" />
-            <Text fontSize={16} color="#999" marginTop="$3" textAlign="center">
-              メッセージはありません
-            </Text>
-          </YStack>
-        )}
-      </ScrollView>
+          ))}
+        </YStack>
+      ) : (
+        <FlatList
+          data={conversations}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          style={styles.list}
+          contentContainerStyle={[
+            styles.listContent,
+            {paddingBottom: tabBarHeight},
+            conversations.length === 0 && styles.listContentEmpty,
+          ]}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
+          }
+          onEndReached={loadMore}
+          onEndReachedThreshold={0.2}
+          ListFooterComponent={
+            loadingMore ? (
+              <YStack alignItems="center" paddingVertical="$4">
+                <NativeLoadingIndicator size={28}/>
+              </YStack>
+            ) : null
+          }
+          ListEmptyComponent={
+            <YStack flex={1} alignItems="center" justifyContent="center" paddingTop="$10" paddingHorizontal="$4">
+              <MaterialIcons name="mail-outline" size={48} color="#ccc"/>
+              <Text fontSize={16} color="#999" marginTop="$3" textAlign="center">
+                メッセージはありません
+              </Text>
+            </YStack>
+          }
+        />
+      )}
     </YStack>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
+  list: {
     flex: 1,
   },
-  scrollContent: {
+  listContent: {
     flexGrow: 1,
+  },
+  listContentEmpty: {
+    flex: 1,
   },
   conversationContent: {
     flexShrink: 1,

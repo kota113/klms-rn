@@ -127,7 +127,7 @@ export const coursesService = {
    * @returns Promise with the recent courses data
    */
   getRecentCourses: async (): Promise<Course[]> => {
-    return apiClient.get('/users/self/courses/recent');
+    return apiClient.getPaginated('/users/self/courses/recent');
   },
 
   /**
@@ -135,6 +135,6 @@ export const coursesService = {
    * @returns Promise with the favorite courses data
    */
   getFavoriteCourses: async (): Promise<Course[]> => {
-    return apiClient.get('/users/self/favorites/courses');
+    return apiClient.getPaginated('/users/self/favorites/courses');
   }
 };

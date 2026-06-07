@@ -62,6 +62,11 @@ export interface ConversationDetail extends Conversation {
   messages: ConversationMessage[];
 }
 
+export interface ConversationsPage {
+  data: Conversation[];
+  nextUrl: string | null;
+}
+
 /**
  * Service for interacting with the Conversations API endpoints
  */
@@ -80,7 +85,24 @@ export const conversationsService = {
     include?: ('participant_avatars')[];
     per_page?: number;
   }): Promise<Conversation[]> => {
-    return apiClient.get('/conversations', {params});
+    return apiClient.getPaginated('/conversations', {params});
+  },
+
+  getConversationsPage: async (
+    urlOrParams?: string | {
+      scope?: 'unread' | 'starred' | 'archived';
+      filter?: string[];
+      filter_mode?: 'and' | 'or';
+      interleave_submissions?: boolean;
+      include_all_conversation_ids?: boolean;
+      include?: ('participant_avatars')[];
+      per_page?: number;
+    }
+  ): Promise<ConversationsPage> => {
+    if (typeof urlOrParams === 'string') {
+      return apiClient.getPagedResponse<Conversation>(urlOrParams);
+    }
+    return apiClient.getPagedResponse<Conversation>('/conversations', {params: urlOrParams});
   },
 
   getConversation: async (id: string): Promise<ConversationDetail> => {

@@ -190,7 +190,7 @@ export const assignmentsService = {
     order_by?: 'position' | 'name' | 'due_at';
     post_to_sis?: boolean;
   }): Promise<Assignment[]> => {
-    return apiClient.get(`/courses/${courseId}/assignments`, {params});
+    return apiClient.getPaginated(`/courses/${courseId}/assignments`, {params});
   },
 
   /**
@@ -222,7 +222,7 @@ export const assignmentsService = {
     include?: string[];
     workflow_state?: 'submitted' | 'unsubmitted' | 'graded' | 'pending_review';
   }): Promise<Submission[]> => {
-    return apiClient.get(`/courses/${courseId}/students/submissions`, {params});
+    return apiClient.getPaginated(`/courses/${courseId}/students/submissions`, {params});
   },
 
   /**
@@ -230,7 +230,7 @@ export const assignmentsService = {
    * @returns Promise with the list of assignments
    */
   getUserAssignments: async (): Promise<Assignment[]> => {
-    return apiClient.get('/users/self/assignments');
+    return apiClient.getPaginated('/users/self/assignments');
   },
 
   /**
@@ -241,7 +241,7 @@ export const assignmentsService = {
   getTodoItems: async (params?: {
     include?: string[];
   }): Promise<TodoItem[]> => {
-    return apiClient.get('/users/self/todo', {params});
+    return apiClient.getPaginated('/users/self/todo', {params});
   },
 
   /**
@@ -253,7 +253,7 @@ export const assignmentsService = {
     include?: string[];
   }): Promise<Assignment[]> => {
     // Get upcoming events directly from the API
-    const upcomingEvents = await apiClient.get<UpcomingEvent[]>('/users/self/upcoming_events', {params});
+    const upcomingEvents = await apiClient.getPaginated<UpcomingEvent>('/users/self/upcoming_events', {params});
 
     // Extract assignments from upcoming events
     return upcomingEvents
